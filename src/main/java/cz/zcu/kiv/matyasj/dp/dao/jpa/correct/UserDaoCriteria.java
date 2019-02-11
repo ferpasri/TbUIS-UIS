@@ -2,7 +2,8 @@ package cz.zcu.kiv.matyasj.dp.dao.jpa.correct;
 
 import cz.zcu.kiv.matyasj.dp.dao.UserDao;
 import cz.zcu.kiv.matyasj.dp.domain.users.User;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -23,7 +24,7 @@ import java.util.List;
 //@Repository
 public class UserDaoCriteria extends GenericDaoJpa<User, Long> implements UserDao{
     /** Shared system logger */
-    private final Logger log = Logger.getLogger(getClass());
+    private final Logger log = LogManager.getLogger();
 
     /**
      *  UserDaoCriteria constructor

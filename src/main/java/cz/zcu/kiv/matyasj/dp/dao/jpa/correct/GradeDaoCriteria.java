@@ -6,7 +6,8 @@ import cz.zcu.kiv.matyasj.dp.domain.university.Grade;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import java.util.Date;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -29,7 +30,7 @@ import java.util.List;
 @Repository
 public class GradeDaoCriteria extends GenericDaoJpa<Grade, Long> implements GradeDao {
     /** Shared system logger */
-    private final Logger log = Logger.getLogger(getClass());
+    private final Logger log = LogManager.getLogger();
 
     /**
      *  GradeDaoCriteria constructor

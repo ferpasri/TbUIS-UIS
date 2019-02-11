@@ -1,7 +1,8 @@
 package cz.zcu.kiv.matyasj.dp.web.controllers;
 
 import cz.zcu.kiv.matyasj.dp.service.PorterService;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,7 @@ public class ImportExportController {
     MessageSource messageSource;
 
     /** Shared system logger */
-    private final Logger log = Logger.getLogger(getClass());
+    private final Logger log = LogManager.getLogger();
 
     /**
      * This method serves user GET requests for getting import-export view.

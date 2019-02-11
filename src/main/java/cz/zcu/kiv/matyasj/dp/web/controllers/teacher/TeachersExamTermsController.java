@@ -4,7 +4,8 @@ import cz.zcu.kiv.matyasj.dp.domain.university.ExaminationDate;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.service.TeacherService;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,7 @@ public class TeachersExamTermsController {
     MessageSource messageSource;
 
     /** Shared system logger */
-    protected Logger log = Logger.getLogger(getClass());
+    protected Logger log = LogManager.getLogger();
 
     /**
      * This method serves user GET requests to show list of Teacher's exam dates.

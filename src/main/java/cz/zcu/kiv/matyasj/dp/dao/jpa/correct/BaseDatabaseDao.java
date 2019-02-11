@@ -9,7 +9,8 @@ import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.domain.users.User;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -49,7 +50,7 @@ public class BaseDatabaseDao extends GenericDaoJpa<BaseEntity, Long> implements 
     private ExaminationDateDao examinationDateDao;
 
     /** Shared system logger */
-    private final static Logger log = Logger.getLogger(BaseDatabaseDao.class);
+    private final static Logger log = LogManager.getLogger();
 
     /**
      *  BaseDatabaseDao constructor

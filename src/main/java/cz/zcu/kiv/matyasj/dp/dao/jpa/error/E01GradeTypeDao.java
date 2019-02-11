@@ -4,7 +4,8 @@ import cz.zcu.kiv.matyasj.dp.annotations.ErrorMethod;
 import cz.zcu.kiv.matyasj.dp.dao.GradeTypeDao;
 import cz.zcu.kiv.matyasj.dp.dao.jpa.correct.GenericDaoJpa;
 import cz.zcu.kiv.matyasj.dp.domain.university.GradeType;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.List;
 //@Repository
 public class E01GradeTypeDao extends GenericDaoJpa<GradeType, Long> implements GradeTypeDao {
     /** Shared system logger */
-    private final Logger log = Logger.getLogger(getClass());
+    private final Logger log = LogManager.getLogger();
 
     /**
      *  E01GradeTypeDao constructor

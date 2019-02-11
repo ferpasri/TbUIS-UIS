@@ -8,7 +8,8 @@ import cz.zcu.kiv.matyasj.dp.dao.SubjectDao;
 import cz.zcu.kiv.matyasj.dp.dao.UserDao;
 import cz.zcu.kiv.matyasj.dp.service.users.correct.BaseStudentService;
 import cz.zcu.kiv.matyasj.dp.utils.properties.PropertyLoader;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -21,7 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //@Service
 public class E02StudentService extends BaseStudentService {
     /** Shared system logger */
-    private final Logger log = Logger.getLogger(getClass());
+    private final Logger log = LogManager.getLogger();
 
 
     /**

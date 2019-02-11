@@ -1,6 +1,7 @@
 package cz.zcu.kiv.matyasj.dp.utils.properties;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class BasePropertyLoader implements PropertyLoader{
     /** java.util.Properties object for reading properties file in default format */
     private Properties prop;
     /** Shared system logger */
-    private final Logger log = Logger.getLogger(getClass());
+    private final Logger log = LogManager.getLogger();
 
     private static final String mainPropertyFileName = "application.properties";
 

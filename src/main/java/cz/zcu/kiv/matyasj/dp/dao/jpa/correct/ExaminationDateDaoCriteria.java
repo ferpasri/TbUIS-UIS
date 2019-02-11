@@ -6,7 +6,8 @@ import cz.zcu.kiv.matyasj.dp.domain.university.ExaminationDate;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -26,7 +27,7 @@ import java.util.List;
 @Repository
 public class ExaminationDateDaoCriteria extends GenericDaoJpa<ExaminationDate, Long> implements ExaminationDateDao {
     /** Shared system logger */
-    private final static Logger log = Logger.getLogger(UserDaoCriteria.class);
+    private final static Logger log = LogManager.getLogger();
     /** User DAO object for manipulation with user data*/
     @Autowired
     private UserDao userDao;

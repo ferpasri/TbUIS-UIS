@@ -13,7 +13,8 @@ import cz.zcu.kiv.matyasj.dp.domain.users.User;
 import cz.zcu.kiv.matyasj.dp.service.StudentService;
 import cz.zcu.kiv.matyasj.dp.service.users.BaseUserService;
 import cz.zcu.kiv.matyasj.dp.utils.properties.PropertyLoader;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,7 +45,7 @@ public class BaseStudentService extends BaseUserService implements StudentServic
     protected PropertyLoader propertyLoader;
 
     /** Shared system logger */
-    private final Logger log = Logger.getLogger(getClass());
+    private final Logger log = LogManager.getLogger();
 
     /**
      * BaseStudentService constructor for initialization objects used by spring.

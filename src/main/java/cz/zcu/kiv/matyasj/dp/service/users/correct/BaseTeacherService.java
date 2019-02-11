@@ -22,7 +22,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,7 +68,7 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
     /**
      * Shared system logger
      */
-    protected final Logger log = Logger.getLogger(getClass());
+    protected final Logger log = LogManager.getLogger();
 
     /**
      * BaseTeacherService constructor for initialization objects used by spring.

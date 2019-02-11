@@ -5,7 +5,8 @@ import cz.zcu.kiv.matyasj.dp.dao.UserDao;
 import cz.zcu.kiv.matyasj.dp.domain.BaseEntity;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.domain.users.User;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +41,7 @@ public class XMLDataPorterTest {
     @Autowired
     private UserDao userDao;
 
-    protected Logger log = Logger.getLogger(getClass());
+    protected Logger log = LogManager.getLogger();
 
     private static final String TEST_FILE_XML = "test_export_file.xml";
     private static final String INIT_TEST_DATA_FILE_PATH = "src\\test\\java\\cz\\zcu\\kiv\\matyasj\\dp\\utils\\dataporter\\xml\\";

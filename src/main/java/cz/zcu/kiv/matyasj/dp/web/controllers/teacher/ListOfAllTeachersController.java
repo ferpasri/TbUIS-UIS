@@ -2,7 +2,8 @@ package cz.zcu.kiv.matyasj.dp.web.controllers.teacher;
 
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.service.TeacherService;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +26,7 @@ public class ListOfAllTeachersController {
     TeacherService teacherService;
 
     /** Shared system logger */
-    protected Logger log = Logger.getLogger(getClass());
+    protected Logger log = LogManager.getLogger();
 
     /**
      * This method serves user GET requests to show list of all teachers in system

@@ -7,7 +7,8 @@ import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.service.users.correct.BaseTeacherService;
 import cz.zcu.kiv.matyasj.dp.utils.dates.DateUtility;
 import cz.zcu.kiv.matyasj.dp.utils.properties.PropertyLoader;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 public class E01TeacherService extends BaseTeacherService {
     /** Shared system logger */
-    private final Logger log = Logger.getLogger(getClass());
+    private final Logger log = LogManager.getLogger();
 
     /**
      * E01TeacherService constructor is needed because of dependencies in parent (BaseTeacherService) constructor.

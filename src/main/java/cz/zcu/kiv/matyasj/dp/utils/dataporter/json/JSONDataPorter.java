@@ -4,7 +4,8 @@ import cz.zcu.kiv.matyasj.dp.dao.DatabaseDao;
 import cz.zcu.kiv.matyasj.dp.domain.BaseEntity;
 import cz.zcu.kiv.matyasj.dp.utils.dataporter.DataPorter;
 import cz.zcu.kiv.matyasj.dp.utils.dataporter.dataTypes.DataContainer;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.eclipse.persistence.jaxb.MarshallerProperties;
 import org.eclipse.persistence.jaxb.UnmarshallerProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class JSONDataPorter implements DataPorter {
     private JAXBContext jaxbContext;
 
     /** Shared system logger */
-    private final Logger log = Logger.getLogger(getClass());
+    private final Logger log = LogManager.getLogger();
 
     /**
      * Base JSONDataPorter constructor.

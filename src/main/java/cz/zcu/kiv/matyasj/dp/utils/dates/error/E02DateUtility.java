@@ -3,7 +3,8 @@ package cz.zcu.kiv.matyasj.dp.utils.dates.error;
 import cz.zcu.kiv.matyasj.dp.annotations.ErrorMethod;
 import cz.zcu.kiv.matyasj.dp.utils.dates.DateUtility;
 import cz.zcu.kiv.matyasj.dp.utils.properties.PropertyLoader;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +23,7 @@ import java.util.Date;
 @Component
 public class E02DateUtility implements DateUtility {
     /** Shared system logger */
-    private final Logger log = Logger.getLogger(getClass());
+    private final Logger log = LogManager.getLogger();
     /** Prepared date and time format */
     private DateFormat sdfDateAndTime;
     /** Prepared date format */

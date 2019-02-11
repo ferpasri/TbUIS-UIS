@@ -9,7 +9,8 @@ import cz.zcu.kiv.matyasj.dp.domain.users.User;
 import cz.zcu.kiv.matyasj.dp.service.UserService;
 import cz.zcu.kiv.matyasj.dp.utils.properties.PropertyLoader;
 import java.util.List;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,7 +23,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 public abstract class BaseUserService implements UserService {
 
-    final Logger log = Logger.getLogger(getClass());
+    final Logger log = LogManager.getLogger();
     /** User DAO object for manipulation with user data in database */
     @Autowired
     private UserDao userDao;

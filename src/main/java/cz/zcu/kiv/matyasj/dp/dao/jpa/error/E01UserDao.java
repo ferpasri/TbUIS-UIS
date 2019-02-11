@@ -4,7 +4,8 @@ import cz.zcu.kiv.matyasj.dp.annotations.ErrorMethod;
 import cz.zcu.kiv.matyasj.dp.dao.jpa.correct.UserDaoCriteria;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.domain.users.User;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -22,7 +23,7 @@ import java.util.List;
 //@Repository
 public class E01UserDao extends UserDaoCriteria {
     /** Shared system logger */
-    private final Logger log = Logger.getLogger(getClass());
+    private final Logger log = LogManager.getLogger();
 
     /**
      * DELIBERATE ERROR
