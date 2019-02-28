@@ -2,7 +2,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
-  Created by IntelliJ IDEA.
   Author: Jiri Matyas
   Date: 14.09.2017
   Time: 14:41

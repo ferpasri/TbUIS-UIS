@@ -1,5 +1,4 @@
 <%--
-  Created by IntelliJ IDEA.
   Author: Jiri Matyas
   Date: 19.01.2018
   Time: 17:06

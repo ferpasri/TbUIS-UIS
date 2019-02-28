@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
-  Created by IntelliJ IDEA.
   Author: Jiri Matyas
   Date: 27.08.2017
   Time: 21:00

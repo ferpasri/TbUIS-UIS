@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
-  Created by IntelliJ IDEA.
   Author: Jiri Matyas
   Date: 26.08.2017
   Time: 14:04
@@ -30,7 +29,7 @@
             </li>
             <c:if test="${empty sessionScope.user_full_name}">
                 <li class="nav-item">
-                    <a id="header.link.exportImport" title="<spring:message code="header.title.exportImport"/>" class="nav-link" href="<spring:url value="/import-export.jsp"/>"><spring:message code="header.link.exportImport"/> </a>
+                    <a id="header.link.exportImport" title="<spring:message code="header.title.exportImport"/>" class="nav-link" href="<spring:url value="/import-export"/>"><spring:message code="header.link.exportImport"/> </a>
                 </li>
                 <li class="nav-item">
                     <a id="header.link.restoreDB" title="<spring:message code="header.title.restoreDB"/>" class="nav-link" href="<spring:url value="/restoreDB"/>"><spring:message code="header.link.restoreDB"/> </a>

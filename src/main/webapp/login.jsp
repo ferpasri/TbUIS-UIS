@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
-  Created by IntelliJ IDEA.
   Author: Jiri Matyas
   Date: 13.08.2017
   Time: 18:22
@@ -28,7 +27,7 @@
 <div id="main-content" class="container">
     <!-- ALERTS -->
     <!-- Bad login -->
-    <c:if test="${param.error != null}">
+    <c:if test="${not empty error}">
         <div id="loginPage.errorAlert" class="alert alert-danger" role="alert">
             <strong><spring:message code="alert.error"/></strong> <spring:message code="loginPage.badLogin"/>
         </div>
