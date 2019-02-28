@@ -7,6 +7,8 @@ import cz.zcu.kiv.matyasj.dp.domain.university.GradeType;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,14 +43,22 @@ public class GradeDaoCriteriaTest {
     private ExaminationDateDao examinationDateDao;
 
     /**
+     * Shared system logger
+     */
+    private final Logger log = LogManager.getLogger();
+
+    /**
      * fixme should not be here
      * This method tests GradeDao function - Finding one grade by student and subject
+     *
      * @throws Exception
      */
     @Test
     @Transactional
     @Rollback(false)
     public void findGradeByStudentAndSubject() throws Exception {
+        log.info("Testing finding grade by student and subject.");
+
         Student s1 = new Student();
         s1.setEmail("");
         s1.setUsername("student1");
@@ -68,7 +78,7 @@ public class GradeDaoCriteriaTest {
         t1 = (Teacher) userDao.save(t1);
 
         ExaminationDate examTerm = new ExaminationDate();
-        examTerm.setDateOfTest( new Date());
+        examTerm.setDateOfTest(new Date());
         examTerm = examinationDateDao.save(examTerm);
 
         examTerm.setSubject(sub1);
@@ -92,18 +102,21 @@ public class GradeDaoCriteriaTest {
         grade1 = gradeDao.save(grade1);
 
         Grade foundGrade = gradeDao.findGradeByStudentAndSubjectAndDate(s1, examTerm.getSubject(), examTerm.getDateOfTest());
-        assertNotNull(foundGrade );
+        assertNotNull(foundGrade);
         assertEquals(foundGrade.getId().longValue(), grade1.getId().longValue());
     }
 
     /**
      * This method tests GradeDao function - Finding one grade by student and subject (with non existent subject)
+     *
      * @throws Exception
      */
     @Test
     @Transactional
     @Rollback(false)
     public void findGradeByStudentAndSubjectNonExistentSubject() throws Exception {
+        log.info("Testing finding grade by student and ot existing subject.");
+
         Student s1 = new Student();
         s1.setEmail("");
         s1.setUsername("student1");
@@ -121,7 +134,9 @@ public class GradeDaoCriteriaTest {
     @Test
     @Transactional
     @Rollback(false)
-    public void findGradesBySubject(){
+    public void findGradesBySubject() {
+        log.info("Testing finding grade by subject.");
+
         Subject sub1 = new Subject("Math", 5);
         sub1 = subjectDao.save(sub1);
         Grade g = new Grade();
@@ -142,7 +157,8 @@ public class GradeDaoCriteriaTest {
     @Test
     @Transactional
     @Rollback(false)
-    public void findGradesBySubjectNonExistentGrade(){
+    public void findGradesBySubjectNonExistentGrade() {
+        log.info("Testing finding not existing grade by subject.");
         Subject sub1 = new Subject("Math", 5);
         sub1 = subjectDao.save(sub1);
         List<Grade> gradeList = gradeDao.findGradesBySubject(sub1);

@@ -4,6 +4,8 @@ import cz.zcu.kiv.matyasj.dp.dao.SubjectDao;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.web.controllers.BaseControllerTest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +32,9 @@ public class ListOfTaughtSubjectControllerTest extends BaseControllerTest{
     SubjectDao subjectDao;
 
     private Subject testSubject;
+
+    /** Shared system logger */
+    private final Logger log = LogManager.getLogger();
 
     @Before
     public void setUp() {
@@ -58,6 +63,7 @@ public class ListOfTaughtSubjectControllerTest extends BaseControllerTest{
      */
     @Test
     public void showTeachedSubjectList() throws Exception {
+        log.info("Testing list of teached subjects accessibility.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(get("/teacher-view/mySubjects"))
                 .andExpect(status().isOk())
@@ -71,6 +77,7 @@ public class ListOfTaughtSubjectControllerTest extends BaseControllerTest{
      */
     @Test
     public void removeStudiedSubject() throws Exception {
+        log.info("Testing studied subject removal.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(post("/teacher-view/mySubjects").param("subjectId", testSubject.getId()+""))
                 .andExpect(status().isOk())
@@ -84,6 +91,7 @@ public class ListOfTaughtSubjectControllerTest extends BaseControllerTest{
      */
     @Test
     public void removeStudiedSubjectNonExistentSubject() throws Exception {
+        log.info("Testing not existing studied subject removal.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(post("/teacher-view/mySubjects").param("subjectId", "-1"))
                 .andExpect(status().isOk())

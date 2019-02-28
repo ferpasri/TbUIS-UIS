@@ -2,6 +2,8 @@ package cz.zcu.kiv.matyasj.dp.web.controllers;
 
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +33,9 @@ public class OverviewControllerTest extends BaseControllerTest{
     @Autowired
     AuthenticationManagerBuilder auth;
 
+    /** Shared system logger */
+    private final Logger log = LogManager.getLogger();
+
     @Before
     public void setUp() {
         super.setUp();
@@ -47,6 +52,7 @@ public class OverviewControllerTest extends BaseControllerTest{
      */
     @Test
     public void showStudentOverviewTest() throws Exception {
+        log.info("Testing Student Overview screen accessibility.");
         setUserLogin(TEST_USER_STUDENT_USERNAME, TEST_USER_STUDENT_PASSWORD);
 
         mockMvc.perform(get("/student-view/overview"))
@@ -60,6 +66,7 @@ public class OverviewControllerTest extends BaseControllerTest{
      */
     @Test
     public void showTeacherOverviewTest() throws Exception {
+        log.info("Testing Teacher Overview screen accessibility.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
 
         mockMvc.perform(get("/teacher-view/overview"))
@@ -73,6 +80,7 @@ public class OverviewControllerTest extends BaseControllerTest{
      */
     @Test
     public void saveUserSettingsStudent() throws Exception {
+        log.info("Testing user settings change for student role.");
         setUserLogin(TEST_USER_STUDENT_USERNAME, TEST_USER_STUDENT_PASSWORD);
         mockMvc.perform(post("/student-view/overview").param("firstName", "Tom")
                 .param("lastName","Cat")
@@ -90,6 +98,7 @@ public class OverviewControllerTest extends BaseControllerTest{
      */
     @Test
     public void saveUserSettingsTeacher() throws Exception {
+        log.info("Testing user settings change for teacher role.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(post("/student-view/overview").param("firstName", "Tom")
                 .param("lastName","Cat")

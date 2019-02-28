@@ -10,6 +10,8 @@ import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.domain.users.User;
 import cz.zcu.kiv.matyasj.dp.service.TeacherService;
 import cz.zcu.kiv.matyasj.dp.utils.properties.PropertyLoader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -67,6 +69,10 @@ public class TeacherServiceTest {
     ExaminationDate examinationDateOld;
     ExaminationDate examinationDateFuture;
 
+    /**
+     * Shared system logger
+     */
+    private final Logger log = LogManager.getLogger();
 
     @Before
     public void setUp() {
@@ -100,29 +106,29 @@ public class TeacherServiceTest {
 
     @After
     public void tearDown() {
-        if(examinationDateCurrent != null){
+        if (examinationDateCurrent != null) {
             examinationDateDao.delete(examinationDateCurrent.getId());
         }
 
-        if(examinationDateFuture != null){
+        if (examinationDateFuture != null) {
             examinationDateDao.delete(examinationDateFuture.getId());
         }
 
-        if(examinationDateOld != null){
+        if (examinationDateOld != null) {
             examinationDateDao.delete(examinationDateOld.getId());
         }
 
-        if(testTeacher1 != null){
+        if (testTeacher1 != null) {
             userDao.delete(testTeacher1.getId());
         }
-        if(testStudent1 != null){
+        if (testStudent1 != null) {
             userDao.delete(testStudent1.getId());
         }
 
-        if(testSubject1 != null){
+        if (testSubject1 != null) {
             subjectDao.delete(testSubject1.getId());
         }
-        if(testSubject2 != null){
+        if (testSubject2 != null) {
             subjectDao.delete(testSubject2.getId());
         }
     }
@@ -132,6 +138,7 @@ public class TeacherServiceTest {
      */
     @Test
     public void getTeachingSubjectListTest1() {
+        log.info("Testing list of taught subjects retrieving.");
         List<String> subjectNames = new ArrayList<>();
         subjectNames.add(testSubject1.getName());
         subjectNames.add(testSubject2.getName());
@@ -155,6 +162,7 @@ public class TeacherServiceTest {
      */
     @Test
     public void getTeachingSubjectListEmptyListTest() {
+        log.info("Testing empty list of taught subjects retrieving.");
         List<Subject> taughtSubjects = teacherService.getTaughtSubjectsList(testTeacher1);
 
         assertNotNull(taughtSubjects);
@@ -167,6 +175,7 @@ public class TeacherServiceTest {
      */
     @Test
     public void getTeachingSubjectListNullTeacher() {
+        log.info("Testing list of taught subjects for null teacher retrieving.");
         List<Subject> taughtSubjects = teacherService.getTaughtSubjectsList(null);
 
         assertNull(taughtSubjects);
@@ -177,6 +186,7 @@ public class TeacherServiceTest {
      */
     @Test
     public void getNonTeachingSubjectListTest1() {
+        log.info("Testing list of not taught subjects retrieving.");
         Subject testSubject3 = new Subject("Test subject 3", 1);
 
         int initNumberOfNonTeachingSubjects = teacherService.getNonTaughtSubjectsList(testTeacher1).size();
@@ -201,9 +211,10 @@ public class TeacherServiceTest {
      */
     @Test
     public void getNonTeachingSubjectListEmptyListTest1() {
+        log.info("Testing empty list of not taught subjects retrieving.");
         List<Subject> nonTaughtSubjects = teacherService.getNonTaughtSubjectsList(testTeacher1);
 
-        for(Subject s : nonTaughtSubjects){
+        for (Subject s : nonTaughtSubjects) {
             subjectDao.delete(s.getId());
         }
 
@@ -219,9 +230,10 @@ public class TeacherServiceTest {
      */
     @Test
     public void getNonTeachingSubjectListEmptyListTest2() {
+        log.info("Testing empty list of not taught subjects retrieving.");
         List<Subject> nonTaughtSubjects = teacherService.getNonTaughtSubjectsList(testTeacher1);
 
-        for(Subject s : nonTaughtSubjects){
+        for (Subject s : nonTaughtSubjects) {
             testTeacher1.getListOfTaughtSubjects().add(s);
         }
         testTeacher1 = (Teacher) userDao.save(testTeacher1);
@@ -238,6 +250,7 @@ public class TeacherServiceTest {
      */
     @Test
     public void getNonTeachingSubjectListNullTeacher() {
+        log.info("Testing list of not taught subjects for null teacher retrieving.");
         List<Subject> nonTaughtSubjects = teacherService.getNonTaughtSubjectsList(null);
 
         assertNull(nonTaughtSubjects);
@@ -248,6 +261,7 @@ public class TeacherServiceTest {
      */
     @Test
     public void setMySubject() {
+        log.info("Testing new taught subjects setting.");
         boolean success = teacherService.setMySubject(testTeacher1, testSubject1.getId());
 
         testTeacher1 = (Teacher) userDao.findOne(testTeacher1.getId());
@@ -268,6 +282,7 @@ public class TeacherServiceTest {
      */
     @Test
     public void setMyNullSubject() {
+        log.info("Testing new null taught subjects setting.");
         boolean success = teacherService.setMySubject(testTeacher1, -1L);
 
         testTeacher1 = (Teacher) userDao.findOne(testTeacher1.getId());
@@ -284,6 +299,7 @@ public class TeacherServiceTest {
      */
     @Test
     public void setMyRemovedSubject() {
+        log.info("Testing new taught removed subject setting.");
         boolean success = teacherService.setMySubject(testTeacher1, testSubject1.getId());
 
         // Delete subject
@@ -305,6 +321,7 @@ public class TeacherServiceTest {
      */
     @Test
     public void setMySubjectNullTeacher() {
+        log.info("Testing new taught subjects for null teacher setting.");
         boolean success = teacherService.setMySubject(null, testSubject1.getId());
 
         assertFalse(success);
@@ -315,6 +332,7 @@ public class TeacherServiceTest {
      */
     @Test
     public void setMySubjectTwice() {
+        log.info("Testing new taught subjects twice setting.");
         boolean success1 = teacherService.setMySubject(testTeacher1, testSubject1.getId());
         boolean success2 = teacherService.setMySubject(testTeacher1, testSubject1.getId());
 
@@ -327,11 +345,12 @@ public class TeacherServiceTest {
      */
     @Test
     public void setMySubjectMoreThanMax() {
+        log.info("Testing more than maximum new taught subjects setting.");
         boolean success1 = true;
 
         int maxSubjectsNumber = Integer.parseInt(propertyLoader.getProperty("teacherMaxSubjects"));
-        for(int i = 0; i < maxSubjectsNumber; i++){
-            Subject tmpSubject = new Subject("Test subject "+i, i);
+        for (int i = 0; i < maxSubjectsNumber; i++) {
+            Subject tmpSubject = new Subject("Test subject " + i, i);
             tmpSubject = subjectDao.save(tmpSubject);
             teacherService.setMySubject(testTeacher1, tmpSubject.getId());
         }
@@ -346,6 +365,7 @@ public class TeacherServiceTest {
      */
     @Test
     public void unsetMySubject() {
+        log.info("Testing taught subjects unsetting.");
         //testSubject1 = subjectDao.save(testSubject1);
         //testTeacher1 = (Teacher) userDao.save(testTeacher1);
         testTeacher1.getListOfTaughtSubjects().add(testSubject1);
@@ -366,6 +386,7 @@ public class TeacherServiceTest {
      */
     @Test
     public void unsetMyNullSubject() {
+        log.info("Testing null taught subjects unsetting.");
         boolean success = teacherService.unsetMySubject(testTeacher1, -1L);
 
         testTeacher1 = (Teacher) userDao.findOne(testTeacher1.getId());
@@ -381,6 +402,7 @@ public class TeacherServiceTest {
      */
     @Test
     public void unsetMySubjectNullTeacher() {
+        log.info("Testing taught subjects for null teacher unsetting.");
         boolean success = teacherService.unsetMySubject(null, testSubject1.getId());
 
         assertFalse(success);
@@ -391,6 +413,7 @@ public class TeacherServiceTest {
      */
     @Test
     public void unsetMySubjectNotEmptySubjectParticipantList() {
+        log.info("Testing taught subjects with not empty list of participants unsetting.");
         testStudent1.getListOfLearnedSubjects().add(testSubject1);
         userDao.save(testStudent1);
         boolean success = teacherService.unsetMySubject(testTeacher1, testSubject1.getId());
@@ -403,6 +426,7 @@ public class TeacherServiceTest {
      */
     @Test
     public void unsetMySubjectWithExamTerms() {
+        log.info("Testing taught subjects with exam terms unsetting.");
         examinationDateCurrent = new ExaminationDate(new Date(), 5);
         examinationDateCurrent = examinationDateDao.save(examinationDateCurrent);
         examinationDateCurrent.setTeacher(testTeacher1);
@@ -426,6 +450,7 @@ public class TeacherServiceTest {
      */
     @Test
     public void getMyExaminationTerms() {
+        log.info("Testing examination terms for teacher retrieving.");
         List<ExaminationDate> examinationDates = teacherService.getExaminationTermsByTeacher(testTeacher1);
 
         assertTrue(examinationDates.isEmpty());
@@ -514,7 +539,7 @@ public class TeacherServiceTest {
      * This method tests TeacherService function - Getting my examination dates by subject.
      */
     @Test
-    public void getAllMyExaminationTermsBySubjectTest(){
+    public void getAllMyExaminationTermsBySubjectTest() {
         examinationDateCurrent.setSubject(testSubject1);
         examinationDateCurrent.setTeacher(testTeacher1);
         examinationDateCurrent = examinationDateDao.save(examinationDateCurrent);
@@ -534,7 +559,7 @@ public class TeacherServiceTest {
      * This method tests TeacherService function - Getting my examination dates by subject (for null teacher).
      */
     @Test
-    public void getAllMyExaminationTermsBySubjectNullTeacherTest(){
+    public void getAllMyExaminationTermsBySubjectNullTeacherTest() {
         List<ExaminationDate> examinationDates = teacherService.getAllExaminationTermsByTeacherAndSubject(null, testSubject1.getId());
 
         assertNull(examinationDates);
@@ -544,7 +569,7 @@ public class TeacherServiceTest {
      * This method tests TeacherService function - Getting my examination dates by subject (non-existent subject).
      */
     @Test
-    public void getAllMyExaminationTermsBySubjectNonExistentSubjectTest(){
+    public void getAllMyExaminationTermsBySubjectNonExistentSubjectTest() {
         List<ExaminationDate> examinationDates = teacherService.getAllExaminationTermsByTeacherAndSubject(testTeacher1, -1L);
 
         assertNotNull(examinationDates);
@@ -556,7 +581,7 @@ public class TeacherServiceTest {
      * This method tests TeacherService function - Getting my examination dates by subject without already graduated participants.
      */
     @Test
-    public void getMyExaminationTermsWithoutGraduateParticipantsBySubjectTest(){
+    public void getMyExaminationTermsWithoutGraduateParticipantsBySubjectTest() {
         examinationDateCurrent.setSubject(testSubject1);
         examinationDateCurrent.setTeacher(testTeacher1);
         examinationDateCurrent.getParticipants().add(testStudent1);
@@ -606,7 +631,7 @@ public class TeacherServiceTest {
      * participants (for null teacher).
      */
     @Test
-    public void getMyExaminationTermsWithoutGraduateParticipantsBySubjectNullTeacherTest(){
+    public void getMyExaminationTermsWithoutGraduateParticipantsBySubjectNullTeacherTest() {
         List<ExaminationDate> examinationDates = teacherService.getMyExaminationTermsWithoutGradedParticipantsBySubject(null, testSubject1.getId());
 
         assertNull(examinationDates);
@@ -617,7 +642,7 @@ public class TeacherServiceTest {
      * participants (non-existent subject).
      */
     @Test
-    public void getMyExaminationTermsWithoutGraduateParticipantsBySubjectNonExistentSubjectTest(){
+    public void getMyExaminationTermsWithoutGraduateParticipantsBySubjectNonExistentSubjectTest() {
         List<ExaminationDate> examinationDates = teacherService.getMyExaminationTermsWithoutGradedParticipantsBySubject(testTeacher1, -1L);
 
         assertNotNull(examinationDates);
@@ -631,6 +656,8 @@ public class TeacherServiceTest {
      */
     @Test
     public void createNewExaminationTerm() throws ParseException {
+        log.info("Testing new examination term creation.");
+
         DateFormat format = new SimpleDateFormat(propertyLoader.getProperty("dateAndTimeFormat"));
         String maxParticipants = propertyLoader.getProperty("examTermMaxParticipants");
         Date testDate = new Date(new Date().getTime() + 500000);
@@ -657,6 +684,8 @@ public class TeacherServiceTest {
      */
     @Test
     public void createNewExaminationTermDateIsNotInFuture() throws ParseException {
+        log.info("Testing new not future examination term creation.");
+
         DateFormat format = new SimpleDateFormat(propertyLoader.getProperty("dateAndTimeFormat"));
         String maxParticipants = propertyLoader.getProperty("examTermMaxParticipants");
         Date testDate = new Date(new Date().getTime() - 500000);
@@ -672,6 +701,8 @@ public class TeacherServiceTest {
      */
     @Test
     public void createNewExaminationTermBadDateFormat() {
+        log.info("Testing new examination term with bad date format creation.");
+
         String maxParticipants = propertyLoader.getProperty("examTermMaxParticipants");
         String testDateString = "1.1.2000";
 
@@ -685,13 +716,15 @@ public class TeacherServiceTest {
      */
     @Test
     public void createNewExaminationTermMoreThanMax() {
+        log.info("Testing more than maximum new examination terms creation.");
+
         int maxExamDatesNumber = Integer.parseInt(propertyLoader.getProperty("maxTeacherExamDates"));
         String maxParticipants = propertyLoader.getProperty("examTermMaxParticipants");
         DateFormat format = new SimpleDateFormat(propertyLoader.getProperty("dateAndTimeFormat"));
         Date testDate = new Date(new Date().getTime() + 500000);
         String testDateString = format.format(testDate);
 
-        for(int i = 0; i < maxExamDatesNumber; i++){
+        for (int i = 0; i < maxExamDatesNumber; i++) {
             teacherService.createNewExaminationTerm(testTeacher1, testSubject1.getId(), testDateString, maxParticipants);
         }
 
@@ -701,7 +734,7 @@ public class TeacherServiceTest {
 
         // Removing created exam terms
         List<ExaminationDate> examinationDates = teacherService.getAllExaminationTermsByTeacherAndSubject(testTeacher1, testSubject1.getId());
-        for(ExaminationDate e : examinationDates){
+        for (ExaminationDate e : examinationDates) {
             examinationDateDao.delete(e.getId());
         }
     }
@@ -711,6 +744,8 @@ public class TeacherServiceTest {
      */
     @Test
     public void createNewExaminationTermNullTeacher() {
+        log.info("Testing new examination term for null teacher creation.");
+
         String maxParticipants = propertyLoader.getProperty("examTermMaxParticipants");
         String testDateString = "1.1.2000";
 
@@ -723,6 +758,7 @@ public class TeacherServiceTest {
      */
     @Test
     public void removeExaminationTerm() {
+        log.info("Testing examination term removal.");
 
         boolean success = teacherService.removeExaminationTerm(testTeacher1, examinationDateCurrent.getId());
         assertFalse(success);
@@ -747,6 +783,7 @@ public class TeacherServiceTest {
      */
     @Test
     public void removeExaminationTermNullTeacher() {
+        log.info("Testing examination term for null teacher removal.");
 
         boolean success = teacherService.removeExaminationTerm(null, examinationDateCurrent.getId());
         assertFalse(success);
@@ -757,6 +794,8 @@ public class TeacherServiceTest {
      */
     @Test
     public void removeExaminationTermNonExistentExamTerm() {
+        log.info("Testing not existing examination term removal.");
+
         boolean success = teacherService.removeExaminationTerm(testTeacher1, -1L);
 
         assertFalse(success);
@@ -767,6 +806,8 @@ public class TeacherServiceTest {
      */
     @Test
     public void createNewGrade() {
+        log.info("Testing new grade creation.");
+
         GradeType pass = new GradeType();
         pass.setName("X");
         GradeType failed = new GradeType();
@@ -800,6 +841,8 @@ public class TeacherServiceTest {
      */
     @Test
     public void createNewGradeTwice() {
+        log.info("Testing new grade creation twice.");
+
         GradeType pass = new GradeType();
         pass.setName("X");
         GradeType fail = new GradeType();
@@ -829,6 +872,8 @@ public class TeacherServiceTest {
      */
     @Test
     public void createNewGradeFailed() {
+        log.info("Testing new grade fail creation.");
+
         GradeType fail = new GradeType();
         fail.setName("F");
 
@@ -848,7 +893,7 @@ public class TeacherServiceTest {
         assertNull(g);
 
         examinationDateCurrent = examinationDateDao.findOne(examinationDateCurrent.getId());
-        for(Student s : examinationDateCurrent.getParticipants()){
+        for (Student s : examinationDateCurrent.getParticipants()) {
             assertFalse(s.getId().longValue() == testStudent1.getId().longValue());
         }
     }
@@ -858,6 +903,8 @@ public class TeacherServiceTest {
      */
     @Test
     public void createNewGradeTeacherNull() {
+        log.info("Testing new grade for null teacher creation.");
+
         GradeType x = new GradeType();
         x.setName("X");
 
@@ -872,6 +919,8 @@ public class TeacherServiceTest {
      */
     @Test
     public void createNewGradeStudentNull() {
+        log.info("Testing new grade for null student creation.");
+
         GradeType x = new GradeType();
         x.setName("X");
 
@@ -886,6 +935,8 @@ public class TeacherServiceTest {
      */
     @Test
     public void createNewGradeGradeTypeNull() {
+        log.info("Testing new grade with null type creation.");
+
         boolean success = teacherService.createNewGrade(testTeacher1, testStudent1.getId(), -1L, testSubject1.getId(), examinationDateCurrent.getId());
         assertFalse(success);
     }
@@ -895,6 +946,8 @@ public class TeacherServiceTest {
      */
     @Test
     public void createNewGradeSubjectNull() {
+        log.info("Testing new grade for null subject creation.");
+
         GradeType x = new GradeType();
         x.setName("X");
 
@@ -909,6 +962,7 @@ public class TeacherServiceTest {
      */
     @Test
     public void getExaminationTerm() {
+        log.info("Testing examination term retrieving.");
         ExaminationDate tmpExamTerm = teacherService.getExaminationTerm(examinationDateFuture.getId());
 
         assertNotNull(tmpExamTerm);
@@ -920,6 +974,7 @@ public class TeacherServiceTest {
      */
     @Test
     public void getExaminationTermNonExistentTerm() {
+        log.info("Testing not existing examination term retrieving.");
         ExaminationDate tmpExamTerm = teacherService.getExaminationTerm(-1L);
 
         assertNull(tmpExamTerm);
@@ -973,12 +1028,13 @@ public class TeacherServiceTest {
      */
     @Test
     public void getAllGradeTypes() {
+        log.info("Testing all grade types retrieving.");
         List<GradeType> gradeTypeList = gradeTypeDao.getAllGradeTypes();
         List<GradeType> gradeTypeListTested = teacherService.getAllGradeTypes();
 
         assertEquals(gradeTypeList.size(), gradeTypeListTested.size());
 
-        for(GradeType e : gradeTypeList){
+        for (GradeType e : gradeTypeList) {
             assertTrue(gradeTypeList.contains(e));
         }
 
@@ -996,11 +1052,13 @@ public class TeacherServiceTest {
      */
     @Test
     public void getAllTeachers() {
+        log.info("Testing all teachers retrieving.");
+
         List<Teacher> teacherListTested = teacherService.getAllTeachers();
         List<Teacher> teacherList = new ArrayList<>();
 
-        for(User u : userDao.findAllUsers()){
-            if(u instanceof Teacher){
+        for (User u : userDao.findAllUsers()) {
+            if (u instanceof Teacher) {
                 teacherList.add((Teacher) u);
             }
         }
@@ -1024,7 +1082,9 @@ public class TeacherServiceTest {
      * This method tests TeacherService function - Updating grade.
      */
     @Test
-    public void updateGradeTest(){
+    public void updateGradeTest() {
+        log.info("Testing grade update.");
+
         Grade newGrade = new Grade();
         newGrade = gradeDao.save(newGrade);
         newGrade.setOwner(testStudent1);
@@ -1059,7 +1119,9 @@ public class TeacherServiceTest {
      * This method tests TeacherService function - Updating grade (by non-existent teacher).
      */
     @Test
-    public void updateGradeTestNonExistentTeacher(){
+    public void updateGradeTestNonExistentTeacher() {
+        log.info("Testing grade for not existing teacher update.");
+
         Grade newGrade = new Grade();
         newGrade = gradeDao.save(newGrade);
 
@@ -1077,7 +1139,8 @@ public class TeacherServiceTest {
      * This method tests TeacherService function - Updating grade (non-existent grade).
      */
     @Test
-    public void updateGradeTestNonExistentGrade(){
+    public void updateGradeTestNonExistentGrade() {
+        log.info("Testing not existing grade update.");
         GradeType newGradeType = gradeTypeDao.getAllGradeTypes().get(0);
 
         boolean success = teacherService.updateGrade(testTeacher1.getId(), -1L, newGradeType.getId());
@@ -1089,7 +1152,9 @@ public class TeacherServiceTest {
      * This method tests TeacherService function - Updating grade (non-existent grade type).
      */
     @Test
-    public void updateGradeTestNonExistentGradeType(){
+    public void updateGradeTestNonExistentGradeType() {
+        log.info("Testing grade with not existing grade type update.");
+
         Grade newGrade = new Grade();
         newGrade = gradeDao.save(newGrade);
 
@@ -1102,7 +1167,9 @@ public class TeacherServiceTest {
      * This method tests TeacherService function - Getting list of all grades for one particular subject.
      */
     @Test
-    public void getGradesForSubject(){
+    public void getGradesForSubject() {
+        log.info("Testing grades for subject retrieving.");
+
         Grade newGrade1 = new Grade();
         Grade newGrade2 = new Grade();
         Grade newGrade3 = new Grade();
@@ -1121,14 +1188,16 @@ public class TeacherServiceTest {
 
         assertNotNull(gradeList);
         assertTrue(gradeList instanceof List);
-        assertEquals(2,  gradeList.size());
+        assertEquals(2, gradeList.size());
     }
 
     /**
      * This method tests TeacherService function - Getting list of all grades for one particular subject (non-existent subject).
      */
     @Test
-    public void getGradesForSubjectNonExistentSubject(){
+    public void getGradesForSubjectNonExistentSubject() {
+        log.info("Testing grades for not existing subject retrieving.");
+
         List<Grade> gradeList = teacherService.getGradesForSubject(-1L);
 
         assertNull(gradeList);

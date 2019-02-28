@@ -3,6 +3,8 @@ package cz.zcu.kiv.matyasj.dp.web.controllers;
 import cz.zcu.kiv.matyasj.dp.dao.UserDao;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,11 @@ public abstract class BaseControllerTest {
     @Autowired
     protected UserDao userDao;
 
+    /**
+     * Shared system logger
+     */
+    private final Logger log = LogManager.getLogger();
+
     @Before
     public void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -66,6 +73,7 @@ public abstract class BaseControllerTest {
      * @param password String user password in plaintext
      */
     protected void setUserLogin(String userName, String password){
+        log.info("Testing user logging.");
         User user = new User(userName, password, new ArrayList<GrantedAuthority>());
 
         Authentication mockAuth = new UsernamePasswordAuthenticationToken(user,null);

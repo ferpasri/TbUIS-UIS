@@ -7,6 +7,8 @@ import cz.zcu.kiv.matyasj.dp.domain.university.ExaminationDate;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.web.controllers.BaseControllerTest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = "classpath*:applicationContext.xml")
-public class ExamDatesControllerTest extends BaseControllerTest{
+public class ExamDatesControllerTest extends BaseControllerTest {
     @Autowired
     ExaminationDateDao examinationDateDao;
     @Autowired
@@ -41,8 +43,13 @@ public class ExamDatesControllerTest extends BaseControllerTest{
     private ExaminationDate testExamDate;
     private Subject testSubject;
 
+    /**
+     * Shared system logger
+     */
+    private final Logger log = LogManager.getLogger();
+
     @Before
-    public void setUp(){
+    public void setUp() {
         super.setUp();
         testExamDate = new ExaminationDate(new Date(), 10);
         testExamDate = examinationDateDao.save(testExamDate);
@@ -58,7 +65,7 @@ public class ExamDatesControllerTest extends BaseControllerTest{
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         testExamDate = examinationDateDao.findOne(testExamDate.getId());
         testExamDate.setSubject(null);
         testExamDate = examinationDateDao.save(testExamDate);
@@ -79,6 +86,7 @@ public class ExamDatesControllerTest extends BaseControllerTest{
      */
     @Test
     public void showExamDateList() throws Exception {
+        log.info("Testing exam date list accessibility.");
         setUserLogin(TEST_USER_STUDENT_USERNAME, TEST_USER_STUDENT_PASSWORD);
         mockMvc.perform(get("/student-view/otherExamDates"))
                 .andExpect(status().isOk())
@@ -94,8 +102,9 @@ public class ExamDatesControllerTest extends BaseControllerTest{
      */
     @Test
     public void registerExamDate() throws Exception {
+        log.info("Testing exam date registration.");
         setUserLogin(TEST_USER_STUDENT_USERNAME, TEST_USER_STUDENT_PASSWORD);
-        mockMvc.perform(post("/student-view/otherExamDates").param("examDateId", testExamDate.getId()+""))
+        mockMvc.perform(post("/student-view/otherExamDates").param("examDateId", testExamDate.getId() + ""))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/WEB-INF/pages/student-view.jsp"))
                 .andExpect(model().attributeExists("successMessage"));
@@ -106,6 +115,7 @@ public class ExamDatesControllerTest extends BaseControllerTest{
      */
     @Test
     public void registerExamDateNonExistentExamDate() throws Exception {
+        log.info("Testing not existing exam date registration.");
         setUserLogin(TEST_USER_STUDENT_USERNAME, TEST_USER_STUDENT_PASSWORD);
         mockMvc.perform(post("/student-view/otherExamDates").param("examDateId", "-1"))
                 .andExpect(status().isOk())

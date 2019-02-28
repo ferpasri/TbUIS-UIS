@@ -2,6 +2,8 @@ package cz.zcu.kiv.matyasj.dp.web.controllers;
 
 import cz.zcu.kiv.matyasj.dp.service.PorterService;
 import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,6 +34,8 @@ public class ImportExportControllerTest extends BaseControllerTest{
     @Autowired
     private PorterService porterService;
 
+    /** Shared system logger */
+    private final Logger log = LogManager.getLogger();
 
     @Before
     public void setUp(){
@@ -48,6 +52,7 @@ public class ImportExportControllerTest extends BaseControllerTest{
      */
     @Test
     public void getImportExport() throws Exception {
+        log.info("Testing Import/Export screen accessibility.");
         mockMvc.perform(get("/import-export"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/import-export.jsp"));
@@ -58,6 +63,7 @@ public class ImportExportControllerTest extends BaseControllerTest{
      */
     @Test
     public void importData() throws Exception {
+        log.info("Testing data import with XML file.");
         mockMvc.perform(MockMvcRequestBuilders.fileUpload("/importdata").file(getFileToImport("xml")))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("successMessage"))
@@ -69,6 +75,7 @@ public class ImportExportControllerTest extends BaseControllerTest{
      */
     @Test
     public void importDataEmptyFile() throws Exception {
+        log.info("Testing data import with empty file.");
         mockMvc.perform(MockMvcRequestBuilders.fileUpload("/importdata").file(getFileEmptyToImport()))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("errorMessage"))
@@ -80,6 +87,7 @@ public class ImportExportControllerTest extends BaseControllerTest{
      */
     @Test
     public void importDataNonExistentFile() throws Exception {
+        log.info("Testing data import with not existing file.");
         mockMvc.perform(MockMvcRequestBuilders.fileUpload("/importdata").file(getFileNonExistentToImport()))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("errorMessage"))
@@ -91,6 +99,7 @@ public class ImportExportControllerTest extends BaseControllerTest{
      */
     @Test
     public void exportData() throws Exception {
+        log.info("Testing correctly formatted data export.");
         mockMvc.perform(get("/exportdata").param("exportFormat", "xml"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/xml"));
@@ -101,6 +110,7 @@ public class ImportExportControllerTest extends BaseControllerTest{
      */
     @Test
     public void exportDataBadFormat() throws Exception {
+        log.info("Testing incorrectly formatted data export.");
         mockMvc.perform(get("/exportdata").param("exportFormat", "bad_format"))
             .andExpect(status().isOk())
             .andExpect(content().string(""));
@@ -113,6 +123,8 @@ public class ImportExportControllerTest extends BaseControllerTest{
      * @return Mocked MultipartFile
      */
     private MockMultipartFile getFileToImport(String format) throws IOException {
+        log.info("Creating mocked XML file to import.");
+
         File file = porterService.exportData(format);
 
         FileInputStream input = new FileInputStream(file);
@@ -128,6 +140,8 @@ public class ImportExportControllerTest extends BaseControllerTest{
      * @return Mocked empty MultipartFile
      */
     private MockMultipartFile getFileEmptyToImport() throws IOException {
+        log.info("Creating mocked empty file to import.");
+
         File file = new File(System.getProperty("java.io.tmpdir")+File.separator +"testFile.xml");
 
         file.createNewFile();
@@ -146,6 +160,8 @@ public class ImportExportControllerTest extends BaseControllerTest{
      * @return non existent Mocked MultipartFile
      */
     private MockMultipartFile getFileNonExistentToImport() throws IOException {
+        log.info("Creating mocked not existing file to import.");
+
         File file = new File(System.getProperty("java.io.tmpdir")+File.separator +"testFile.xml");
 
 

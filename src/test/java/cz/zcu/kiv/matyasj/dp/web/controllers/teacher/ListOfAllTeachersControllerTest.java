@@ -1,6 +1,8 @@
 package cz.zcu.kiv.matyasj.dp.web.controllers.teacher;
 
 import cz.zcu.kiv.matyasj.dp.web.controllers.BaseControllerTest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,6 +24,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(locations = "classpath*:applicationContext.xml")
 public class ListOfAllTeachersControllerTest extends BaseControllerTest{
 
+    /** Shared system logger */
+    private final Logger log = LogManager.getLogger();
+
     @Before
     public void setUp() {
         super.setUp();
@@ -37,6 +42,7 @@ public class ListOfAllTeachersControllerTest extends BaseControllerTest{
      */
     @Test
     public void showAllTeachersList() throws Exception {
+        log.info("Testing list of all teacher accessibility.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(get("/teacher-view/listOfAllTeachers"))
                 .andExpect(status().isOk())

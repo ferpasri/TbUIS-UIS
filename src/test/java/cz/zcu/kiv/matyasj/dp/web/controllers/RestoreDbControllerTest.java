@@ -1,5 +1,7 @@
 package cz.zcu.kiv.matyasj.dp.web.controllers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +30,9 @@ public class RestoreDbControllerTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
 
+    /** Shared system logger */
+    private final Logger log = LogManager.getLogger();
+
     @Before
     public void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -38,6 +43,7 @@ public class RestoreDbControllerTest {
      */
     @Test
     public void restoreDB() throws Exception {
+        log.info("Testing DB restore.");
         mockMvc.perform(get("/restoreDB"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrlPattern("/?successMessage=*"));

@@ -7,6 +7,8 @@ import cz.zcu.kiv.matyasj.dp.domain.university.GradeType;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.web.controllers.BaseControllerTest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,6 +47,9 @@ public class NewGradeControllerTest extends BaseControllerTest{
     private ExaminationDate testExamTerm;
     private Subject testSubject;
     private GradeType testGradeType;
+
+    /** Shared system logger */
+    private final Logger log = LogManager.getLogger();
 
     @Before
     public void setUp(){
@@ -113,6 +118,7 @@ public class NewGradeControllerTest extends BaseControllerTest{
      */
     @Test
     public void showNewGradeForm() throws Exception {
+        log.info("Testing new grade form accessibility.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(get("/teacher-view/setEvaluation"))
                 .andExpect(status().isOk())
@@ -127,6 +133,7 @@ public class NewGradeControllerTest extends BaseControllerTest{
      */
     @Test
     public void showNewGradeFormByExamTermAndStudent() throws Exception {
+        log.info("Testing new grade form by exam term and student accessibility.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(get("/teacher-view/setEvaluation/"+testExamTerm.getId()+"/"+testStudent1.getId()))
                 .andExpect(status().isOk())
@@ -142,6 +149,7 @@ public class NewGradeControllerTest extends BaseControllerTest{
      */
     @Test
     public void saveNewGrade() throws Exception {
+        log.info("Testing new grade save.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         /*@RequestParam("grade") long gradeTypeId, @RequestParam("ownerId") long ownerId, @RequestParam("examTermId")*/
         mockMvc.perform(post("/teacher-view/setEvaluation")
@@ -157,6 +165,7 @@ public class NewGradeControllerTest extends BaseControllerTest{
      */
     @Test
     public void saveNewGradeNonExistentGradeType() throws Exception {
+        log.info("Testing not existing new grade save.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         /*@RequestParam("grade") long gradeTypeId, @RequestParam("ownerId") long ownerId, @RequestParam("examTermId")*/
         mockMvc.perform(post("/teacher-view/setEvaluation")

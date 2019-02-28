@@ -1,5 +1,7 @@
 package cz.zcu.kiv.matyasj.dp.database;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +29,11 @@ public class DatabaseConnectionTest {
     protected EntityManager entityManager;
 
     /**
+     * Shared system logger
+     */
+    private final Logger log = LogManager.getLogger();
+
+    /**
      * SetUp method prepare entityManager instance for UIS-web DB
      */
     @Before
@@ -40,6 +47,7 @@ public class DatabaseConnectionTest {
      */
     @Test
     public void databaseConnectionTest() {
+        log.info("Testing DB connection.");
         Assert.assertNotNull(entityManager);
         List users = entityManager.createQuery("SELECT u FROM User u").getResultList();
         assertNotNull(users);

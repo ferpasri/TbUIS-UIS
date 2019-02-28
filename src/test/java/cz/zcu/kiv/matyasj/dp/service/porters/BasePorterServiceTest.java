@@ -11,6 +11,8 @@ import cz.zcu.kiv.matyasj.dp.domain.users.User;
 import cz.zcu.kiv.matyasj.dp.service.PorterService;
 import cz.zcu.kiv.matyasj.dp.utils.dataporter.dataTypes.ExportDataFormat;
 import cz.zcu.kiv.matyasj.dp.utils.dataporter.xml.XMLDataPorter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -56,6 +58,10 @@ public class BasePorterServiceTest {
     @Autowired
     XMLDataPorter xmlDataPorter;
 
+    /**
+     * Shared system logger
+     */
+    private final Logger log = LogManager.getLogger();
 
     @Before
     public void setUp() {
@@ -68,6 +74,7 @@ public class BasePorterServiceTest {
      */
     @Test
     public void importDataXML() {
+        log.info("Testing data import from XML.");
         generateTestData();
         File exportFile = porterService.exportData(ExportDataFormat.XML.getFileExtension());
 
@@ -92,6 +99,7 @@ public class BasePorterServiceTest {
      */
     @Test
     public void importDataJSON() {
+        log.info("Testing data import from JSON.");
         generateTestData();
         File exportFile = porterService.exportData(ExportDataFormat.JSON.getFileExtension());
 
@@ -116,6 +124,7 @@ public class BasePorterServiceTest {
      */
     @Test
     public void exportDataXML() {
+        log.info("Testing data export to XML.");
         generateTestData();
         File exportFile = porterService.exportData(ExportDataFormat.XML.getFileExtension());
 
@@ -129,6 +138,7 @@ public class BasePorterServiceTest {
      */
     @Test
     public void exportDataJSON() {
+        log.info("Testing data export to JSON.");
         generateTestData();
         File exportFile = porterService.exportData(ExportDataFormat.JSON.getFileExtension());
 
@@ -142,6 +152,7 @@ public class BasePorterServiceTest {
      */
     @Test
     public void exportDataErasedDatabaseXML() {
+        log.info("Testing data export from empty DB to XML.");
         assertTrue(databaseDao.eraseDatabase());
 
         File exportFile = porterService.exportData(ExportDataFormat.XML.getFileExtension());
@@ -156,6 +167,7 @@ public class BasePorterServiceTest {
      */
     @Test
     public void exportDataErasedDatabaseJSON() {
+        log.info("Testing data export from empty DB to JSON.");
         assertTrue(databaseDao.eraseDatabase());
 
         File exportFile = porterService.exportData(ExportDataFormat.JSON.getFileExtension());
@@ -169,7 +181,7 @@ public class BasePorterServiceTest {
     /**
      * This method generates test data.
      */
-    private void generateTestData(){
+    private void generateTestData() {
         Subject programing_in_java = new Subject("Programming in Java", 4);
         Subject computation_structures = new Subject("Computation Structures", 5);
         Subject introduction_to_algorithms = new Subject("Introduction to Algorithms", 3);
@@ -205,7 +217,7 @@ public class BasePorterServiceTest {
         User blue = new Student("James", "Blue", "blue", "pass", "blue@mail.edu");
         User green = new Student("Benjamin", "Green", "green", "pass", "green@mail.edu");
         User gray = new Student("Michael", "Gray", "gray", "pass", "gray@mail.edu");
-        User cyan =  new Student("Ethan", "Cyan", "cyan", "pass", "cyan@mail.edu");
+        User cyan = new Student("Ethan", "Cyan", "cyan", "pass", "cyan@mail.edu");
         User pink = new Student("Emma", "Pink", "pink", "pass", "pink@mail.edu");
         User red = new Student("Sophia", "Red", "red", "pass", "red@mail.edu");
         User yellow = new Student("Isabella", "Yellow", "yellow", "pass", "yellow@mail.edu");

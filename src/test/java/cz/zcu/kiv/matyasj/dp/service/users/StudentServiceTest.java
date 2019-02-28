@@ -11,6 +11,8 @@ import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.service.StudentService;
 import cz.zcu.kiv.matyasj.dp.utils.properties.PropertyLoader;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,6 +63,10 @@ public class StudentServiceTest {
 
     private Grade testGrade1;
 
+    /**
+     * Shared system logger
+     */
+    private final Logger log = LogManager.getLogger();
 
     /**
      * SetUp method creates all needed testing data.
@@ -114,6 +120,8 @@ public class StudentServiceTest {
      */
     @Test
     public void getStudiedSubjectsList() {
+        log.info("Testing list of studied subjects retrieving.");
+
         testStudent1.getListOfLearnedSubjects().add(testSubject1);
         testStudent1 = (Student) userDao.save(testStudent1);
 
@@ -135,6 +143,8 @@ public class StudentServiceTest {
      */
     @Test
     public void getStudiedSubjectsListNoSubjects() {
+        log.info("Testing empty list of studied subjects retrieving.");
+
         List<Subject> subjectList = studentService.getStudiedSubjectsList(testStudent1.getId());
 
         assertNotNull(subjectList);
@@ -147,6 +157,7 @@ public class StudentServiceTest {
      */
     @Test
     public void getStudiedSubjectsListNonExistentStudent() {
+        log.info("Testing list of studied subjects for not existing user retrieving.");
         List<Subject> subjectList = studentService.getStudiedSubjectsList(-1L);
 
         assertNull(subjectList);
@@ -157,6 +168,8 @@ public class StudentServiceTest {
      */
     @Test
     public void getAbsolvedSubjectsList() {
+        log.info("Testing list of absolved subjects retrieving.");
+
         testStudent1.getListOfLearnedSubjects().add(testSubject1);
         testStudent1 = (Student) userDao.save(testStudent1);
 
@@ -178,6 +191,7 @@ public class StudentServiceTest {
      */
     @Test
     public void getAbsolvedSubjectsListNoSubjects() {
+        log.info("Testing empty list of absolved subjects retrieving.");
         List<Subject> subjectList = studentService.getAbsolvedSubjectsList(testStudent1.getId());
 
         assertNotNull(subjectList);
@@ -190,6 +204,7 @@ public class StudentServiceTest {
      */
     @Test
     public void getAbsolvedSubjectsListNonExistentStudent() {
+        log.info("Testing list of absolved subjects for not existing student retrieving.");
         List<Subject> subjectList = studentService.getAbsolvedSubjectsList(-1L);
         assertNull(subjectList);
     }
@@ -199,6 +214,7 @@ public class StudentServiceTest {
      */
     @Test
     public void getOtherSubjectsList() {
+        log.info("Testing list of other subjects retrieving.");
         List<Subject> otherSubjects = subjectDao.findAll();
         List<Subject> otherSubjectsTested = studentService.getOtherSubjectsList(testStudent1.getId());
 
@@ -226,6 +242,7 @@ public class StudentServiceTest {
      */
     @Test
     public void getOtherSubjectsListNonExistentStudent() {
+        log.info("Testing list of other subjects for not existing student retrieving.");
         List<Subject> subjectList = studentService.getOtherSubjectsList(-1L);
         assertNull(subjectList);
     }
@@ -235,9 +252,10 @@ public class StudentServiceTest {
      */
     @Test
     public void getOtherSubjectsListNoOtherSubjects() {
+        log.info("Testing empty list of other subjects retrieving.");
         List<Subject> subjectList = subjectDao.findAll();
 
-        for(Subject s : subjectList){
+        for (Subject s : subjectList) {
             testStudent1.getListOfLearnedSubjects().add(s);
         }
         testStudent1 = (Student) userDao.save(testStudent1);
@@ -248,7 +266,7 @@ public class StudentServiceTest {
         assertTrue(subjectList instanceof List);
         assertTrue(subjectList.isEmpty());
 
-        while(!testStudent1.getListOfLearnedSubjects().isEmpty()){
+        while (!testStudent1.getListOfLearnedSubjects().isEmpty()) {
             testStudent1.getListOfLearnedSubjects().remove(0);
         }
         userDao.save(testStudent1);
@@ -259,6 +277,7 @@ public class StudentServiceTest {
      */
     @Test
     public void getExaminationTermsList() {
+        log.info("Testing list of examination terms retrieving.");
         testExaminationDate1.getParticipants().add(testStudent1);
         testExaminationDate1 = examinationDateDao.save(testExaminationDate1);
 
@@ -277,6 +296,7 @@ public class StudentServiceTest {
      */
     @Test
     public void getExaminationTermsListNoExamTerms() {
+        log.info("Testing empty list of examination terms retrieving.");
         List<ExaminationDate> examinationDateList = studentService.getExaminationDatesList(testStudent1.getId());
 
         assertNotNull(examinationDateList);
@@ -289,6 +309,7 @@ public class StudentServiceTest {
      */
     @Test
     public void getExaminationTermsListForTeacher() {
+        log.info("Testing list of examination terms for teacher retrieving.");
         List<ExaminationDate> examinationDateList = studentService.getExaminationDatesList(testTeacher1.getId());
 
         assertNull(examinationDateList);
@@ -298,7 +319,8 @@ public class StudentServiceTest {
      * This method tests StudentService function - Getting list of non registered examination dates for one particular student.
      */
     @Test
-    public void getNotRegisteredExaminationTermsListTest(){
+    public void getNotRegisteredExaminationTermsListTest() {
+        log.info("Testing list of not registered examination terms retrieving.");
         testExaminationDate1.setSubject(testSubject1);
         testExaminationDate1 = examinationDateDao.save(testExaminationDate1);
 
@@ -332,7 +354,8 @@ public class StudentServiceTest {
      * This method tests StudentService function - Getting list of non registered examination dates for one particular student (non existent student).
      */
     @Test
-    public void getNotRegisteredExaminationTermsListTestNotExistentStudent(){
+    public void getNotRegisteredExaminationTermsListTestNotExistentStudent() {
+        log.info("Testing list of not registered examination terms for not existing student retrieving.");
         List<ExaminationDate> notRegisteredExaminationTermsOfStudent = studentService.getNotRegisteredExaminationDatesList(-1L);
 
         assertNull(notRegisteredExaminationTermsOfStudent);
@@ -342,7 +365,8 @@ public class StudentServiceTest {
      * This method tests StudentService function - Getting list of non registered examination dates for one particular student (teacher  instead of student).
      */
     @Test
-    public void getNotRegisteredExaminationTermsListTestForTeacher(){
+    public void getNotRegisteredExaminationTermsListTestForTeacher() {
+        log.info("Testing list of not registered examination terms for teacher retrieving.");
         List<ExaminationDate> notRegisteredExaminationTermsOfStudent = studentService.getNotRegisteredExaminationDatesList(testTeacher1.getId());
 
         assertNull(notRegisteredExaminationTermsOfStudent);
@@ -354,6 +378,8 @@ public class StudentServiceTest {
      */
     @Test
     public void getStudentExaminationTermsList() {
+        log.info("Testing list of examination terms for student retrieving.");
+
         testExaminationDate1.getParticipants().add(testStudent1);
         testExaminationDate1 = examinationDateDao.save(testExaminationDate1);
         List<ExaminationDate> examinationDateList = studentService.getStudentExaminationDatesList(testStudent1.getId());
@@ -404,6 +430,7 @@ public class StudentServiceTest {
      */
     @Test
     public void getStudentExaminationTermsListNonExistentStudent() {
+        log.info("Testing list of examination terms for not existing student retrieving.");
         List<ExaminationDate> examinationDateList = studentService.getStudentExaminationDatesList(-1L);
 
         assertNull(examinationDateList);
@@ -415,6 +442,7 @@ public class StudentServiceTest {
      */
     @Test
     public void getStudentExaminationTermsListEmptyList() {
+        log.info("Testing empty list of examination terms retrieving.");
         List<ExaminationDate> examinationDateList = studentService.getStudentExaminationDatesList(testStudent1.getId());
 
         assertNotNull(examinationDateList);
@@ -427,6 +455,7 @@ public class StudentServiceTest {
      */
     @Test
     public void getStudentGrades() {
+        log.info("Testing grades for student retrieving.");
         testGrade1.setOwner(testStudent1);
         testGrade1 = gradeDao.save(testGrade1);
 
@@ -446,6 +475,7 @@ public class StudentServiceTest {
      */
     @Test
     public void getStudentGradesNonExistentStudent() {
+        log.info("Testing grades for not existing student retrieving.");
         List<Grade> studentGrades = studentService.getStudentGrades(null);
 
         assertNull(studentGrades);
@@ -456,6 +486,7 @@ public class StudentServiceTest {
      */
     @Test
     public void getStudentGradesEmptyList() {
+        log.info("Testing empty list of grades retrieving.");
         List<Grade> studentGrades = studentService.getStudentGrades(testStudent1);
 
         assertNotNull(studentGrades);
@@ -569,8 +600,8 @@ public class StudentServiceTest {
         boolean success1 = true;
 
         int maxSubjectsNumber = Integer.parseInt(propertyLoader.getProperty("studentMaxSubjects"));
-        for(int i = 0; i < maxSubjectsNumber; i++){
-            Subject tmpSubject = new Subject("Test subject "+i, i);
+        for (int i = 0; i < maxSubjectsNumber; i++) {
+            Subject tmpSubject = new Subject("Test subject " + i, i);
             tmpSubject = subjectDao.save(tmpSubject);
             studentService.setStudiedSubject(testStudent1.getId(), tmpSubject.getId());
         }

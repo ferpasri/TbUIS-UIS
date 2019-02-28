@@ -6,6 +6,8 @@ import cz.zcu.kiv.matyasj.dp.dao.UserDao;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.web.controllers.BaseControllerTest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,6 +39,9 @@ public class SubjectListControllerTest extends BaseControllerTest{
 
     private Subject testSubject;
 
+    /** Shared system logger */
+    private final Logger log = LogManager.getLogger();
+
     @Before
     public void setUp(){
         super.setUp();
@@ -62,6 +67,7 @@ public class SubjectListControllerTest extends BaseControllerTest{
      */
     @Test
     public void showOtherSubjectList() throws Exception {
+        log.info("Testing other subject list accessibility.");
         setUserLogin(TEST_USER_STUDENT_USERNAME, TEST_USER_STUDENT_PASSWORD);
         mockMvc.perform(get("/student-view/otherSubjects"))
                 .andExpect(status().isOk())
@@ -75,6 +81,7 @@ public class SubjectListControllerTest extends BaseControllerTest{
      */
     @Test
     public void enrollSubject() throws Exception {
+        log.info("Testing subject enrolling.");
         setUserLogin(TEST_USER_STUDENT_USERNAME, TEST_USER_STUDENT_PASSWORD);
         mockMvc.perform(post("/student-view/otherSubjects").param("subjectId", testSubject.getId()+""))
                 .andExpect(status().isOk())
@@ -87,6 +94,7 @@ public class SubjectListControllerTest extends BaseControllerTest{
      */
     @Test
     public void enrollSubjectNonExistentSubject() throws Exception {
+        log.info("Testing not existing subject enrolling.");
         setUserLogin(TEST_USER_STUDENT_USERNAME, TEST_USER_STUDENT_PASSWORD);
         mockMvc.perform(post("/student-view/otherSubjects").param("subjectId", "-1"))
                 .andExpect(status().isOk())

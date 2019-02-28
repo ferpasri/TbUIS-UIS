@@ -4,6 +4,8 @@ import cz.zcu.kiv.matyasj.dp.dao.SubjectDao;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.web.controllers.BaseControllerTest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +33,9 @@ public class ListOfNotTaughtSubjectControllerTest extends BaseControllerTest{
 
     private Subject testSubject;
 
+    /** Shared system logger */
+    private final Logger log = LogManager.getLogger();
+
     @Before
     public void setUp() {
         super.setUp();
@@ -55,6 +60,7 @@ public class ListOfNotTaughtSubjectControllerTest extends BaseControllerTest{
      */
     @Test
     public void showNotTeachedSubjectList() throws Exception {
+        log.info("Testing list of not teached subjects accessibility.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(get("/teacher-view/otherSubjects"))
                 .andExpect(status().isOk())
@@ -68,6 +74,7 @@ public class ListOfNotTaughtSubjectControllerTest extends BaseControllerTest{
      */
     @Test
     public void setTeachedSubject() throws Exception {
+        log.info("Testing teached subject setting.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(post("/teacher-view/otherSubjects").param("subjectId", testSubject.getId()+""))
                 .andExpect(status().isOk())
@@ -81,6 +88,7 @@ public class ListOfNotTaughtSubjectControllerTest extends BaseControllerTest{
      */
     @Test
     public void setTeachedSubjectNonExistentSubject() throws Exception {
+        log.info("Testing not existing teached subject setting.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(post("/teacher-view/otherSubjects").param("subjectId", "-1"))
                 .andExpect(status().isOk())

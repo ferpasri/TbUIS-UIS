@@ -8,6 +8,8 @@ import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.web.controllers.BaseControllerTest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,6 +50,9 @@ public class EvaluationTableControllerTest extends BaseControllerTest{
     private Subject testSubject;
     private Grade testGrade;
     private GradeType testGradeType;
+
+    /** Shared system logger */
+    private final Logger log = LogManager.getLogger();
 
     @Before
     public void setUp(){
@@ -141,6 +146,7 @@ public class EvaluationTableControllerTest extends BaseControllerTest{
      */
     @Test
     public void showEvaluationTableWithoutFilter() throws Exception {
+        log.info("Testing evaluation table without filter accessibility.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(get("/teacher-view/evaluationTable"))
                 .andExpect(status().isOk())
@@ -154,6 +160,7 @@ public class EvaluationTableControllerTest extends BaseControllerTest{
      */
     @Test
     public void showEvaluationTableWithFilteredSubject() throws Exception {
+        log.info("Testing evaluation table with filtered subject accessibility.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(get("/teacher-view/evaluationTable").param("filterSubjectId", testSubject.getId()+"").param("filterIncludeGraduateStudents", "on"))
                 .andDo(print())
@@ -172,6 +179,7 @@ public class EvaluationTableControllerTest extends BaseControllerTest{
      */
     @Test
     public void createNewGrade() throws Exception {
+        log.info("Testing new grade creation.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(get("/teacher-view/evaluationTable").param("filterSubjectId", testSubject.getId()+"").param("filterIncludeGraduateStudents", "on"));
         mockMvc.perform(post("/teacher-view/evaluationTable/createNewGrade").param("studentId", testStudent1.getId()+"").param("gradeTypeId", testGradeType.getId()+"").param("subjectId", testSubject.getId()+""))
@@ -198,6 +206,7 @@ public class EvaluationTableControllerTest extends BaseControllerTest{
      */
     @Test
     public void createNewGradeNonExistentStudent() throws Exception {
+        log.info("Testing new grade for not existing student creation.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(get("/teacher-view/evaluationTable").param("filterSubjectId", testSubject.getId()+"").param("filterIncludeGraduateStudents", "on"));
         mockMvc.perform(post("/teacher-view/evaluationTable/createNewGrade").param("studentId", "-1").param("gradeTypeId", testGradeType.getId()+"").param("subjectId", testSubject.getId()+""))
@@ -224,6 +233,7 @@ public class EvaluationTableControllerTest extends BaseControllerTest{
      */
     @Test
     public void updateGrade() throws Exception {
+        log.info("Testing grade update.");
         testGrade = gradeDao.findOne(testGrade.getId());
         testGrade.setOwner(testStudent1);
         testGrade.setWhoGradeGranted(testTeacher1);
@@ -248,6 +258,7 @@ public class EvaluationTableControllerTest extends BaseControllerTest{
      */
     @Test
     public void updateGradeNonExistentGrade() throws Exception {
+        log.info("Testing not existing grade update.");
         testGradeType = gradeTypeDao.findOne(testGradeType.getId());
 
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);

@@ -128,7 +128,6 @@
             <version>${spring.security.version}</version>
         </dependency>
 
-
         <!-- Log4J Logger dependency -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>

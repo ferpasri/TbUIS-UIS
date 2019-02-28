@@ -9,6 +9,8 @@ import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.domain.users.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,40 +54,45 @@ public class BaseDatabaseDaoTest {
     private static final int NUMBER_OF_DOMAIN_CLASSES = 7;
 
     /**
+     * Shared system logger
+     */
+    private final Logger log = LogManager.getLogger();
+
+    /**
      * SetUp method prepare erase whole database and prepare test init data
      */
     @Before
     public void setUp() {
         // Delete whole database
-        for(GenericDao dao : daoList){
-            if(dao instanceof GradeDao){
+        for (GenericDao dao : daoList) {
+            if (dao instanceof GradeDao) {
                 List<Grade> list = new ArrayList(dao.findAll());
-                for(Grade g : list){
+                for (Grade g : list) {
                     g.setTestWhereWasGradeGranted(null);
                     g = ((GradeDao) dao).save(g);
                     dao.delete(g.getId());
                 }
             }
         }
-        for(GenericDao dao : daoList){
-            if(dao instanceof UserDao){
+        for (GenericDao dao : daoList) {
+            if (dao instanceof UserDao) {
                 List<User> list = new ArrayList(dao.findAll());
-                for(User u : list){
+                for (User u : list) {
                     dao.delete(u.getId());
                 }
-            }else if(dao instanceof ExaminationDateDao){
+            } else if (dao instanceof ExaminationDateDao) {
                 List<ExaminationDate> list = new ArrayList(dao.findAll());
-                for(ExaminationDate eT : list){
+                for (ExaminationDate eT : list) {
                     dao.delete(eT.getId());
                 }
-            }else if(dao instanceof GradeTypeDao){
+            } else if (dao instanceof GradeTypeDao) {
                 List<GradeType> list = new ArrayList(dao.findAll());
-                for(GradeType gT : list){
+                for (GradeType gT : list) {
                     dao.delete(gT.getId());
                 }
-            }else if(dao instanceof SubjectDao){
+            } else if (dao instanceof SubjectDao) {
                 List<Subject> list = new ArrayList(dao.findAll());
-                for(Subject s : list){
+                for (Subject s : list) {
                     dao.delete(s.getId());
                 }
             }
@@ -100,6 +107,8 @@ public class BaseDatabaseDaoTest {
      */
     @Test
     public void eraseDatabase() {
+        log.info("Testing entire database deleting.");
+
         List<BaseEntity> entities1 = databaseDao.databaseDump();
 
         assertEquals(numberOfItemsInDb, entities1.size());
@@ -119,6 +128,8 @@ public class BaseDatabaseDaoTest {
      */
     @Test
     public void databaseDump() {
+        log.info("Testing database dump.");
+
         List<BaseEntity> entities1 = databaseDao.databaseDump();
 
         assertNotNull(entities1);
@@ -131,6 +142,8 @@ public class BaseDatabaseDaoTest {
      */
     @Test
     public void fillDatabase() {
+        log.info("Testing database for filling with data.");
+
         List<BaseEntity> backupData = databaseDao.databaseDump();
 
         boolean success = databaseDao.eraseDatabase();
@@ -155,6 +168,8 @@ public class BaseDatabaseDaoTest {
      */
     @Test
     public void fillDatabaseNullEntities() {
+        log.info("Testing database for filling with null records.");
+
         List<BaseEntity> backupData1 = databaseDao.databaseDump();
 
         boolean success = databaseDao.fillDatabase(null);
@@ -172,6 +187,7 @@ public class BaseDatabaseDaoTest {
      */
     @Test
     public void getDomainClasses() {
+        log.info("Testing database for presence of all domain classes.");
         Class[] domainClasses = databaseDao.getDomainClasses();
 
         assertNotNull(domainClasses);
@@ -189,7 +205,8 @@ public class BaseDatabaseDaoTest {
     /**
      * This private method prepares init data for testing DatabaseDao functions.
      */
-    private void initData(){
+    private void initData() {
+        log.info("Preparing data for DB testing.");
         Subject programing_in_java = new Subject("Programming in Java", 4);
         Subject computation_structures = new Subject("Computation Structures", 5);
         Subject introduction_to_algorithms = new Subject("Introduction to Algorithms", 3);
@@ -227,7 +244,7 @@ public class BaseDatabaseDaoTest {
         User blue = new Student("James", "Blue", "blue", "pass", "blue@mail.edu");
         User green = new Student("Benjamin", "Green", "green", "pass", "green@mail.edu");
         User gray = new Student("Michael", "Gray", "gray", "pass", "gray@mail.edu");
-        User cyan =  new Student("Ethan", "Cyan", "cyan", "pass", "cyan@mail.edu");
+        User cyan = new Student("Ethan", "Cyan", "cyan", "pass", "cyan@mail.edu");
         User pink = new Student("Emma", "Pink", "pink", "pass", "pink@mail.edu");
         User red = new Student("Sophia", "Red", "red", "pass", "red@mail.edu");
         User yellow = new Student("Isabella", "Yellow", "yellow", "pass", "yellow@mail.edu");

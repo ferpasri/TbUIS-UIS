@@ -6,6 +6,8 @@ import cz.zcu.kiv.matyasj.dp.dao.UserDao;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.web.controllers.BaseControllerTest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,6 +39,9 @@ public class RegisterSubjectListControllerTest extends BaseControllerTest{
 
     private Subject testSubject;
 
+    /** Shared system logger */
+    private final Logger log = LogManager.getLogger();
+
     @Before
     public void setUp(){
         super.setUp();
@@ -67,6 +72,7 @@ public class RegisterSubjectListControllerTest extends BaseControllerTest{
      */
     @Test
     public void showStudiedSubjectList() throws Exception {
+        log.info("Testing studied subject list accessibility.");
         setUserLogin(TEST_USER_STUDENT_USERNAME, TEST_USER_STUDENT_PASSWORD);
         mockMvc.perform(get("/student-view/mySubjects"))
                 .andExpect(status().isOk())
@@ -83,6 +89,7 @@ public class RegisterSubjectListControllerTest extends BaseControllerTest{
      */
     @Test
     public void removeStudiedSubject() throws Exception {
+        log.info("Testing studied subject removal.");
         setUserLogin(TEST_USER_STUDENT_USERNAME, TEST_USER_STUDENT_PASSWORD);
         mockMvc.perform(post("/student-view/mySubjects").param("subjectId", testSubject.getId()+""))
                 .andExpect(status().isOk())
@@ -96,6 +103,7 @@ public class RegisterSubjectListControllerTest extends BaseControllerTest{
      */
     @Test
     public void removeStudiedSubjectNonExistentSubject() throws Exception {
+        log.info("Testing not existing studied subject removal.");
         setUserLogin(TEST_USER_STUDENT_USERNAME, TEST_USER_STUDENT_PASSWORD);
         mockMvc.perform(post("/student-view/mySubjects").param("subjectId", "-1"))
                 .andExpect(status().isOk())
@@ -109,6 +117,7 @@ public class RegisterSubjectListControllerTest extends BaseControllerTest{
      */
     @Test
     public void removeStudiedSubjectNotRegisteredSubject() throws Exception {
+        log.info("Testing not registered studied subject removal.");
         testStudent1.getListOfLearnedSubjects().remove(0);
         testStudent1 = (Student) userDao.save(testStudent1);
         setUserLogin(TEST_USER_STUDENT_USERNAME, TEST_USER_STUDENT_PASSWORD);

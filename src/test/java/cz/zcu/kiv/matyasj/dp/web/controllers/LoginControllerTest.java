@@ -1,5 +1,7 @@
 package cz.zcu.kiv.matyasj.dp.web.controllers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +25,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(locations = "classpath*:applicationContext.xml")
 public class LoginControllerTest extends BaseControllerTest{
 
+    /** Shared system logger */
+    private final Logger log = LogManager.getLogger();
+
     @Before
     public void setUp() {
         super.setUp();
@@ -38,6 +43,7 @@ public class LoginControllerTest extends BaseControllerTest{
      */
     @Test
     public void showLoginForm() throws Exception {
+        log.info("Testing Login screen accessibility.");
         mockMvc.perform(get("/login"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("login.jsp"));
@@ -48,6 +54,7 @@ public class LoginControllerTest extends BaseControllerTest{
      */
     @Test
     public void loginUserStudent() throws Exception {
+        log.info("Testing login action with student role.");
         mockMvc.perform(post("/login").param("username", TEST_USER_STUDENT_USERNAME).param("password", TEST_USER_STUDENT_PASSWORD))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/student-view/overview"));
@@ -58,6 +65,7 @@ public class LoginControllerTest extends BaseControllerTest{
      */
     @Test
     public void loginUserTeacher() throws Exception {
+        log.info("Testing login action with teacher role.");
         mockMvc.perform(post("/login").param("username", TEST_USER_TEACHER_USERNAME).param("password", TEST_USER_TEACHER_PASSWORD))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/teacher-view/overview"));
@@ -68,6 +76,7 @@ public class LoginControllerTest extends BaseControllerTest{
      */
     @Test
     public void loginUserNonExistentUser() throws Exception {
+        log.info("Testing login action with not existing user.");
         mockMvc.perform(post("/login").param("username", "randomUser").param("password", "randomPassword"))
                 .andExpect(status().isForbidden());
     }

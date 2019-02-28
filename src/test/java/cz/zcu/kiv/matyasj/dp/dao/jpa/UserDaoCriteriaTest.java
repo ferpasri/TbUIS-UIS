@@ -3,6 +3,8 @@ package cz.zcu.kiv.matyasj.dp.dao.jpa;
 import cz.zcu.kiv.matyasj.dp.dao.UserDao;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.domain.users.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +27,19 @@ public class UserDaoCriteriaTest {
     private UserDao userDao;
 
     /**
+     * Shared system logger
+     */
+    private final Logger log = LogManager.getLogger();
+
+    /**
      * This method tests UserDao function - Adding student into the database
      */
     @Test
     @Transactional
     @Rollback(true)
-    public void testAddStudent(){
+    public void testAddStudent() {
+        log.info("Testing student adding.");
+
         User newUser = new Student();
         newUser.setFirstName("John");
         newUser.setLastName("Doe");
@@ -50,7 +59,9 @@ public class UserDaoCriteriaTest {
     @Test
     @Transactional
     @Rollback(true)
-    public void testGetUserByUsername(){
+    public void testGetUserByUsername() {
+        log.info("Testing user by username retrieving.");
+
         User newUser = new Student();
         newUser.setFirstName("John");
         newUser.setLastName("Doe");

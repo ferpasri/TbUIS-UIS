@@ -7,6 +7,8 @@ import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.utils.dates.DateUtility;
 import cz.zcu.kiv.matyasj.dp.web.controllers.BaseControllerTest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,6 +45,9 @@ public class NewExamDateControllerTest extends BaseControllerTest{
 
     private Subject testSubject;
 
+    /** Shared system logger */
+    private final Logger log = LogManager.getLogger();
+
     @Before
     public void setUp() {
         super.setUp();
@@ -75,6 +80,7 @@ public class NewExamDateControllerTest extends BaseControllerTest{
      */
     @Test
     public void showTeachersExamTermsList() throws Exception {
+        log.info("Testing teachers list of exam terms accessibility.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(get("/teacher-view/newExamDates"))
                 .andExpect(status().isOk())
@@ -89,6 +95,7 @@ public class NewExamDateControllerTest extends BaseControllerTest{
      */
     @Test
     public void showTeachersExamTermsListWithSubject() throws Exception {
+        log.info("Testing teachers list of exam terms with subject accessibility.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(get("/teacher-view/newExamDates/"+testSubject.getId()))
                 .andExpect(status().isOk())
@@ -104,6 +111,7 @@ public class NewExamDateControllerTest extends BaseControllerTest{
      */
     @Test
     public void saveNewExamTerm() throws Exception {
+        log.info("Testing new exam term save.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(post("/teacher-view/newExamDates").param("date-of-test", dateUtility.dateToString(new Date(new Date().getTime() + 100000))).param("subject", testSubject.getId()+"").param("maxParticipants", "10"))
                 .andExpect(status().isOk())
@@ -117,6 +125,7 @@ public class NewExamDateControllerTest extends BaseControllerTest{
      */
     @Test
     public void saveNewExamTermNonExistentSubject() throws Exception {
+        log.info("Testing not existing new exam term save.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(post("/teacher-view/newExamDates").param("date-of-test", dateUtility.dateToString(new Date(new Date().getTime() + 100000))).param("subject", "-1").param("maxParticipants", "10"))
                 .andExpect(status().isOk())

@@ -3,6 +3,8 @@ package cz.zcu.kiv.matyasj.dp.dao.jpa;
 import cz.zcu.kiv.matyasj.dp.dao.GradeDao;
 import cz.zcu.kiv.matyasj.dp.dao.GradeTypeDao;
 import cz.zcu.kiv.matyasj.dp.domain.university.GradeType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,12 +32,19 @@ public class GradeTypeDaoCriteriaTest {
     GradeDao gradeDao;
 
     /**
+     * Shared system logger
+     */
+    private final Logger log = LogManager.getLogger();
+
+    /**
      * This method tests GradeTypeDao function - Getting all grade types from database
      */
     @Test
     @Transactional
     @Rollback(false)
     public void getAllGradeTypes() {
+        log.info("Testing all grade types retrieving.");
+
         int beforeGradeTypes = gradeTypeDao.findAll().size();
         GradeType g1 = new GradeType();
         g1.setName("GradeType 1");
@@ -53,6 +62,6 @@ public class GradeTypeDaoCriteriaTest {
 
         assertNotNull(gradeTypeList);
         assertTrue(gradeTypeList instanceof List);
-        assertEquals(beforeGradeTypes+2, gradeTypeList.size());
+        assertEquals(beforeGradeTypes + 2, gradeTypeList.size());
     }
 }

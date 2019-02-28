@@ -41,7 +41,10 @@ public class XMLDataPorterTest {
     @Autowired
     private UserDao userDao;
 
-    protected Logger log = LogManager.getLogger();
+    /**
+     * Shared system logger
+     */
+    private final Logger log = LogManager.getLogger();
 
     private static final String TEST_FILE_XML = "test_export_file.xml";
     private static final String INIT_TEST_DATA_FILE_PATH = "src\\test\\java\\cz\\zcu\\kiv\\matyasj\\dp\\utils\\dataporter\\xml\\";
@@ -56,7 +59,7 @@ public class XMLDataPorterTest {
     @After
     public void tearDown() {
         File testFile = new File(TEST_FILE_XML);
-        if(testFile.exists() && !testFile.isDirectory()) {
+        if (testFile.exists() && !testFile.isDirectory()) {
             try {
                 log.info("Try to delete export test file[" + TEST_FILE_XML + "]");
                 Files.delete(Paths.get(TEST_FILE_XML));
@@ -71,7 +74,8 @@ public class XMLDataPorterTest {
      */
     @Test
     public void deletingDbTest() {
-        if(databaseDao.databaseDump().size() == 0){
+        log.info("Testing DB deletion.");
+        if (databaseDao.databaseDump().size() == 0) {
             xmlDataPorter.importData(new File(INIT_TEST_DATA_FILE_PATH + TEST_FILE_XML));
         }
         databaseDao.eraseDatabase();
@@ -84,6 +88,7 @@ public class XMLDataPorterTest {
      */
     @Test
     public void exportDataTest() throws Exception {
+        log.info("Testing data export.");
         assertTrue(xmlDataPorter.exportData(TEST_FILE_XML, databaseDao.databaseDump()));
     }
 
@@ -92,6 +97,7 @@ public class XMLDataPorterTest {
      */
     @Test
     public void importDataTest1() throws Exception {
+        log.info("Testing data import.");
         List<BaseEntity> entities1 = new ArrayList<>();
         List<BaseEntity> entities2 = new ArrayList<>();
 
@@ -118,6 +124,7 @@ public class XMLDataPorterTest {
      */
     @Test
     public void importDataTestNewStudent() throws Exception {
+        log.info("Testing data import with new created user.");
         User testStudent = new Student("John", "Doe", "testStudent", "password", "jDoe@mail.com");
         User testStudentAfter = null;
 
@@ -142,6 +149,7 @@ public class XMLDataPorterTest {
      */
     @Test
     public void importDataNonExistentFile() throws Exception {
+        log.info("Testing data import from not existing file.");
         assertNull(xmlDataPorter.importData(new File("nonExistentFile.xml")));
     }
 
@@ -150,9 +158,10 @@ public class XMLDataPorterTest {
      */
     @Test
     public void importEmptyExistentFile() throws Exception {
+        log.info("Testing data import from empty file.");
         String emptyFileName = "emptyFile.xml";
         File newFile = new File(emptyFileName);
-        if(!newFile.exists()){
+        if (!newFile.exists()) {
             newFile.createNewFile();
         }
         assertNull(xmlDataPorter.importData(new File(emptyFileName)));

@@ -40,7 +40,10 @@ public class JSONDataPorterTest {
     @Autowired
     private UserDao userDao;
 
-    protected Logger log = LogManager.getLogger();
+    /**
+     * Shared system logger
+     */
+    private final Logger log = LogManager.getLogger();
 
     private static final String TEST_FILE_JSON = "test_export_file.json";
     private static final String INIT_TEST_DATA_FILE_PATH = "src\\test\\java\\cz\\zcu\\kiv\\matyasj\\dp\\utils\\dataporter\\json\\";
@@ -56,7 +59,7 @@ public class JSONDataPorterTest {
     @After
     public void tearDown() {
         File testFile = new File(TEST_FILE_JSON);
-        if(testFile.exists() && !testFile.isDirectory()) {
+        if (testFile.exists() && !testFile.isDirectory()) {
             try {
                 log.info("Try to delete export test file[" + TEST_FILE_JSON + "]");
                 Files.delete(Paths.get(TEST_FILE_JSON));
@@ -71,7 +74,8 @@ public class JSONDataPorterTest {
      */
     @Test
     public void deletingDbTest() {
-        if(databaseDao.databaseDump().size() == 0){
+        log.info("Testing DB deletion.");
+        if (databaseDao.databaseDump().size() == 0) {
             jsonDataPorter.importData(new File(INIT_TEST_DATA_FILE_PATH + TEST_FILE_JSON));
         }
         databaseDao.eraseDatabase();
@@ -84,6 +88,7 @@ public class JSONDataPorterTest {
      */
     @Test
     public void exportDataTest() throws Exception {
+        log.info("Testing data export.");
         assertTrue(jsonDataPorter.exportData(TEST_FILE_JSON, databaseDao.databaseDump()));
     }
 
@@ -92,6 +97,7 @@ public class JSONDataPorterTest {
      */
     @Test
     public void importDataTest1() throws Exception {
+        log.info("Testing data import.");
         List<BaseEntity> entities1, entities2;
 
         // Get entities from db before
@@ -116,6 +122,7 @@ public class JSONDataPorterTest {
      */
     @Test
     public void importDataTestNewStudent() throws Exception {
+        log.info("Testing data import with new created user.");
         User testStudent = new Student("John", "Doe", "testStudent", "password", "jDoe@mail.com");
         User testStudentAfter = null;
 
@@ -140,6 +147,7 @@ public class JSONDataPorterTest {
      */
     @Test
     public void importDataNonExistentFile() throws Exception {
+        log.info("Testing data import from not existing file.");
         List<BaseEntity> entities = jsonDataPorter.importData(new File("nonExistentFile.json"));
         assertNull(entities);
     }
@@ -149,9 +157,10 @@ public class JSONDataPorterTest {
      */
     @Test
     public void importEmptyExistentFile() throws Exception {
+        log.info("Testing data import from empty file.");
         String emptyFileName = "emptyFile.json";
         File newFile = new File(emptyFileName);
-        if(!newFile.exists()){
+        if (!newFile.exists()) {
             newFile.createNewFile();
         }
         assertNull(jsonDataPorter.importData(new File(emptyFileName)));

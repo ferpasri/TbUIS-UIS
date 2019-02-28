@@ -6,6 +6,8 @@ import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.domain.users.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,15 +35,23 @@ public class GenericDaoJpaTest {
     @Autowired
     private GenericDao subjectDaoCriteria;
 
+    /**
+     * Shared system logger
+     */
+    private final Logger log = LogManager.getLogger();
+
 
     /**
      * This method tests GenericDao function - Saving entities
+     *
      * @throws Exception
      */
     @Transactional
     @Rollback(true)
     @Test
     public void save() throws Exception {
+        log.info("Testing user saving.");
+
         User u1 = new Student();
         u1.setUsername("User 1");
         User u2 = new Student();
@@ -82,12 +92,15 @@ public class GenericDaoJpaTest {
 
     /**
      * This method tests GenericDao function - finding one entity
+     *
      * @throws Exception
      */
     @Transactional
     @Rollback(true)
     @Test
     public void findOne() throws Exception {
+        log.info("Testing user finding.");
+
         User u1 = new Student();
         u1.setUsername("User 1");
         u1.setFirstName("John");
@@ -102,12 +115,14 @@ public class GenericDaoJpaTest {
 
     /**
      * This method tests GenericDao function - Deleting entities
+     *
      * @throws Exception
      */
     @Transactional
     @Rollback(true)
     @Test
     public void delete() throws Exception {
+        log.info("Testing user deleting.");
         User u1 = new Student();
         u1.setUsername("User 1");
         u1.setFirstName("John");

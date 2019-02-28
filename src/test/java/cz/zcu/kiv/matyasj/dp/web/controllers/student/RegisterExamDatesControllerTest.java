@@ -7,6 +7,8 @@ import cz.zcu.kiv.matyasj.dp.domain.university.ExaminationDate;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.web.controllers.BaseControllerTest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,6 +42,9 @@ public class RegisterExamDatesControllerTest extends BaseControllerTest{
 
     private ExaminationDate testExamDate;
     private Subject testSubject;
+
+    /** Shared system logger */
+    private final Logger log = LogManager.getLogger();
 
     @Before
     public void setUp(){
@@ -82,6 +87,7 @@ public class RegisterExamDatesControllerTest extends BaseControllerTest{
      */
     @Test
     public void showRegisteredExamDateList() throws Exception {
+        log.info("Testing registered exam date list accessibility.");
         setUserLogin(TEST_USER_STUDENT_USERNAME, TEST_USER_STUDENT_PASSWORD);
         mockMvc.perform(get("/student-view/myExamDates"))
                 .andExpect(status().isOk())
@@ -95,6 +101,7 @@ public class RegisterExamDatesControllerTest extends BaseControllerTest{
      */
     @Test
     public void unregisterExamDate() throws Exception {
+        log.info("Testing exam date unregistration.");
         setUserLogin(TEST_USER_STUDENT_USERNAME, TEST_USER_STUDENT_PASSWORD);
         mockMvc.perform(post("/student-view/myExamDates").param("examDateId", testExamDate.getId()+""))
                 .andExpect(status().isOk())
@@ -107,6 +114,7 @@ public class RegisterExamDatesControllerTest extends BaseControllerTest{
      */
     @Test
     public void unregisterExamDateNonExistentExamDate() throws Exception {
+        log.info("Testing not existing exam date unregistration.");
         setUserLogin(TEST_USER_STUDENT_USERNAME, TEST_USER_STUDENT_PASSWORD);
         mockMvc.perform(post("/student-view/myExamDates").param("examDateId", "-1"))
                 .andExpect(status().isOk())

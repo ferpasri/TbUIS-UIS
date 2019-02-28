@@ -7,6 +7,8 @@ import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.domain.users.User;
 import cz.zcu.kiv.matyasj.dp.service.RestoreDBService;
 import cz.zcu.kiv.matyasj.dp.utils.init.Initializer;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,9 +39,14 @@ public class BaseRestoreDBServiceTest {
     @Autowired
     Initializer initializer;
 
+    /**
+     * Shared system logger
+     */
+    private final Logger log = LogManager.getLogger();
+
     @Before
     public void setUp() throws Exception {
-        if(databaseDao.eraseDatabase()) initializer.reinit();
+        if (databaseDao.eraseDatabase()) initializer.reinit();
     }
 
     /**
@@ -47,6 +54,8 @@ public class BaseRestoreDBServiceTest {
      */
     @Test
     public void restoreDBBaseTest() {
+        log.info("Testing DB restoration.");
+
         List<BaseEntity> entitiesBefore = databaseDao.databaseDump();
         restoreDBService.restoreDB();
         List<BaseEntity> entitiesAfter = databaseDao.databaseDump();
@@ -59,6 +68,8 @@ public class BaseRestoreDBServiceTest {
      */
     @Test
     public void restoreDBRemoveDB() {
+        log.info("Testing DB removal and restoration.");
+
         List<BaseEntity> entitiesBefore = databaseDao.databaseDump();
         databaseDao.eraseDatabase();
 
@@ -73,6 +84,8 @@ public class BaseRestoreDBServiceTest {
      */
     @Test
     public void restoreDBWithDBChange() {
+        log.info("Testing DB restoration with DB change.");
+
         List<BaseEntity> entitiesBefore = databaseDao.databaseDump();
         //public Student(String firstName, String lastName, String username, String password, String email){
         // DB change - add new user into database

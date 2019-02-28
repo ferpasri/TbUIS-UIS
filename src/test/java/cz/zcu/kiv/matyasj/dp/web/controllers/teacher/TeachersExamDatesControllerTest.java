@@ -6,6 +6,8 @@ import cz.zcu.kiv.matyasj.dp.domain.university.ExaminationDate;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.web.controllers.BaseControllerTest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,6 +38,9 @@ public class TeachersExamDatesControllerTest extends BaseControllerTest{
 
     private Subject testSubject;
     private ExaminationDate testExamTerm;
+
+    /** Shared system logger */
+    private final Logger log = LogManager.getLogger();
 
     @Before
     public void setUp() {
@@ -77,6 +82,7 @@ public class TeachersExamDatesControllerTest extends BaseControllerTest{
      */
     @Test
     public void showTeachersExamTermsList() throws Exception {
+        log.info("Testing teachers list of exam terms accessibility.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(get("/teacher-view/myExamDates"))
                 .andExpect(status().isOk())
@@ -91,6 +97,7 @@ public class TeachersExamDatesControllerTest extends BaseControllerTest{
      */
     @Test
     public void removeExamTerm() throws Exception {
+        log.info("Testing exam term removal.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(post("/teacher-view/myExamDates").param("examDateId", testExamTerm.getId()+""))
                 .andExpect(status().isOk())
@@ -104,6 +111,7 @@ public class TeachersExamDatesControllerTest extends BaseControllerTest{
      */
     @Test
     public void removeExamTermNonExistentTerm() throws Exception {
+        log.info("Testing not existing exam term removal.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(post("/teacher-view/myExamDates").param("examDateId", "-1"))
                 .andExpect(status().isOk())

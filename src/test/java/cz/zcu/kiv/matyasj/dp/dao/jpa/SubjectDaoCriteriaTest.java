@@ -9,6 +9,8 @@ import cz.zcu.kiv.matyasj.dp.domain.university.Grade;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,12 +43,19 @@ public class SubjectDaoCriteriaTest {
     private GradeDao gradeDao;
 
     /**
+     * Shared system logger
+     */
+    private final Logger log = LogManager.getLogger();
+
+    /**
      * This method tests SubjectDao function - Getting list of subjects without excluded selected subjects.
      */
     @Test
     @Transactional
     @Rollback(true)
     public void getSubjectsExceptSelected() throws Exception {
+        log.info("Testing subject except selected retrieving.");
+
         Subject math1 = new Subject();
         math1.setName("Math1");
         math1.setCreditRating(6);
@@ -80,12 +89,15 @@ public class SubjectDaoCriteriaTest {
 
     /**
      * This method tests SubjectDao function - Deleting subject from database (more complex operation than delete one item from db)
+     *
      * @throws Exception
      */
     @Test
     @Transactional
     @Rollback(true)
     public void deleteTest() throws Exception {
+        log.info("Testing subject deleting.");
+
         Subject subject = new Subject("test subject", 6);
         subject = subjectDao.save(subject);
 

@@ -5,6 +5,8 @@ import cz.zcu.kiv.matyasj.dp.dao.UserDao;
 import cz.zcu.kiv.matyasj.dp.domain.university.ExaminationDate;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,11 @@ public class ExaminationDateDaoTest {
     private ExaminationDateDao examinationDateDao;
 
     /**
+     * Shared system logger
+     */
+    private final Logger log = LogManager.getLogger();
+
+    /**
      * This method tests ExaminationDateDao function - Get Exam Dates list of one particular student.
      *
      * @throws Exception
@@ -42,6 +49,8 @@ public class ExaminationDateDaoTest {
     @Transactional
     @Rollback(true)
     public void testGetExaminationTermOfStudent() throws Exception {
+        log.info("Testing examination terms of student retrieving.");
+
         Student student1 = new Student();
         Student student2 = new Student();
         Student student3 = new Student();
@@ -57,10 +66,10 @@ public class ExaminationDateDaoTest {
         ExaminationDate term3 = new ExaminationDate();
         ExaminationDate term4 = new ExaminationDate();
 
-        term1.setParticipants( new ArrayList<Student>());
-        term2.setParticipants( new ArrayList<Student>());
-        term3.setParticipants( new ArrayList<Student>());
-        term4.setParticipants( new ArrayList<Student>());
+        term1.setParticipants(new ArrayList<Student>());
+        term2.setParticipants(new ArrayList<Student>());
+        term3.setParticipants(new ArrayList<Student>());
+        term4.setParticipants(new ArrayList<Student>());
 
         term1.getParticipants().add(student1);
         term1.getParticipants().add(student2);
@@ -121,13 +130,15 @@ public class ExaminationDateDaoTest {
     @Transactional
     @Rollback(true)
     public void getExaminationTermOfStudentInFuture() throws Exception {
+        log.info("Testing future examination terms of student retrieving.");
+
         Date today = new Date();
         Date yesterday, tomorrow, dayAfterTomorrow, afterHour;
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(today);
 
-        cal.add(Calendar.HOUR,1);
+        cal.add(Calendar.HOUR, 1);
         afterHour = cal.getTime();
 
         cal.add(Calendar.DATE, 1);
@@ -147,20 +158,20 @@ public class ExaminationDateDaoTest {
         ExaminationDate term3 = new ExaminationDate();
         ExaminationDate term4 = new ExaminationDate();
 
-        term1.setParticipants( new ArrayList<Student>());
-        term2.setParticipants( new ArrayList<Student>());
-        term3.setParticipants( new ArrayList<Student>());
-        term4.setParticipants( new ArrayList<Student>());
+        term1.setParticipants(new ArrayList<Student>());
+        term2.setParticipants(new ArrayList<Student>());
+        term3.setParticipants(new ArrayList<Student>());
+        term4.setParticipants(new ArrayList<Student>());
 
         term1.getParticipants().add(student);
         term2.getParticipants().add(student);
         term3.getParticipants().add(student);
         term4.getParticipants().add(student);
 
-        term1.setDateOfTest( yesterday);
-        term2.setDateOfTest( tomorrow);
-        term3.setDateOfTest( dayAfterTomorrow);
-        term4.setDateOfTest( afterHour);
+        term1.setDateOfTest(yesterday);
+        term2.setDateOfTest(tomorrow);
+        term3.setDateOfTest(dayAfterTomorrow);
+        term4.setDateOfTest(afterHour);
 
         userDao.save(student);
 
@@ -181,12 +192,15 @@ public class ExaminationDateDaoTest {
 
     /**
      * This method tests ExaminationDateDao function - Get Exam Dates list of one particular teacher.
+     *
      * @throws Exception
      */
     @Test
     @Transactional
     @Rollback(true)
     public void getExaminationTermOfTeacher() throws Exception {
+        log.info("Testing examination terms of teacher retrieving.");
+
         Teacher teacher = new Teacher();
         teacher.setUsername("teacher1");
         userDao.save(teacher);
@@ -211,12 +225,15 @@ public class ExaminationDateDaoTest {
 
     /**
      * This method tests ExaminationDateDao function - Register one particular student on exam term.
+     *
      * @throws Exception
      */
     @Test
     @Transactional
     @Rollback(true)
     public void registerStudentOnTerm() throws Exception {
+        log.info("Testing student on term registration.");
+
         Student student = new Student();
         student.setUsername("student1");
 
@@ -237,12 +254,15 @@ public class ExaminationDateDaoTest {
 
     /**
      * This method tests ExaminationDateDao function - Register one particular student on existing Exam Date
+     *
      * @throws Exception
      */
     @Test
     @Transactional
     @Rollback(true)
     public void registerStudentOnTermNonExistentStudent() throws Exception {
+        log.info("Testing student on not existing term registration.");
+
         ExaminationDate term = new ExaminationDate();
 
 
@@ -255,12 +275,15 @@ public class ExaminationDateDaoTest {
 
     /**
      * This method tests ExaminationDateDao function - Try to register one particular student on existing Exam Date twice.
+     *
      * @throws Exception
      */
     @Test
     @Transactional
     @Rollback(true)
     public void registerStudentOnTermStudentAlreadyRegistered() throws Exception {
+        log.info("Testing student on already registered term registration.");
+
         Student student = new Student();
         student.setUsername("student1");
         userDao.save(student);
