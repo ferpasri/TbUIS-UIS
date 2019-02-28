@@ -31,7 +31,6 @@ public class NewGradeController {
     /** Object for resolving messages, with support for the parameterization and internationalization of such messages.*/
     @Autowired
     MessageSource messageSource;
-
     /** Shared system logger */
     protected Logger log = LogManager.getLogger();
 
@@ -42,7 +41,8 @@ public class NewGradeController {
      * @return ModelAndView object
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView showNewGradeForm(Model model){
+    public ModelAndView showNewGradeForm(Model model) {
+        log.info("Request for retrieving new evaluation form view.");
         List<ExaminationDate> examinationDateList = teacherService.getMyExaminationDatesWithoutGraduateParticipants((Teacher) teacherService.getCurrentUser());
         List<GradeType> gradeTypes = teacherService.getAllGradeTypes();
 
@@ -51,21 +51,21 @@ public class NewGradeController {
         retModel.addObject("gradeTypes", gradeTypes);
         retModel.addObject("view", "setEvaluation");
 
-        log.info("Show new evaluation form");
         return retModel;
     }
 
     /**
      * This method serves user GET requests to show new ExamDate form with pre-selected Exam Date and student
      *
-     * @param model Model to be sent to view
+     * @param model      Model to be sent to view
      * @param examDateId Id of pre-selected exam date
-     * @param studentId Id of pre-selected student
-     *
+     * @param studentId  Id of pre-selected student
      * @return ModelAndView object
      */
     @GetMapping("/{examDateId}/{studentId}")
     public ModelAndView showNewGradeFormByExamTermAndStudent(Model model, @PathVariable Long examDateId, @PathVariable Long studentId) {
+        log.info("Request for retrieving new evaluation form with preselected exam date with id " + examDateId + " and student with id " + studentId + " view.");
+
         List<GradeType> gradeTypes = teacherService.getAllGradeTypes();
         ExaminationDate examinationDate = teacherService.getExaminationTerm(examDateId);
         Student owner = teacherService.getStudentFromExaminationTerm(examinationDate, studentId);
@@ -77,11 +77,40 @@ public class NewGradeController {
         retModel.addObject("examinationDate", examinationDate);
         retModel.addObject("view", "setEvaluation");
 
-        log.info("Show new evaluation form with preselected exam date and student");
         return retModel;
     }
 
+    /**
+     * This method serves user GET requests to show new ExamDate form with pre-selected Exam Date and student
+     *
+     * @param locale      Locale object
+     * @param model       Model to be sent to view
+     * @param gradeTypeId id of GradeType
+     * @param ownerId     id of graduated student
+     * @param examTermId  id of ExamDate where new evaluation has been created
+     * @return ModelAndView object
+     */
+    @RequestMapping(method = RequestMethod.POST)
+    public ModelAndView saveNewGrade(Locale locale, Model model, @RequestParam("grade") long gradeTypeId, @RequestParam("ownerId") long ownerId, @RequestParam("examTermId") long examTermId) {
+        Teacher currentTeacher = (Teacher) teacherService.getCurrentUser();
+        log.info("Request from user with id " + currentTeacher.getId() + " for saving new grade for exam term with id " + examTermId + " for student with id " + ownerId + ".");
+        ExaminationDate examinationDate = teacherService.getExaminationTerm(examTermId);
+
+        boolean success = teacherService.createNewGrade(currentTeacher, ownerId, gradeTypeId, examinationDate.getSubject().getId(), examinationDate.getId());
+        if (success) {
+            model.addAttribute("successMessage", messageSource.getMessage("tea.setEvaluation.successMessage", null, locale));
+            log.info("Request for new grade created by teacher " + currentTeacher.getFirstName() + " " + currentTeacher.getLastName() + " was successful.");
+        } else {
+            model.addAttribute("errorMessage", messageSource.getMessage("tea.setEvaluation.errorMessage", null, locale));
+            log.error("Request for new grade created by teacher " + currentTeacher.getFirstName() + " " + currentTeacher.getLastName() + " failed.");
+        }
+
+        return showNewGradeFormBySelected(examinationDate);
+    }
+
     private ModelAndView showNewGradeFormBySelected(ExaminationDate examinationDate) {
+        log.info("Request for retrieving new grade form by selected date " + examinationDate + ".");
+
         List<GradeType> gradeTypes = teacherService.getAllGradeTypes();
         List<ExaminationDate> examinationDateList = teacherService.getMyExaminationDatesWithoutGraduateParticipants((Teacher) teacherService.getCurrentUser());
 
@@ -91,36 +120,6 @@ public class NewGradeController {
         retModel.addObject("view", "setEvaluation");
         retModel.addObject("examinationDateSelected", examinationDate);
 
-        log.info("Show new evaluation form");
         return retModel;
-    }
-
-    /**
-     * This method serves user GET requests to show new ExamDate form with pre-selected Exam Date and student
-     *
-     * @param locale Locale object
-     * @param model Model to be sent to view
-     * @param gradeTypeId id of GradeType
-     * @param ownerId id of graduated student
-     * @param examTermId id of ExamDate where new evaluation has been created
-     *
-     * @return ModelAndView object
-     */
-    @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView saveNewGrade(Locale locale, Model model, @RequestParam("grade") long gradeTypeId, @RequestParam("ownerId") long ownerId, @RequestParam("examTermId") long examTermId) {
-        ExaminationDate examinationDate = teacherService.getExaminationTerm(examTermId);
-        Teacher currentTeacher = (Teacher) teacherService.getCurrentUser();
-
-        log.info("Creating a new Grade.");
-        boolean success = teacherService.createNewGrade(currentTeacher, ownerId, gradeTypeId, examinationDate.getSubject().getId(), examinationDate.getId());
-        if(success){
-            model.addAttribute("successMessage", messageSource.getMessage("tea.setEvaluation.successMessage", null, locale));
-            log.info("New grade has been successfully created by teacher " + currentTeacher.getFirstName() + " " + currentTeacher.getLastName());
-        }else {
-            model.addAttribute("errorMessage", messageSource.getMessage("tea.setEvaluation.errorMessage", null, locale));
-            log.error("New grade has NOT been created by teacher " + currentTeacher.getFirstName() + " " + currentTeacher.getLastName());
-        }
-
-        return showNewGradeFormBySelected(examinationDate);
     }
 }

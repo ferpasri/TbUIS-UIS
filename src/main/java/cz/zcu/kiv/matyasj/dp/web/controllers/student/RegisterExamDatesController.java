@@ -30,7 +30,6 @@ public class RegisterExamDatesController {
     /** Object for resolving messages, with support for the parameterization and internationalization of such messages.*/
     @Autowired
     MessageSource messageSource;
-
     /** Shared system logger */
     private final Logger log = LogManager.getLogger();
 
@@ -41,33 +40,38 @@ public class RegisterExamDatesController {
      * @return ModelAndView object
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView showRegisteredExamDateList(Model model){
-        log.info("Show my Exam dates list");
+    public ModelAndView showRegisteredExamDateList(Model model) {
+        log.info("Request for retrieving reqistered exam dates view.");
+
         List<ExaminationDate> examinationDateList = studentService.getStudentExaminationDatesList(studentService.getCurrentUser().getId());
 
         ModelAndView retModel = new ModelAndView("/WEB-INF/pages/student-view.jsp");
         retModel.addObject("view", "myExamDates");
         retModel.addObject("examinationDateList", examinationDateList);
 
-        return  retModel;
+        return retModel;
     }
 
     /**
      * this method serves user POST request for unregistering Examination Date.
      *
-     * @param locale System locale object
-     * @param model Model to be sent to view
+     * @param locale     System locale object
+     * @param model      Model to be sent to view
      * @param examDateId Id of Examinatino Date to unregister
      * @return ModelAndView object
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView unregisterExamDate(Locale locale, Model model, @RequestParam("examDateId") Long examDateId){
-        log.info("Unregister Exam date - " +examDateId);
-        boolean success = studentService.unsetExaminationDate(studentService.getCurrentUser().getId(), examDateId);
+    public ModelAndView unregisterExamDate(Locale locale, Model model, @RequestParam("examDateId") Long examDateId) {
+        Long userId = studentService.getCurrentUser().getId();
+        log.info("Request for unregistering exam date with id " + examDateId + " for user with id " + userId + ".");
 
-        if(success){
+        boolean success = studentService.unsetExaminationDate(userId, examDateId);
+
+        if (success) {
+            log.info("Request for unregistering exam date with id " + examDateId + " was successful");
             model.addAttribute("successMessage", messageSource.getMessage("stu.myExamDates.successMessage", null, locale));
-        }else {
+        } else {
+            log.error("Request for unregistering exam date with id " + examDateId + " failed");
             model.addAttribute("errorMessage", messageSource.getMessage("stu.myExamDates.errorMessage", null, locale));
         }
         return showRegisteredExamDateList(model);

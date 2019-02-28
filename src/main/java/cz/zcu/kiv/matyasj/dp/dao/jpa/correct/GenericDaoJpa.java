@@ -53,6 +53,9 @@ public class GenericDaoJpa<E extends IEntity<PK>, PK extends Serializable> imple
         this.persistedClass = persistedClass;
     }
 
+    public GenericDaoJpa() {
+    }
+
     /**
      * Either inserts new or updates existing instance.
      *

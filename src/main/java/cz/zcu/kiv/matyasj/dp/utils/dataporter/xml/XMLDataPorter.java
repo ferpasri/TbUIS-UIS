@@ -26,7 +26,6 @@ import java.util.List;
 public class XMLDataPorter implements DataPorter {
     /** JAXB context for creation of JAXB Marshaller/UnMarshaller */
     private JAXBContext jaxbContext;
-
     /** Shared system logger */
     private final Logger log = LogManager.getLogger();
 
@@ -47,7 +46,7 @@ public class XMLDataPorter implements DataPorter {
         try {
             jaxbContext = JAXBContext.newInstance(domainClassesWithDataContainer);
         } catch (JAXBException e) {
-            log.error("Creating JAXB context Exception: " + e.getMessage(),e);
+            log.error("Creating JAXB context Exception: " + e.getMessage(), e);
         }
     }
 
@@ -59,12 +58,12 @@ public class XMLDataPorter implements DataPorter {
      * @return File with exported data
      */
     @Override
-    public boolean exportData(String fileName, List<BaseEntity> dbEntities){
+    public boolean exportData(String fileName, List<BaseEntity> dbEntities) {
         // Special data container for collection all entities from database
         DataContainer data = new DataContainer();
 
         // Get all data entities from db by databaseDao
-        for(BaseEntity entity : dbEntities){
+        for (BaseEntity entity : dbEntities) {
             data.getEntities().add(entity);
         }
 
@@ -77,8 +76,9 @@ public class XMLDataPorter implements DataPorter {
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
             jaxbMarshaller.marshal(data, file);
+            log.info("Data exported to file " + fileName + ".");
         } catch (JAXBException e) {
-            log.error("Marshalling error: " + e.getMessage(),e);
+            log.error("Marshalling error: " + e.getMessage(), e);
             return false;
         }
 
@@ -94,7 +94,7 @@ public class XMLDataPorter implements DataPorter {
      */
     @Override
     public List<BaseEntity> importData(File f) {
-        if(f == null || !f.exists()){
+        if (f == null || !f.exists()) {
             log.error("Imported file does not exist!");
             return null;
         }
@@ -103,8 +103,9 @@ public class XMLDataPorter implements DataPorter {
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             DataContainer data = (DataContainer) jaxbUnmarshaller.unmarshal(f);
 
+            log.info("Data imported from file" + f.getName() + ".");
             return data.getEntities();
-        }catch (JAXBException e){
+        } catch (JAXBException e) {
             log.error("Error during JAXB unmarshalling has occurred!");
             e.printStackTrace();
         }

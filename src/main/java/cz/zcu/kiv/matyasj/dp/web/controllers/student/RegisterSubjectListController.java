@@ -32,18 +32,19 @@ public class RegisterSubjectListController {
     /** Object for resolving messages, with support for the parameterization and internationalization of such messages.*/
     @Autowired
     MessageSource messageSource;
-
     /** Shared system logger */
     private final Logger log = LogManager.getLogger();
 
     /**
      * This method serves user GET requests to getting list of enrolled subjects.
+     *
      * @param model Model to be sent to view
      * @return ModelAndView object
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView showStudiedSubjectList(Model model){
-        log.info("Show studied subject list");
+    public ModelAndView showStudiedSubjectList(Model model) {
+        log.info("Request for retrieving studied subjects view.");
+
         List<Subject> listOfSubject = studentService.getStudiedSubjectsList(studentService.getCurrentUser().getId());
         List<Subject> listOfAbsolvedSubject = studentService.getAbsolvedSubjectsList(studentService.getCurrentUser().getId());
         List<Grade> listOfGrades = studentService.getStudentGrades((Student) studentService.getCurrentUser());
@@ -57,30 +58,31 @@ public class RegisterSubjectListController {
 
         retModel.addObject("view", "mySubjects");
 
-
-        return  retModel;
+        return retModel;
     }
 
     /**
      * This method serves user POST request to unenroll single subject.
      *
-     * @param locale System locale object
-     * @param model Model to be sent to view
+     * @param locale    System locale object
+     * @param model     Model to be sent to view
      * @param subjectId Id of subject to unenroll
      * @return ModelAndView object
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView removeStudiedSubject(Locale locale, Model model, @RequestParam("subjectId") Long subjectId){
+    public ModelAndView removeStudiedSubject(Locale locale, Model model, @RequestParam("subjectId") Long subjectId) {
         Long studentId = studentService.getCurrentUser().getId();
-        log.info("Deleting subject id["+subjectId+"] userId["+studentId + "]");
+        log.info("Request from user with id " + studentId + " for removing subject with id " + subjectId + " from studied.");
 
         boolean success = studentService.unsetStudiedSubject(studentId, subjectId);
-        if(success){
+        if (success) {
+            log.info("Request for removing subject with id " + subjectId + " was successful.");
             model.addAttribute("successMessage", messageSource.getMessage("stu.mySubjects.successMessage", null, locale));
-        }else{
+        } else {
+            log.error("Request for removing subject with id " + subjectId + " failed.");
             model.addAttribute("errorMessage", messageSource.getMessage("stu.mySubjects.errorMessage", null, locale));
         }
-        log.info("Deleting success!");
+
         return showStudiedSubjectList(model);
     }
 }

@@ -36,10 +36,10 @@ public class BaseDateUtility implements DateUtility {
      * @param propertyLoader Property loader for getting date formats from system properties.
      */
     @Autowired
-    public BaseDateUtility(PropertyLoader propertyLoader){
-        sdfDateAndTime= new SimpleDateFormat(propertyLoader.getProperty("dateAndTimeFormat"));
-        sdfDate= new SimpleDateFormat(propertyLoader.getProperty("dateFormat"));
-        sdfTime= new SimpleDateFormat(propertyLoader.getProperty("timeFormat"));
+    public BaseDateUtility(PropertyLoader propertyLoader) {
+        sdfDateAndTime = new SimpleDateFormat(propertyLoader.getProperty("dateAndTimeFormat"));
+        sdfDate = new SimpleDateFormat(propertyLoader.getProperty("dateFormat"));
+        sdfTime = new SimpleDateFormat(propertyLoader.getProperty("timeFormat"));
     }
 
     /**
@@ -65,10 +65,13 @@ public class BaseDateUtility implements DateUtility {
         try {
             switch (stringDate.length()) {
                 case 16:  // yyyy-MM-dd HH:mm
+                    log.info("Parsing string representation of date to Date object");
                     return sdfDateAndTime.parse(stringDate);
                 case 10:  // yyyy-MM-dd
+                    log.info("Parsing string representation of date to Date object");
                     return sdfDate.parse(stringDate);
                 case 5:  // HH:mm
+                    log.info("Parsing string representation of date to Date object");
                     return sdfTime.parse(stringDate);
             }
         } catch (ParseException e) {

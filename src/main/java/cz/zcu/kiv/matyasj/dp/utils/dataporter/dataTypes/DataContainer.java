@@ -20,17 +20,12 @@ public class DataContainer {
     /** List of domain objects from system domain model */
     private ArrayList<BaseEntity> entities;
 
-    /**
-     * Base DataContainer constructor
-     */
-    public DataContainer(){
+    /** Base DataContainer constructor */
+    public DataContainer() {
         entities = new ArrayList<>();
     }
 
-
-    /**
-     * Entities list getter
-     */
+    /** Entities list getter */
     public ArrayList<BaseEntity> getEntities() {
         return entities;
     }
@@ -47,7 +42,7 @@ public class DataContainer {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (BaseEntity e : entities){
+        for (BaseEntity e : entities) {
             sb.append(e.getClass().getName()).append(" - ").append(e);
         }
         return sb.toString();

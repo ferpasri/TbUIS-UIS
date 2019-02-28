@@ -28,7 +28,6 @@ import java.util.List;
 public class JSONDataPorter implements DataPorter {
     /** JAXB context for creation of JAXB Marshaller/UnMarshaller */
     private JAXBContext jaxbContext;
-
     /** Shared system logger */
     private final Logger log = LogManager.getLogger();
 
@@ -49,7 +48,7 @@ public class JSONDataPorter implements DataPorter {
         try {
             jaxbContext = JAXBContext.newInstance(domainClassesWithDataContainer);
         } catch (JAXBException e) {
-            log.error("Marshling error: " + e.getMessage(),e);
+            log.error("Marshaling error: " + e.getMessage(), e);
         }
     }
 
@@ -61,12 +60,12 @@ public class JSONDataPorter implements DataPorter {
      * @return File with exported data
      */
     @Override
-    public boolean exportData(String fileName, List<BaseEntity> dbEntities){
+    public boolean exportData(String fileName, List<BaseEntity> dbEntities) {
         // Special data container for collection all entities from db
         DataContainer data = new DataContainer();
 
         // Get all data entities from db by databaseDao
-        for(BaseEntity entity : dbEntities){
+        for (BaseEntity entity : dbEntities) {
             data.getEntities().add(entity);
         }
 
@@ -75,15 +74,16 @@ public class JSONDataPorter implements DataPorter {
             File file = new File(fileName);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 
-            jaxbMarshaller.setProperty(MarshallerProperties.MEDIA_TYPE,"application/json");
+            jaxbMarshaller.setProperty(MarshallerProperties.MEDIA_TYPE, "application/json");
             jaxbMarshaller.setProperty(MarshallerProperties.JSON_INCLUDE_ROOT, true);
 
             // output pretty printed
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
             jaxbMarshaller.marshal(data, file);
+            log.info("Data exported to file " + fileName + ".");
         } catch (JAXBException e) {
-            log.error("Marshling error: " + e.getMessage(),e);
+            log.error("Marshaling error: " + e.getMessage(), e);
             return false;
         }
 
@@ -99,19 +99,20 @@ public class JSONDataPorter implements DataPorter {
      */
     @Override
     public List<BaseEntity> importData(File f) {
-        if(f == null || !f.exists()){
+        if (f == null || !f.exists()) {
             log.error("Imported file does not exist!");
             return null;
         }
 
         try {
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            jaxbUnmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE,"application/json");
+            jaxbUnmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE, "application/json");
             jaxbUnmarshaller.setProperty(UnmarshallerProperties.JSON_INCLUDE_ROOT, true);
 
             DataContainer data = (DataContainer) jaxbUnmarshaller.unmarshal(f);
+            log.info("Data imported from file" + f.getName() + ".");
             return data.getEntities();
-        }catch (JAXBException e){
+        } catch (JAXBException e) {
             log.error("Error during JAXB unmarshalling has occurred!");
             e.printStackTrace();
         }

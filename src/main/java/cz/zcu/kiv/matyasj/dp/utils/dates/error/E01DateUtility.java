@@ -30,6 +30,8 @@ public class E01DateUtility implements DateUtility {
     private DateFormat sdfDate;
     /** Prepared time format */
     private DateFormat sdfTime;
+    /** Application property loader */
+    protected final PropertyLoader propertyLoader;
 
     /**
      * Default E01DateUtility constructor.
@@ -37,10 +39,11 @@ public class E01DateUtility implements DateUtility {
      * @param propertyLoader Property loader for getting date formats from system properties.
      */
     @Autowired
-    public E01DateUtility(PropertyLoader propertyLoader){
-        sdfDateAndTime= new SimpleDateFormat(propertyLoader.getProperty("dateAndTimeFormat"));
-        sdfDate= new SimpleDateFormat(propertyLoader.getProperty("dateFormat"));
-        sdfTime= new SimpleDateFormat(propertyLoader.getProperty("timeFormat"));
+    public E01DateUtility(PropertyLoader propertyLoader) {
+        sdfDateAndTime = new SimpleDateFormat(propertyLoader.getProperty("dateAndTimeFormat"));
+        sdfDate = new SimpleDateFormat(propertyLoader.getProperty("dateFormat"));
+        sdfTime = new SimpleDateFormat(propertyLoader.getProperty("timeFormat"));
+        this.propertyLoader = propertyLoader;
     }
 
 
@@ -73,15 +76,17 @@ public class E01DateUtility implements DateUtility {
                 case 16:  // yyyy-MM-dd HH:mm
                     date = sdfDateAndTime.parse(stringDate);
                     date = new Date(date.getTime() + 86400000);
+                    log.error(propertyLoader.getProperty("log.E01DateUtility.stringToDate16"));
                     return date;
                 case 10:  // yyyy-MM-dd
                     date = sdfDate.parse(stringDate);
                     date = new Date(date.getTime() + 86400000);
+                    log.error(propertyLoader.getProperty("log.E01DateUtility.stringToDate10"));
                     return date;
                 case 5:  // HH:mm
                     date = sdfTime.parse(stringDate);
                     date = new Date(date.getTime() + 86400000);
-                    log.error("Deliberate error: stringToDate method returns Date object from string representation given in method parameter + 1 Day.");
+                    log.error(propertyLoader.getProperty("log.E01DateUtility.stringToDate5"));
                     return date;
             }
         } catch (ParseException e) {

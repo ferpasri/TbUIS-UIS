@@ -31,7 +31,6 @@ public class OverviewController {
     /** Object for resolving messages, with support for the parameterization and internationalization of such messages.*/
     @Autowired
     MessageSource messageSource;
-
     /** Shared system logger */
     private final Logger log = LogManager.getLogger();
 
@@ -41,50 +40,50 @@ public class OverviewController {
      * @param model Model to be sent to view
      * @return ModelAndView object
      */
-    @RequestMapping(value={"/student-view", "/student-view/overview", "/teacher-view", "/teacher-view/overview"}, method = RequestMethod.GET)
-    public ModelAndView showUserOverview(Model model){
-        log.info("Show User overview");
+    @RequestMapping(value = {"/student-view", "/student-view/overview", "/teacher-view", "/teacher-view/overview"}, method = RequestMethod.GET)
+    public ModelAndView showUserOverview(Model model) {
         User currentUser = studentService.getCurrentUser();
 
-        log.info("currentUserUsername - " + currentUser.getUsername());
-
         ModelAndView retModel = null;
-        if(currentUser instanceof Student){
+        if (currentUser instanceof Student) {
+            log.info("Request for overview of student with id " + currentUser.getId() + " for view.");
             retModel = new ModelAndView("/WEB-INF/pages/student-view.jsp");
-        }else if(currentUser instanceof Teacher){
+        } else if (currentUser instanceof Teacher) {
+            log.info("Request for overview of teacher with id " + currentUser.getId() + " for view.");
             retModel = new ModelAndView("/WEB-INF/pages/teacher-view.jsp");
         }
 
-        if(retModel != null){
+        if (retModel != null) {
             retModel.addObject("view", "overview");
             retModel.addObject("currentUser", currentUser);
         }
 
-
-        return  retModel;
+        return retModel;
     }
 
     /**
      * This method serves user POST request for user atributes update.
      *
-     * @param locale System locale object
-     * @param model Model to be sent to view
-     * @param session HttpSession object
+     * @param locale    System locale object
+     * @param model     Model to be sent to view
+     * @param session   HttpSession object
      * @param firstName New user first name
-     * @param lastName New user last name
-     * @param email New user email
+     * @param lastName  New user last name
+     * @param email     New user email
      * @return ModelAndView object
      */
-    @RequestMapping(value={"/student-view", "/student-view/overview", "/teacher-view", "/teacher-view/overview"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/student-view", "/student-view/overview", "/teacher-view", "/teacher-view/overview"}, method = RequestMethod.POST)
     public ModelAndView saveUserSettings(Locale locale, Model model, HttpSession session, @RequestParam("firstName") String firstName,
-                                         @RequestParam("lastName") String lastName, @RequestParam("email") String email){
-        log.info("Updating user - "+firstName + " " + lastName);
+                                         @RequestParam("lastName") String lastName, @RequestParam("email") String email) {
+        log.info("Request for updating user with following parameters: firstname=" + firstName + ", lastname=" + lastName + ", email=" + email + ".");
         boolean success = studentService.updateUser(firstName, lastName, email);
-        if(success){
+        if (success) {
             model.addAttribute("successMessage", messageSource.getMessage("user.overview.successMessage", null, locale));
             session.setAttribute("user_full_name", firstName + " " + lastName);
-        }else{
+            log.info("User successfully updated");
+        } else {
             model.addAttribute("errorMessage", messageSource.getMessage("user.overview.errorMessage", null, locale));
+            log.error("User update failed");
         }
 
         return showUserOverview(model);

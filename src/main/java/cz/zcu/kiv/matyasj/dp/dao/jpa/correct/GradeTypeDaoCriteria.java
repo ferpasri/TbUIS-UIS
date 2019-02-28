@@ -2,6 +2,8 @@ package cz.zcu.kiv.matyasj.dp.dao.jpa.correct;
 
 import cz.zcu.kiv.matyasj.dp.dao.GradeTypeDao;
 import cz.zcu.kiv.matyasj.dp.domain.university.GradeType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -19,8 +21,11 @@ import java.util.List;
 //@Repository
 public class GradeTypeDaoCriteria extends GenericDaoJpa<GradeType, Long> implements GradeTypeDao {
 
+    /** Shared system logger */
+    private final Logger log = LogManager.getLogger();
+
     /**
-     *  GradeTypeDaoCriteria constructor
+     * GradeTypeDaoCriteria constructor
      *
      * @param em Entity Manager for communication with database
      */
@@ -29,10 +34,9 @@ public class GradeTypeDaoCriteria extends GenericDaoJpa<GradeType, Long> impleme
     }
 
     /**
-     *  Base GradeDaoCriteria constructor
-     *
+     * Base GradeDaoCriteria constructor
      */
-    public GradeTypeDaoCriteria(){
+    public GradeTypeDaoCriteria() {
         super(GradeType.class);
     }
 
@@ -50,6 +54,8 @@ public class GradeTypeDaoCriteria extends GenericDaoJpa<GradeType, Long> impleme
 
         query.select(root);
 
-        return findAll();
+        List<GradeType> gradeTypes = findAll();
+        log.info("Returning list of " + gradeTypes.size() + " grade types.");
+        return gradeTypes;
     }
 }

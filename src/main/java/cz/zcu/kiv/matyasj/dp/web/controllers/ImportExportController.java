@@ -33,7 +33,6 @@ public class ImportExportController {
     /** Object for resolving messages, with support for the parameterization and internationalization of such messages.*/
     @Autowired
     MessageSource messageSource;
-
     /** Shared system logger */
     private final Logger log = LogManager.getLogger();
 
@@ -44,7 +43,8 @@ public class ImportExportController {
      * @return
      */
     @GetMapping("/import-export")
-    public ModelAndView getImportExport(ModelAndView model){
+    public ModelAndView getImportExport(ModelAndView model) {
+        log.info("Request for import-export view");
         model.setViewName("/import-export.jsp");
         return model;
     }
@@ -53,21 +53,23 @@ public class ImportExportController {
      * This method serves user POST request for importing data.
      *
      * @param session HttpSession object
-     * @param locale system Locale object
-     * @param file MultipartFile file with data to import
+     * @param locale  system Locale object
+     * @param file    MultipartFile file with data to import
      * @return ModelAndView object
      */
-    @RequestMapping(value={"/importdata"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/importdata"}, method = RequestMethod.POST)
     public ModelAndView importData(HttpSession session, Locale locale, @RequestParam("importFile") MultipartFile file) {
         ModelAndView retModel = new ModelAndView();
 
+        log.info("Request for importing of data into database");
+
         if (file.isEmpty()) {
+            log.error("File for data import into database is empty");
             retModel.addObject("errorMessage", "File is empty");
             return getImportExport(retModel);
         }
 
-        File fileToImport = new File(System.getProperty("java.io.tmpdir")+file.getOriginalFilename());
-
+        File fileToImport = new File(System.getProperty("java.io.tmpdir") + file.getOriginalFilename());
 
         try {
             file.transferTo(fileToImport);
@@ -75,11 +77,11 @@ public class ImportExportController {
             retModel.addObject("errorMessage", "File has not been successfully imported (fail of transformation of file)!");
         }
         boolean success = porterService.importData(fileToImport);
-        if(success){
+        if (success) {
             retModel.addObject("successMessage", messageSource.getMessage("importExportPage.import.successMessage", null, locale).replace("?filename_placeholder?", fileToImport.getName()));
             // invalidate session for logout user
             session.invalidate();
-        }else {
+        } else {
             retModel.addObject("errorMessage", messageSource.getMessage("importExportPage.import.errorMessage", null, locale));
         }
 
@@ -88,6 +90,7 @@ public class ImportExportController {
 
     /**
      * This method serves user GET request for exporting application data in file to be sent to view.
+     *
      * @param response
      * @param exportFormat
      * @throws IOException
@@ -96,27 +99,21 @@ public class ImportExportController {
     public void exportData(HttpServletResponse response, @RequestParam("exportFormat") String exportFormat) throws IOException {
         File file = porterService.exportData(exportFormat);
 
-        if(file == null){
-            log.error("Sorry. The file with data has NOT been successfully exported/created");
+        log.info("Request for exporting data into database");
+
+        if (file == null || !file.exists()) {
+            log.error("The file with data has NOT been successfully exported/created");
             return;
         }
 
-        if(!file.exists()){
-            log.error("Sorry. The file with data has NOT been successfully exported/created");
-            return;
-        }
-
-        String mimeType= URLConnection.guessContentTypeFromName(file.getName());
-        if(mimeType==null){
+        String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+        if (mimeType == null) {
             mimeType = "application/octet-stream";
         }
 
         response.setContentType(mimeType);
-
-        response.setHeader("Content-Disposition", "attachment; filename=\"" + file.getName() +"\"");
-
-
-        response.setContentLength((int)file.length());
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
+        response.setContentLength((int) file.length());
 
         InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
 

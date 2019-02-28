@@ -8,7 +8,9 @@ import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.domain.users.User;
 import cz.zcu.kiv.matyasj.dp.service.UserService;
 import cz.zcu.kiv.matyasj.dp.utils.properties.PropertyLoader;
+
 import java.util.List;
+
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 public abstract class BaseUserService implements UserService {
 
-    final Logger log = LogManager.getLogger();
+    private final Logger log = LogManager.getLogger();
     /** User DAO object for manipulation with user data in database */
     @Autowired
     private UserDao userDao;
@@ -49,12 +51,12 @@ public abstract class BaseUserService implements UserService {
      * This method updates current user first name, last name and email
      *
      * @param firstName new first name of current user
-     * @param lastName new last name of current user
-     * @param email new email of current user
+     * @param lastName  new last name of current user
+     * @param email     new email of current user
      * @return true if success, false otherwise
      */
     @Override
-    public boolean updateUser(String firstName, String lastName, String email){
+    public boolean updateUser(String firstName, String lastName, String email) {
         User currentUser = getCurrentUser();
 
         if (firstName == null || firstName.length() < Integer.parseInt(propertyLoader.getProperty("minFirstNameLength"))) {
@@ -92,7 +94,7 @@ public abstract class BaseUserService implements UserService {
         currentUser.setEmail(email);
 
         currentUser = userDao.save(currentUser);
-        if(currentUser != null){
+        if (currentUser != null) {
             return true;
         }
         return false;
@@ -105,10 +107,10 @@ public abstract class BaseUserService implements UserService {
      * @param subjectList list of subjects which should be sorted.
      * @return sorted list
      */
-    protected List<Subject> sortListOfSubjects(List<Subject> subjectList){
+    protected List<Subject> sortListOfSubjects(List<Subject> subjectList) {
         // Sort Subjects alphabetically
         subjectList.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
-        for(Subject s : subjectList){
+        for (Subject s : subjectList) {
             s.getTeachers().sort((o1, o2) -> o1.getLastName().compareToIgnoreCase(o2.getLastName()));
         }
         return subjectList;
@@ -121,7 +123,7 @@ public abstract class BaseUserService implements UserService {
      * @param examinationDateList list of exam dates which should be sorted.
      * @return sorted list
      */
-    protected List<ExaminationDate> sortListOfExamDates(List<ExaminationDate> examinationDateList){
+    protected List<ExaminationDate> sortListOfExamDates(List<ExaminationDate> examinationDateList) {
         // Sort ExamDates by date
         examinationDateList.sort((o1, o2) -> o1.getDateOfTest().compareTo(o2.getDateOfTest()));
         return examinationDateList;
@@ -134,17 +136,17 @@ public abstract class BaseUserService implements UserService {
      * @param usersList list of users which should be sorted.
      * @return sorted list
      */
-    protected List<? extends User> sortListOfUsers(List<? extends User> usersList){
+    protected List<? extends User> sortListOfUsers(List<? extends User> usersList) {
         // Sort Subjects alphabetically
         usersList.sort((o1, o2) -> o1.getLastName().compareToIgnoreCase(o2.getLastName()));
 
         // Sort Users in lists alphabetically
-        for(User user : usersList){
-            if(user instanceof Student){
+        for (User user : usersList) {
+            if (user instanceof Student) {
                 Student s = (Student) user;
                 s.getListOfLearnedSubjects().sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
                 s.getListOfAbsolvedSubjects().sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
-            }else if(user instanceof Teacher){
+            } else if (user instanceof Teacher) {
                 Teacher t = (Teacher) user;
                 t.getListOfTaughtSubjects().sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
             }

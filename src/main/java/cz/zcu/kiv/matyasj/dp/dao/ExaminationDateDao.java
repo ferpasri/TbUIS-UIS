@@ -40,8 +40,6 @@ public interface ExaminationDateDao extends GenericDao<ExaminationDate, Long>{
     List<ExaminationDate> getExaminationTermOfTeacher(Teacher teacher);
 
     List<ExaminationDate> getExaminationTermOfSubject(Subject subject);
-    //FIXME delete it and make order
-    ExaminationDate getExaminationTermBySubjectAndDate(Subject subject, Date date);
 
     /**
      * Get all possible exam dates for students who can sign up for or are already registered.

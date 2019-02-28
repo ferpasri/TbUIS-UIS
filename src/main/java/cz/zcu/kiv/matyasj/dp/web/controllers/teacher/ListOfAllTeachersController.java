@@ -24,7 +24,6 @@ public class ListOfAllTeachersController {
     /** Service object providing functions for manipulation with data related to teachers.*/
     @Autowired
     TeacherService teacherService;
-
     /** Shared system logger */
     protected Logger log = LogManager.getLogger();
 
@@ -37,7 +36,7 @@ public class ListOfAllTeachersController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView showAllTeachersList(Model model){
-        log.info("Show all teachers list");
+        log.info("Request for retrieving list of all teachers view.");
 
         List<Teacher> listOfAllTeachers = teacherService.getAllTeachers();
 

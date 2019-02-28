@@ -4,8 +4,10 @@ import cz.zcu.kiv.matyasj.dp.annotations.ErrorMethod;
 import cz.zcu.kiv.matyasj.dp.dao.jpa.correct.UserDaoCriteria;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.domain.users.User;
+import cz.zcu.kiv.matyasj.dp.utils.properties.PropertyLoader;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -24,6 +26,12 @@ import java.util.List;
 public class E01UserDao extends UserDaoCriteria {
     /** Shared system logger */
     private final Logger log = LogManager.getLogger();
+    /** Application property loader */
+    protected final PropertyLoader propertyLoader;
+
+    public E01UserDao(PropertyLoader propertyLoader) {
+        this.propertyLoader = propertyLoader;
+    }
 
     /**
      * DELIBERATE ERROR
@@ -49,7 +57,7 @@ public class E01UserDao extends UserDaoCriteria {
             }
         }
 
-        log.error("Deliberate error: FindAllUsers method returns just all students instead of all users!");
+        log.error(propertyLoader.getProperty("log.E01UserDao.findAllUsers"));
         return allUsersWithoutTeachers;
     }
 }

@@ -5,6 +5,7 @@ import cz.zcu.kiv.matyasj.dp.domain.university.Grade;
 import cz.zcu.kiv.matyasj.dp.domain.university.GradeType;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
+import cz.zcu.kiv.matyasj.dp.domain.users.User;
 import cz.zcu.kiv.matyasj.dp.service.TeacherService;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -39,22 +40,21 @@ public class EvaluationTableController {
     /** Object for resolving messages, with support for the parameterization and internationalization of such messages.*/
     @Autowired
     MessageSource messageSource;
-
     /** Shared system logger */
     protected Logger log = LogManager.getLogger();
 
     /**
      * This method serves user GET requests to getting view with the evaluation table.
      *
-     * @param model Model to be sent to view
-     * @param session HttpSession object
-     * @param filteredSubject filtered subject id
+     * @param model                   Model to be sent to view
+     * @param session                 HttpSession object
+     * @param filteredSubject         filtered subject id
      * @param includingGradedStudents Boolean value if include graded students
-     *
      * @return ModelAndView object
      */
     @GetMapping
-    public ModelAndView showEvaluationTable(ModelAndView model, HttpSession session, @RequestParam("filterSubjectId") Optional<Long> filteredSubject, @RequestParam("filterIncludeGradedSubjects") Optional<String> includingGradedStudents){
+    public ModelAndView showEvaluationTable(ModelAndView model, HttpSession session, @RequestParam("filterSubjectId") Optional<Long> filteredSubject, @RequestParam("filterIncludeGradedSubjects") Optional<String> includingGradedStudents) {
+        log.info("Request for retrieving evaluation table view.");
         Long subjectId = -1L;
         boolean isIncludingGradedStudentsChecked = false;
 
@@ -68,10 +68,10 @@ public class EvaluationTableController {
             session.setAttribute(FILTER_INCLUDES_STUDENTS_ATTRIBUTE_IN_SESSION, includingGradedStudents.isPresent());
         });
 
-        if(session.getAttribute(FILTER_SUBJECT_ATTRIBUTE_IN_SESSION) != null){
+        if (session.getAttribute(FILTER_SUBJECT_ATTRIBUTE_IN_SESSION) != null) {
             subjectId = (Long) session.getAttribute(FILTER_SUBJECT_ATTRIBUTE_IN_SESSION);
         }
-        if(session.getAttribute(FILTER_INCLUDES_STUDENTS_ATTRIBUTE_IN_SESSION) != null){
+        if (session.getAttribute(FILTER_INCLUDES_STUDENTS_ATTRIBUTE_IN_SESSION) != null) {
             isIncludingGradedStudentsChecked = (boolean) session.getAttribute(FILTER_INCLUDES_STUDENTS_ATTRIBUTE_IN_SESSION);
         }
 
@@ -81,7 +81,7 @@ public class EvaluationTableController {
 
         if (isIncludingGradedStudentsChecked) {
             listOfExamTerms = teacherService.getAllExaminationTermsByTeacherAndSubject((Teacher) teacherService.getCurrentUser(), subjectId);
-        }else{
+        } else {
             listOfExamTerms = teacherService.getMyExaminationTermsWithoutGradedParticipantsBySubject((Teacher) teacherService.getCurrentUser(), subjectId);
         }
 
@@ -101,22 +101,25 @@ public class EvaluationTableController {
     /**
      * This method serves user POST requests to creating of new grade (evaluation).
      *
-     * @param model Model to be sent to view
-     * @param session HttpSession object
-     * @param studentId student id
-     * @param gradeTypeId Boolean value if include graduated students
-     * @param subjectId subject id
+     * @param model             Model to be sent to view
+     * @param session           HttpSession object
+     * @param studentId         student id
+     * @param gradeTypeId       Boolean value if include graduated students
+     * @param subjectId         subject id
      * @param examinationDateId examination date id
-     *
      * @return ModelAndView object
      */
     @PostMapping("/createNewGrade")
-    public ModelAndView createNewGrade(Locale locale, ModelAndView model, HttpSession session, @RequestParam("studentId") Long studentId, @RequestParam("gradeTypeId") Long gradeTypeId, @RequestParam("subjectId") Long subjectId, @RequestParam("examinationDateId") Long examinationDateId){
-        log.info("Try to create new grade");
-        boolean success = teacherService.createNewGrade((Teacher) teacherService.getCurrentUser(), studentId, gradeTypeId, subjectId, examinationDateId);
-        if(success){
+    public ModelAndView createNewGrade(Locale locale, ModelAndView model, HttpSession session, @RequestParam("studentId") Long studentId, @RequestParam("gradeTypeId") Long gradeTypeId, @RequestParam("subjectId") Long subjectId, @RequestParam("examinationDateId") Long examinationDateId) {
+        User teacher = teacherService.getCurrentUser();
+        log.info("User with id " + teacher.getId() + " requested creating of grade.");
+
+        boolean success = teacherService.createNewGrade((Teacher) teacher, studentId, gradeTypeId, subjectId, examinationDateId);
+        if (success) {
+            log.info("Request for creating of grade type: " + gradeTypeId + " for subject with id: " + subjectId + " for student with id: " + studentId + "  was successful.");
             model.addObject("successMessage", messageSource.getMessage("tea.evaluationTable.successMessage.created", null, locale));
-        }else{
+        } else {
+            log.error("Request for creating of grade type: " + gradeTypeId + " for subject with id: " + subjectId + " for student with id: " + studentId + "  failed.");
             model.addObject("errorMessage", messageSource.getMessage("tea.evaluationTable.errorMessage.created", null, locale));
         }
         return showEvaluationTable(model, session, Optional.empty(), Optional.empty());
@@ -125,20 +128,24 @@ public class EvaluationTableController {
     /**
      * This method serves user POST requests to updating of existent grade (evaluation).
      *
-     * @param model Model to be sent to view
-     * @param session HttpSession object
+     * @param model          Model to be sent to view
+     * @param session        HttpSession object
      * @param newGradeTypeId updated grade type
-     * @param gradeId id of existent grade
-     *
+     * @param gradeId        id of existent grade
      * @return ModelAndView object
      */
     @PostMapping("/updateGrade")
-    public ModelAndView updateGrade(Locale locale, ModelAndView model, HttpSession session, @RequestParam("gradeTypeId") Long newGradeTypeId, @RequestParam("gradeId") Long gradeId){
-        log.info("Try to update new grade");
-        boolean success = teacherService.updateGrade(teacherService.getCurrentUser().getId(), gradeId, newGradeTypeId);
-        if(success){
+    public ModelAndView updateGrade(Locale locale, ModelAndView model, HttpSession session, @RequestParam("gradeTypeId") Long newGradeTypeId, @RequestParam("gradeId") Long gradeId) {
+        Long userId = teacherService.getCurrentUser().getId();
+
+        log.info("User with id " + userId + " requested for updating grade with id " + gradeId + ".");
+
+        boolean success = teacherService.updateGrade(userId, gradeId, newGradeTypeId);
+        if (success) {
+            log.info("Request for updating grade of id: " + gradeId + " with updated grade type: " + newGradeTypeId + " was successful.");
             model.addObject("successMessage", messageSource.getMessage("tea.evaluationTable.successMessage.updated", null, locale));
-        }else{
+        } else {
+            log.error("Request for updating grade of id: " + gradeId + " with updated grade type: " + newGradeTypeId + " failed.");
             model.addObject("errorMessage", messageSource.getMessage("tea.evaluationTable.errorMessage.updated", null, locale));
         }
 

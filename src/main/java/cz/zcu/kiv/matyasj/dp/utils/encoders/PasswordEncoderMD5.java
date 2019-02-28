@@ -20,8 +20,8 @@ public class PasswordEncoderMD5 implements PasswordEncoder{
     /**
      * Initialization method for init static object MessageDigest
      */
-    private static void init(){
-        if(md == null){
+    private static void init() {
+        if (md == null) {
             try {
                 md = MessageDigest.getInstance("MD5");
             } catch (NoSuchAlgorithmException e) {

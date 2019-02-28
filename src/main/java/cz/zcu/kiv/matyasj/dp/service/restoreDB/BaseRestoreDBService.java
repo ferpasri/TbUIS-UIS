@@ -38,7 +38,7 @@ public class BaseRestoreDBService implements RestoreDBService {
      */
     @Override
     public boolean restoreDB() {
-        if(databaseDao.eraseDatabase()){
+        if (databaseDao.eraseDatabase()) {
             return initializer.reinit();
         }
         return false;

@@ -30,7 +30,6 @@ public class SubjectListController {
     /** Object for resolving messages, with support for the parameterization and internationalization of such messages.*/
     @Autowired
     MessageSource messageSource;
-
     /** Shared system logger */
     private final Logger log = LogManager.getLogger();
 
@@ -41,34 +40,36 @@ public class SubjectListController {
      * @return ModelAndView object
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView showOtherSubjectList(Model model){
-        log.info("Show studied subject list");
+    public ModelAndView showOtherSubjectList(Model model) {
+        log.info("Request for retrieving other subject view.");
         List<Subject> listOfSubjects = studentService.getOtherSubjectsList(studentService.getCurrentUser().getId());
 
         ModelAndView retModel = new ModelAndView("/WEB-INF/pages/student-view.jsp");
         retModel.addObject("subjectList", listOfSubjects);
         retModel.addObject("view", "otherSubjects");
 
-        return  retModel;
+        return retModel;
     }
 
     /**
      * This method serves user POST requests for enroll single subject.
      *
-     * @param locale System locale object
-     * @param model Model to be sent to view
+     * @param locale    System locale object
+     * @param model     Model to be sent to view
      * @param subjectId id of subject to enroll
      * @return ModelAndView object
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView enrollSubject(Locale locale, Model model, @RequestParam("subjectId") Long subjectId){
+    public ModelAndView enrollSubject(Locale locale, Model model, @RequestParam("subjectId") Long subjectId) {
         Long studentId = studentService.getCurrentUser().getId();
-        log.info("Adding subject id["+subjectId+"] userId["+studentId + "]");
+        log.info("Enrolling subject with id " + subjectId + " for user user with id " + studentId + ".");
 
         boolean success = studentService.setStudiedSubject(studentId, subjectId);
-        if(success){
+        if (success) {
+            log.info("Request for enrolling subject with id " + subjectId + " was successful.");
             model.addAttribute("successMessage", messageSource.getMessage("stu.otherSubjects.successMessage", null, locale));
-        }else{
+        } else {
+            log.error("Request for enrolling subject with id " + subjectId + " failed.");
             model.addAttribute("errorMessage", messageSource.getMessage("stu.otherSubjects.errorMessage", null, locale));
         }
 

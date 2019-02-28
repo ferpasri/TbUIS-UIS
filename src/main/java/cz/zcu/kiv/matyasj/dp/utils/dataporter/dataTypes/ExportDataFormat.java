@@ -17,7 +17,7 @@ public enum ExportDataFormat {
      *
      * @param fileExtension Data file extension
      */
-    ExportDataFormat(String fileExtension){
+    ExportDataFormat(String fileExtension) {
         this.fileExtension = fileExtension;
     }
 

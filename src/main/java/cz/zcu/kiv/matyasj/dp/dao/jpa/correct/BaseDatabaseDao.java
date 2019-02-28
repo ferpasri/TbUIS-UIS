@@ -28,32 +28,27 @@ import java.util.Map;
  * @author Jiri Matyas
  */
 @Repository
-public class BaseDatabaseDao extends GenericDaoJpa<BaseEntity, Long> implements DatabaseDao{
+public class BaseDatabaseDao extends GenericDaoJpa<BaseEntity, Long> implements DatabaseDao {
     /** List of all DAO objects for each domain class */
     @Autowired
     private List<? extends GenericDao> daoList;
-
     /** User DAO object for manipulation with user data */
     @Autowired
     private UserDao userDao;
-
     /** Subject DAO object for manipulation with subject data */
     @Autowired
     private SubjectDao subjectDao;
-
     /** GradeType DAO object for manipulation with gradeType data */
     @Autowired
     private GradeTypeDao gradeTypeDao;
-
     /** ExaminationDate DAO object for manipulation with Exam term data */
     @Autowired
     private ExaminationDateDao examinationDateDao;
-
     /** Shared system logger */
     private final static Logger log = LogManager.getLogger();
 
     /**
-     *  BaseDatabaseDao constructor
+     * BaseDatabaseDao constructor
      *
      * @param em Entity Manager for getting metaModel which is used for getting all domain classes in system.
      */
@@ -62,9 +57,9 @@ public class BaseDatabaseDao extends GenericDaoJpa<BaseEntity, Long> implements 
     }
 
     /**
-     *  BaseDatabaseDao constructor
+     * BaseDatabaseDao constructor
      */
-    public BaseDatabaseDao(){
+    public BaseDatabaseDao() {
         super(BaseEntity.class);
     }
 
@@ -90,7 +85,7 @@ public class BaseDatabaseDao extends GenericDaoJpa<BaseEntity, Long> implements 
                     }
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("Removing all data from system database has NOT been successfully completed:" + e.getMessage());
             return false;
         }
@@ -108,12 +103,12 @@ public class BaseDatabaseDao extends GenericDaoJpa<BaseEntity, Long> implements 
         List<BaseEntity> entities = new ArrayList<>();
 
         // Get all data entities from db by dao objects
-        for(GenericDao dao : daoList){
+        for (GenericDao dao : daoList) {
             // Get all data entities from one dao object
             List list = dao.findAll();
 
-            if(list != null && !list.isEmpty()){
-                for(Object element : list){
+            if (list != null && !list.isEmpty()) {
+                for (Object element : list) {
                     entities.add((BaseEntity) element);
                 }
             }
@@ -131,7 +126,7 @@ public class BaseDatabaseDao extends GenericDaoJpa<BaseEntity, Long> implements 
      */
     @Override
     public boolean fillDatabase(List<BaseEntity> entities) {
-        if(entities == null) return false;
+        if (entities == null) return false;
 
         eraseDatabase();
 
@@ -143,8 +138,8 @@ public class BaseDatabaseDao extends GenericDaoJpa<BaseEntity, Long> implements 
         Map<Long, Long> examTermsIndexMap = new HashMap<>();
 
         /* Saving subjects */
-        for(BaseEntity entity : entities){
-            if(entity instanceof Subject){
+        for (BaseEntity entity : entities) {
+            if (entity instanceof Subject) {
                 Subject s = new Subject(((Subject) entity).getName(), ((Subject) entity).getCreditRating());
                 beforeIndex = entity.getId();
                 entity = this.save(s);
@@ -154,8 +149,8 @@ public class BaseDatabaseDao extends GenericDaoJpa<BaseEntity, Long> implements 
         }
 
         /* Saving users */
-        for(BaseEntity entity : entities){
-            if(entity instanceof Student) {
+        for (BaseEntity entity : entities) {
+            if (entity instanceof Student) {
                 String firstName = ((Student) entity).getFirstName();
                 String lastName = ((Student) entity).getLastName();
                 String username = ((Student) entity).getUsername();
@@ -163,15 +158,15 @@ public class BaseDatabaseDao extends GenericDaoJpa<BaseEntity, Long> implements 
                 String email = ((Student) entity).getEmail();
                 Student newStudent = new Student(firstName, lastName, username, password, email);
                 newStudent = (Student) userDao.save(newStudent);
-                for(Subject s : ((Student) entity).getListOfLearnedSubjects()){
+                for (Subject s : ((Student) entity).getListOfLearnedSubjects()) {
                     newStudent.getListOfLearnedSubjects().add(subjectDao.findOne(subjectsIndexMap.get(s.getId())));
                 }
-                for(Subject s : ((Student) entity).getListOfAbsolvedSubjects()){
+                for (Subject s : ((Student) entity).getListOfAbsolvedSubjects()) {
                     newStudent.getListOfLearnedSubjects().add(subjectDao.findOne(subjectsIndexMap.get(s.getId())));
                 }
                 newStudent = (Student) userDao.save(newStudent);
                 usersIndexMap.put(newStudent.getUsername(), newStudent.getId());
-            }else if(entity instanceof Teacher) {
+            } else if (entity instanceof Teacher) {
                 String firstname = ((Teacher) entity).getFirstName();
                 String lastName = ((Teacher) entity).getLastName();
                 String username = ((Teacher) entity).getUsername();
@@ -179,7 +174,7 @@ public class BaseDatabaseDao extends GenericDaoJpa<BaseEntity, Long> implements 
                 String email = ((Teacher) entity).getEmail();
                 Teacher newTeacher = new Teacher(firstname, lastName, username, password, email);
                 newTeacher = (Teacher) userDao.save(newTeacher);
-                for(Subject s : ((Teacher) entity).getListOfTaughtSubjects()){
+                for (Subject s : ((Teacher) entity).getListOfTaughtSubjects()) {
                     newTeacher.getListOfTaughtSubjects().add(subjectDao.findOne(subjectsIndexMap.get(s.getId())));
                 }
                 newTeacher = (Teacher) userDao.save(newTeacher);
@@ -188,7 +183,7 @@ public class BaseDatabaseDao extends GenericDaoJpa<BaseEntity, Long> implements 
         }
 
         /* Saving grade types */
-        for(BaseEntity entity : entities) {
+        for (BaseEntity entity : entities) {
             if (entity instanceof GradeType) {
                 beforeIndex = entity.getId();
                 entity = this.save(entity);
@@ -199,7 +194,7 @@ public class BaseDatabaseDao extends GenericDaoJpa<BaseEntity, Long> implements 
 
 
         /* Saving Exam terms */
-        for(BaseEntity entity : entities) {
+        for (BaseEntity entity : entities) {
             if (entity instanceof ExaminationDate) {
                 List<Student> participants = ((ExaminationDate) entity).getParticipants();
                 Subject subject = ((ExaminationDate) entity).getSubject();
@@ -210,17 +205,15 @@ public class BaseDatabaseDao extends GenericDaoJpa<BaseEntity, Long> implements 
 
                 e.setTeacher((Teacher) userDao.findOne(usersIndexMap.get(teacher.getUsername())));
 
-                if(subject != null && subject.getId() != null){
+                if (subject != null && subject.getId() != null) {
                     e.setSubject(subjectDao.findOne(subjectsIndexMap.get(subject.getId())));
                 }
 
                 teacher.setId(usersIndexMap.get(teacher.getUsername()));
 
-
-                for(Student student: participants){
+                for (Student student : participants) {
                     e.getParticipants().add((Student) userDao.findOne(usersIndexMap.get(student.getUsername())));
                 }
-
 
                 this.save(e);
                 examTermsIndexMap.put(entity.getId(), e.getId());
@@ -228,14 +221,14 @@ public class BaseDatabaseDao extends GenericDaoJpa<BaseEntity, Long> implements 
         }
 
         /* Try to save unknown entity object */
-        for(BaseEntity entity : entities) {
+        for (BaseEntity entity : entities) {
             if (!(entity instanceof ExaminationDate || entity instanceof User || entity instanceof GradeType || entity instanceof Grade || entity instanceof Subject)) {
                 this.save(entity);
             }
         }
 
         /* Saving Grades */
-        for(BaseEntity entity : entities) {
+        for (BaseEntity entity : entities) {
             if (entity instanceof Grade) {
                 Grade newGrade = new Grade();
                 newGrade.setDayOfGrant(((Grade) entity).getDayOfGrant());
@@ -247,23 +240,23 @@ public class BaseDatabaseDao extends GenericDaoJpa<BaseEntity, Long> implements 
                 GradeType gradeType = ((Grade) entity).getTypeOfGrade();
                 ExaminationDate gradeExamTerm = ((Grade) entity).getTestWhereWasGradeGranted();
 
-                if(gradeSubject != null){
+                if (gradeSubject != null) {
                     newGrade.setSubject(subjectDao.findOne(subjectsIndexMap.get(gradeSubject.getId())));
                 }
 
-                if(gradeOwner != null){
+                if (gradeOwner != null) {
                     newGrade.setOwner((Student) userDao.findByUsername(gradeOwner.getUsername()));
                 }
 
-                if(gradeTeacher != null){
+                if (gradeTeacher != null) {
                     newGrade.setWhoGradeGranted((Teacher) userDao.findByUsername(gradeTeacher.getUsername()));
                 }
 
-                if(gradeType != null){
+                if (gradeType != null) {
                     newGrade.setTypeOfGrade(gradeTypeDao.findOne(gradeTypeIndexMap.get(gradeType.getId())));
                 }
 
-                if(gradeExamTerm != null){
+                if (gradeExamTerm != null) {
                     newGrade.setTestWhereWasGradeGranted(examinationDateDao.findOne(examTermsIndexMap.get(gradeExamTerm.getId())));
                 }
 
@@ -271,6 +264,7 @@ public class BaseDatabaseDao extends GenericDaoJpa<BaseEntity, Long> implements 
             }
         }
 
+        log.info("Database filled with data created as a backup.");
         return true;
     }
 
@@ -284,7 +278,7 @@ public class BaseDatabaseDao extends GenericDaoJpa<BaseEntity, Long> implements 
         Class[] domainClasses = new Class[entityManager.getMetamodel().getEntities().size()];
 
         int i = 0;
-        for(EntityType e : entityManager.getMetamodel().getEntities()){
+        for (EntityType e : entityManager.getMetamodel().getEntities()) {
             domainClasses[i] = e.getBindableJavaType();
             i++;
         }

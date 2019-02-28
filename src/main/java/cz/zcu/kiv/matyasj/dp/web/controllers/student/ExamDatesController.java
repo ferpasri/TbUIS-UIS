@@ -44,7 +44,8 @@ public class ExamDatesController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView showExamDateList(Model model){
-        log.info("Show Exam dates list");
+
+        log.info("Request for other exam dates view.");
         Long currentUserId = studentService.getCurrentUser().getId();
 
         List<ExaminationDate> notRegisteredExaminationDatesList = studentService.getNotRegisteredExaminationDatesList(currentUserId);
@@ -70,14 +71,16 @@ public class ExamDatesController {
      */
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView registerExamDate(Locale locale, Model model, @RequestParam("examDateId") Long examDateId){
-        log.info("Try to register exam date " + examDateId);
-        User currentUser = studentService.getCurrentUser();
+        Long currentUserId = studentService.getCurrentUser().getId();
+        log.info("Request for registering exam date with " + examDateId + " from user with id " + currentUserId + ".");
 
-        boolean success = studentService.setExaminationDate(currentUser.getId(), examDateId);
+        boolean success = studentService.setExaminationDate(currentUserId, examDateId);
 
         if(success){
+            log.info("Request for registering exam date with " + examDateId + " was successful.");
             model.addAttribute("successMessage", messageSource.getMessage("stu.otherExamDates.successMessage", null, locale));
         }else {
+            log.error("Request for registering exam date with " + examDateId + " failed.");
             model.addAttribute("errorMessage", messageSource.getMessage("stu.otherExamDates.errorMessage", null, locale));
         }
 

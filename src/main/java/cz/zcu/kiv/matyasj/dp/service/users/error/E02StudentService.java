@@ -28,13 +28,13 @@ public class E02StudentService extends BaseStudentService {
     /**
      * E02StudentService constructor is needed because of dependencies in parent (BaseStudentService) constructor.
      *
-     * @param subjectDao DAO object for manipulation with subject data in database
-     * @param userDao DAO object for manipulation with user data in database
+     * @param subjectDao         DAO object for manipulation with subject data in database
+     * @param userDao            DAO object for manipulation with user data in database
      * @param examinationDateDao DAO object for manipulation with exam term data in database
-     * @param gradeDao DAO object for manipulation with grade data in database
+     * @param gradeDao           DAO object for manipulation with grade data in database
      */
     @Autowired
-    public E02StudentService(SubjectDao subjectDao, UserDao userDao, ExaminationDateDao examinationDateDao, GradeDao gradeDao, GradeTypeDao gradeTypeDao, PropertyLoader propertyLoader){
+    public E02StudentService(SubjectDao subjectDao, UserDao userDao, ExaminationDateDao examinationDateDao, GradeDao gradeDao, GradeTypeDao gradeTypeDao, PropertyLoader propertyLoader) {
         super(subjectDao, userDao, examinationDateDao, gradeDao, gradeTypeDao, propertyLoader);
     }
 
@@ -48,8 +48,8 @@ public class E02StudentService extends BaseStudentService {
      */
     @Override
     @ErrorMethod(errorMessage = "This error method returns always 20 credits instead of real sum of student credits.")
-    public int getStudentTotalCredits(Long studentId){
-        log.error("Deliberate error: getStudentTotalCredits method returns always 20 credits instead of real sum of student credits.");
+    public int getStudentTotalCredits(Long studentId) {
+        log.error(propertyLoader.getProperty("log.E02StudentService.getStudentTotalCredits"));
         return 20;
     }
 }

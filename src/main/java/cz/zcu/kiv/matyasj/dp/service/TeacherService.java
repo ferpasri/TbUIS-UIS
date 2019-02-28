@@ -38,7 +38,7 @@ public interface TeacherService extends UserService {
     /**
      * Set the subject to a teacher.
      *
-     * @param teacher Subject will be set for this teacher object.
+     * @param teacher   Subject will be set for this teacher object.
      * @param subjectId The subject with this database id will be set for this teacher.
      * @return true if operation will be successfully completed, false otherwise
      */
@@ -47,7 +47,7 @@ public interface TeacherService extends UserService {
     /**
      * Unset the subject of this teacher.
      *
-     * @param teacher This subject will be unset for this teacher object.
+     * @param teacher   This subject will be unset for this teacher object.
      * @param subjectId The subject with this database id will be unset for this teacher.
      * @return true if operation will be successfully completed, false otherwise
      */
@@ -78,7 +78,7 @@ public interface TeacherService extends UserService {
      * This method returns list of all Examination terms created by specific teacher and for
      * specific subject.
      *
-     * @param teacher For this teacher will be list of exam terms returned.
+     * @param teacher   For this teacher will be list of exam terms returned.
      * @param subjectId Database id of subject
      * @return List of Examination terms which are created by particular teacher
      */
@@ -91,7 +91,7 @@ public interface TeacherService extends UserService {
      * specific subject. This method also removes participants which are already evaluated
      * from each examination terms participants lists.
      *
-     * @param teacher For this teacher will be list of exam terms returned.
+     * @param teacher   For this teacher will be list of exam terms returned.
      * @param subjectId Database id of subject
      * @return List of Examination terms which are created by specific teacher
      */
@@ -100,8 +100,8 @@ public interface TeacherService extends UserService {
     /**
      * This method creates new exam date for particular teacher and for subject.
      *
-     * @param teacher Teacher who wants to create a new exam
-     * @param subjectId New exam date will be created for subject with this database id
+     * @param teacher    Teacher who wants to create a new exam
+     * @param subjectId  New exam date will be created for subject with this database id
      * @param dateOfTerm Date of new examination
      * @return true if operation will be successfully completed, false otherwise
      */
@@ -110,7 +110,7 @@ public interface TeacherService extends UserService {
     /**
      * This method removes exam term of specific teacher.
      *
-     * @param teacher For this teacher object will be exam date removed
+     * @param teacher    For this teacher object will be exam date removed
      * @param examTermId Database id of exam term which teacher wants to remove
      * @return true if operation will be successfully completed, false otherwise
      */
@@ -119,10 +119,10 @@ public interface TeacherService extends UserService {
     /**
      * This method creates new grade/evaluation for student by particular teacher.
      *
-     * @param teacher Object of teacher who wants te create grade
-     * @param studentId Database id of student who gets the grade
-     * @param gradeTypeId Database id of Grade type
-     * @param subjectId Database id of subject
+     * @param teacher           Object of teacher who wants te create grade
+     * @param studentId         Database id of student who gets the grade
+     * @param gradeTypeId       Database id of Grade type
+     * @param subjectId         Database id of subject
      * @param examinationDateId Database id of examination term
      * @return true if operation will be successfully completed, false otherwise
      */
@@ -141,7 +141,7 @@ public interface TeacherService extends UserService {
      * date. In case student is not participant of examination date this method
      * returns null;
      *
-     * @param term Examination term object
+     * @param term      Examination term object
      * @param studentId Database id of student
      * @return Student object or null.
      */
@@ -172,7 +172,7 @@ public interface TeacherService extends UserService {
     /**
      * This method update persisted grade object.
      *
-     * @param gradeId Database id of updated grade
+     * @param gradeId        Database id of updated grade
      * @param newGradeTypeId Database id of grade type
      * @return true if success
      */

@@ -19,8 +19,8 @@ public interface PropertyLoader {
      * This method sets property value (string) in system property file
      * by property name with property value given in method parameter.
      *
-     * @param propertyName      Name of property
-     * @param propertyValue     Value of property
+     * @param propertyName  Name of property
+     * @param propertyValue Value of property
      */
     void setProperty(String propertyName, String propertyValue);
 

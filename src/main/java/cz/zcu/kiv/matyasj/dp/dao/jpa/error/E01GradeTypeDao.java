@@ -4,8 +4,10 @@ import cz.zcu.kiv.matyasj.dp.annotations.ErrorMethod;
 import cz.zcu.kiv.matyasj.dp.dao.GradeTypeDao;
 import cz.zcu.kiv.matyasj.dp.dao.jpa.correct.GenericDaoJpa;
 import cz.zcu.kiv.matyasj.dp.domain.university.GradeType;
+import cz.zcu.kiv.matyasj.dp.utils.properties.PropertyLoader;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
@@ -22,22 +24,25 @@ import java.util.List;
 public class E01GradeTypeDao extends GenericDaoJpa<GradeType, Long> implements GradeTypeDao {
     /** Shared system logger */
     private final Logger log = LogManager.getLogger();
+    /** Application property loader */
+    protected final PropertyLoader propertyLoader;
 
     /**
-     *  E01GradeTypeDao constructor
+     * E01GradeTypeDao constructor
      *
      * @param em Entity Manager for communication with database
      */
-    public E01GradeTypeDao(EntityManager em) {
+    public E01GradeTypeDao(EntityManager em, PropertyLoader propertyLoader) {
         super(em, GradeType.class);
+        this.propertyLoader = propertyLoader;
     }
 
     /**
-     *  Base E01GradeTypeDao constructor
-     *
+     * Base E01GradeTypeDao constructor
      */
-    public E01GradeTypeDao(){
+    public E01GradeTypeDao(PropertyLoader propertyLoader) {
         super(GradeType.class);
+        this.propertyLoader = propertyLoader;
     }
 
     /**
@@ -72,7 +77,7 @@ public class E01GradeTypeDao extends GenericDaoJpa<GradeType, Long> implements G
         resultList.add(C);
         resultList.add(D);
 
-        log.error("Deliberate error: GetAllGradeTypes method returns always static list of grade types: 1, 2, 3, 4!");
+        log.error(propertyLoader.getProperty("log.E01GradeTypeDao.getAllGradeTypes"));
         return resultList;
     }
 }

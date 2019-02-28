@@ -22,12 +22,12 @@ import java.util.List;
  * @author Jiri Matyas
  */
 //@Repository
-public class UserDaoCriteria extends GenericDaoJpa<User, Long> implements UserDao{
+public class UserDaoCriteria extends GenericDaoJpa<User, Long> implements UserDao {
     /** Shared system logger */
     private final Logger log = LogManager.getLogger();
 
     /**
-     *  UserDaoCriteria constructor
+     * UserDaoCriteria constructor
      *
      * @param em Entity Manager for communication with database
      */
@@ -36,10 +36,9 @@ public class UserDaoCriteria extends GenericDaoJpa<User, Long> implements UserDa
     }
 
     /**
-     *  Base UserDaoCriteria constructor
-     *
+     * Base UserDaoCriteria constructor
      */
-    public UserDaoCriteria(){
+    public UserDaoCriteria() {
         super(User.class);
     }
 
@@ -51,7 +50,7 @@ public class UserDaoCriteria extends GenericDaoJpa<User, Long> implements UserDa
      */
     public User create(User user) {
         user = this.save(user);
-        if(user.getId() != null) log.info("User " + user + " has been created!");
+        if (user.getId() != null) log.info("User " + user + " has been created!");
         return user;
     }
 
@@ -72,8 +71,9 @@ public class UserDaoCriteria extends GenericDaoJpa<User, Long> implements UserDa
         TypedQuery<User> q = entityManager.createQuery(query);
 
         try {
+            log.info("User with username " + username + " found.");
             return q.getSingleResult();
-        }catch (NoResultException e){
+        } catch (NoResultException e) {
             log.error("User with username " + username + " not found!");
             return null;
         }
@@ -92,6 +92,8 @@ public class UserDaoCriteria extends GenericDaoJpa<User, Long> implements UserDa
 
         query.select(root);
 
-        return entityManager.createQuery(query).getResultList();
+        List<User> users = entityManager.createQuery(query).getResultList();
+        log.info("Returning list of " + users.size() + " users.");
+        return users;
     }
 }

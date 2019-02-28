@@ -37,7 +37,7 @@ public class BasePorterService implements PorterService {
      * Default BasePorterService constructor
      */
     @Autowired
-    public BasePorterService(DataPorter xmlDataPorter, DataPorter jsonDataPorter, PropertyLoader propertyLoader, DatabaseDao databaseDao){
+    public BasePorterService(DataPorter xmlDataPorter, DataPorter jsonDataPorter, PropertyLoader propertyLoader, DatabaseDao databaseDao) {
         this.xmlDataPorter = xmlDataPorter;
         this.jsonDataPorter = jsonDataPorter;
         this.propertyLoader = propertyLoader;
@@ -45,6 +45,7 @@ public class BasePorterService implements PorterService {
 
         this.datePartExportFileNameFormatter = new SimpleDateFormat(propertyLoader.getProperty("exportDataFileNameDatePartFormat"));
     }
+
     /**
      * This method imports all data from file (in xml, json, ... format) into system database.
      *
@@ -55,12 +56,12 @@ public class BasePorterService implements PorterService {
     public boolean importData(File file) {
         String[] fileExtension = file.getName().split("\\.");
 
-        if(ExportDataFormat.XML.getFileExtension().equals(fileExtension[fileExtension.length-1])){
-            if(databaseDao.eraseDatabase()){
+        if (ExportDataFormat.XML.getFileExtension().equals(fileExtension[fileExtension.length - 1])) {
+            if (databaseDao.eraseDatabase()) {
                 return databaseDao.fillDatabase(xmlDataPorter.importData(file));
             }
-        }else if(ExportDataFormat.JSON.getFileExtension().equals(fileExtension[fileExtension.length-1])){
-            if(databaseDao.eraseDatabase()) {
+        } else if (ExportDataFormat.JSON.getFileExtension().equals(fileExtension[fileExtension.length - 1])) {
+            if (databaseDao.eraseDatabase()) {
                 return databaseDao.fillDatabase(jsonDataPorter.importData(file));
             }
         }
@@ -76,21 +77,21 @@ public class BasePorterService implements PorterService {
     @Override
     public File exportData(String exportDataFormat) {
         /* XML export data */
-        if(ExportDataFormat.XML.getFileExtension().equals(exportDataFormat)){
-            String fileName = System.getProperty("java.io.tmpdir")+File.separator+ datePartExportFileNameFormatter.format(new Date()) +"_DB-export.xml";
+        if (ExportDataFormat.XML.getFileExtension().equals(exportDataFormat)) {
+            String fileName = System.getProperty("java.io.tmpdir") + File.separator + datePartExportFileNameFormatter.format(new Date()) + "_DB-export.xml";
             boolean success = xmlDataPorter.exportData(fileName, databaseDao.databaseDump());
             File exportedFile = new File(fileName);
-            if(success && exportedFile.exists()){
+            if (success && exportedFile.exists()) {
                 return exportedFile;
             }
         }
 
         /* JSON export data */
-        if(ExportDataFormat.JSON.getFileExtension().equals(exportDataFormat)){
-            String fileName = System.getProperty("java.io.tmpdir")+File.separator+ datePartExportFileNameFormatter.format(new Date()) +"_DB-export.json";
+        if (ExportDataFormat.JSON.getFileExtension().equals(exportDataFormat)) {
+            String fileName = System.getProperty("java.io.tmpdir") + File.separator + datePartExportFileNameFormatter.format(new Date()) + "_DB-export.json";
             boolean success = jsonDataPorter.exportData(fileName, databaseDao.databaseDump());
             File exportedFile = new File(fileName);
-            if(success && exportedFile.exists()){
+            if (success && exportedFile.exists()) {
                 return exportedFile;
             }
         }

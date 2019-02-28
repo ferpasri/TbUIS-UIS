@@ -27,7 +27,7 @@ public class BasePropertyLoader implements PropertyLoader{
     /**
      * Default BasePropertyLoader constructor
      */
-    public BasePropertyLoader(){
+    public BasePropertyLoader() {
         this(mainPropertyFileName);
     }
 
@@ -36,7 +36,7 @@ public class BasePropertyLoader implements PropertyLoader{
      *
      * @param propertyFileName String representation of property file name
      */
-    public BasePropertyLoader(String propertyFileName){
+    public BasePropertyLoader(String propertyFileName) {
         this.prop = new Properties();
 
         try {
@@ -63,8 +63,8 @@ public class BasePropertyLoader implements PropertyLoader{
      * This method sets property value (string) in system property file
      * by property name with property value given in method parameter.
      *
-     * @param propertyName      Name of property
-     * @param propertyValue     Value of property
+     * @param propertyName  Name of property
+     * @param propertyValue Value of property
      */
     @Override
     public void setProperty(String propertyName, String propertyValue) {

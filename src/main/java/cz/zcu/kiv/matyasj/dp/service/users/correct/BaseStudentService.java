@@ -43,20 +43,19 @@ public class BaseStudentService extends BaseUserService implements StudentServic
     protected GradeTypeDao gradeTypeDao;
     /** Application property loader */
     protected PropertyLoader propertyLoader;
-
     /** Shared system logger */
     private final Logger log = LogManager.getLogger();
 
     /**
      * BaseStudentService constructor for initialization objects used by spring.
      *
-     * @param subjectDao DAO object for manipulation with subject data in database
-     * @param userDao DAO object for manipulation with user data in database
+     * @param subjectDao         DAO object for manipulation with subject data in database
+     * @param userDao            DAO object for manipulation with user data in database
      * @param examinationDateDao DAO object for manipulation with exam date data in database
-     * @param gradeDao DAO object for manipulation with grade data in database
+     * @param gradeDao           DAO object for manipulation with grade data in database
      */
     @Autowired
-    public BaseStudentService(SubjectDao subjectDao, UserDao userDao, ExaminationDateDao examinationDateDao, GradeDao gradeDao, GradeTypeDao gradeTypeDao, PropertyLoader propertyLoader){
+    public BaseStudentService(SubjectDao subjectDao, UserDao userDao, ExaminationDateDao examinationDateDao, GradeDao gradeDao, GradeTypeDao gradeTypeDao, PropertyLoader propertyLoader) {
         this.subjectDao = subjectDao;
         this.userDao = userDao;
         this.examinationDateDao = examinationDateDao;
@@ -66,35 +65,41 @@ public class BaseStudentService extends BaseUserService implements StudentServic
     }
 
     /**
-     *  This method returns list of subjects that one particular
-     *  student studies.
+     * This method returns list of subjects that one particular
+     * student studies.
      *
      * @param studentId database student id
      * @return List of studied subjects
      */
     @Override
     public List<Subject> getStudiedSubjectsList(Long studentId) {
+
         User student = userDao.findOne(studentId);
 
-        if(student != null && student instanceof Student){
+        if (student instanceof Student) {
+            log.info("Getting list of studied subjects for student with id " + studentId + ".");
             return sortListOfSubjects(((Student) student).getListOfLearnedSubjects());
         }
+        log.error("Getting list of studied subjects failed.");
         return null;
     }
 
     /**
-     *  This method returns list of subjects that one particular student absolved.
+     * This method returns list of subjects that one particular student absolved.
      *
      * @param studentId database student id
      * @return List of absolved subjects
      */
     @Override
     public List<Subject> getAbsolvedSubjectsList(Long studentId) {
+
         User student = userDao.findOne(studentId);
 
-        if(student != null && student instanceof Student){
+        if (student instanceof Student) {
+            log.info("Getting list of absolved subjects for student with id " + studentId + ".");
             return sortListOfSubjects(new ArrayList<>(((Student) student).getListOfAbsolvedSubjects()));
         }
+        log.error("Getting list of absolved subjects failed.");
         return null;
     }
 
@@ -107,16 +112,20 @@ public class BaseStudentService extends BaseUserService implements StudentServic
      */
     @Override
     public List<Subject> getOtherSubjectsList(Long studentId) {
+
         User student = userDao.findOne(studentId);
-        if(student instanceof Student){
-            List<Subject> listOfLearnedSubjects =  ((Student) student).getListOfLearnedSubjects();
-            List<Subject> listOfAbsolvedSubjects =  ((Student) student).getListOfAbsolvedSubjects();
+
+        if (student instanceof Student) {
+            log.info("Getting list of other subjects for student with id " + studentId + ".");
+            List<Subject> listOfLearnedSubjects = ((Student) student).getListOfLearnedSubjects();
+            List<Subject> listOfAbsolvedSubjects = ((Student) student).getListOfAbsolvedSubjects();
             List<Subject> excludedSubjects = new ArrayList<>();
             excludedSubjects.addAll(listOfAbsolvedSubjects);
             excludedSubjects.addAll(listOfLearnedSubjects);
 
             return sortListOfSubjects(subjectDao.getSubjectsExceptSelected(excludedSubjects));
         }
+        log.error("Getting list of other subjects failed.");
         return null;
     }
 
@@ -128,10 +137,13 @@ public class BaseStudentService extends BaseUserService implements StudentServic
      */
     @Override
     public List<ExaminationDate> getExaminationDatesList(Long studentId) {
+
         User student = userDao.findOne(studentId);
-        if(student != null && student instanceof Student){
+        if (student instanceof Student) {
+            log.info("Getting list of examination dates for student with id " + studentId + ".");
             return examinationDateDao.getAllExaminationDatesOfStudent((Student) student);
         }
+        log.error("Getting list of examination dates failed.");
         return null;
     }
 
@@ -145,22 +157,25 @@ public class BaseStudentService extends BaseUserService implements StudentServic
     @Override
     public List<ExaminationDate> getNotRegisteredExaminationDatesList(Long studentId) {
         User student = userDao.findOne(studentId);
-        if(student != null && student instanceof Student){
+
+        if (student instanceof Student) {
+            log.info("Getting list of not registered examination dates for student with id " + studentId + ".");
             List<ExaminationDate> allExamDates = examinationDateDao.getAllExaminationDatesOfStudent((Student) student);
 
             Iterator<ExaminationDate> aExaminationDateIterator = allExamDates.iterator();
 
             // Remove registered Examination dates
-            while(aExaminationDateIterator.hasNext()){
+            while (aExaminationDateIterator.hasNext()) {
                 ExaminationDate examinationDate = aExaminationDateIterator.next();
-                for(Student s : examinationDate.getParticipants()){
-                    if(s.getId().longValue() == studentId.longValue()){
+                for (Student s : examinationDate.getParticipants()) {
+                    if (s.getId().longValue() == studentId.longValue()) {
                         aExaminationDateIterator.remove();
                     }
                 }
             }
             return sortListOfExamDates(allExamDates);
         }
+        log.error("Getting list of not registered examination dates failed.");
         return null;
     }
 
@@ -173,18 +188,22 @@ public class BaseStudentService extends BaseUserService implements StudentServic
      */
     @Override
     public List<ExaminationDate> getStudentExaminationDatesList(Long studentId) {
+
         User student = userDao.findOne(studentId);
-        if(student != null && student instanceof Student){
+        if (student instanceof Student) {
+
+            log.info("Getting list of examination dates for student with id " + studentId + ".");
             List<Grade> gradeList = gradeDao.findGradesByStudent((Student) student);
             List<ExaminationDate> examinationDateList = examinationDateDao.getExaminationDateOfStudent((Student) student);
 
             // Remove exam dates of already graduated subjects
-            for(Grade g : gradeList){
-              examinationDateList.removeIf(examinationDate -> (examinationDate.getSubject().getId().longValue() == g.getSubject().getId().longValue() && examinationDate.getDateOfTest().equals(g.getDayOfGrant())));
+            for (Grade g : gradeList) {
+                examinationDateList.removeIf(examinationDate -> (examinationDate.getSubject().getId().longValue() == g.getSubject().getId().longValue() && examinationDate.getDateOfTest().equals(g.getDayOfGrant())));
             }
 
             return examinationDateList;
         }
+        log.error("Getting list of examination dates failed.");
         return null;
     }
 
@@ -196,31 +215,37 @@ public class BaseStudentService extends BaseUserService implements StudentServic
      */
     @Override
     public List<Grade> getStudentGrades(Student student) {
-        if(student != null){
+
+        if (student != null) {
+            log.info("Getting list of grades for student with id " + student.getId() + ".");
             return gradeDao.findGradesByStudent(student);
         }
+        log.error("Getting list of grades failed.");
         return null;
-
     }
 
 
     /**
-     *  This method returns list of subjects that one particular student
-     *  studies. Students are enrolled for the
-     *  date of examination for these subjects.
+     * This method returns list of subjects that one particular student
+     * studies. Students are enrolled for the
+     * date of examination for these subjects.
      *
      * @param studentId database student id
      * @return List of studied subjects
      */
     @Override
     public List<Subject> getSubjectsWithRegisteredExamDate(Long studentId) {
+
         List<ExaminationDate> registerExamDates = getStudentExaminationDatesList(studentId);
         List<Subject> subjectWithRegisteredExamDate = new ArrayList<>();
 
-        if(registerExamDates == null)
+        if (registerExamDates == null) {
+            log.error("Getting list of subjects with registered exam date failed.");
             return null;
+        }
+        log.info("Getting list of subjects with registered exam date for student with id " + studentId + ".");
 
-        for(ExaminationDate e : registerExamDates){
+        for (ExaminationDate e : registerExamDates) {
             subjectWithRegisteredExamDate.add(e.getSubject());
         }
 
@@ -236,32 +261,34 @@ public class BaseStudentService extends BaseUserService implements StudentServic
      */
     @Override
     public boolean setStudiedSubject(Long studentId, Long subjectId) {
+
         User student = userDao.findOne(studentId);
-        if(student instanceof Student){
+        if (student instanceof Student) {
+            log.info("Setting studied subject with id " + subjectId + " to student with id " + studentId + ".");
 
             // Check max subject count for student
             int maxSubjectsNumber = Integer.parseInt(propertyLoader.getProperty("studentMaxSubjects"));
-            if(((Student) student).getListOfLearnedSubjects().size() >= maxSubjectsNumber){
-                log.warn("Student " + student.getFirstName() + " " + student.getLastName() + " is trying to enroll more than max subject count("+maxSubjectsNumber+")!");
+            if (((Student) student).getListOfLearnedSubjects().size() >= maxSubjectsNumber) {
+                log.warn("Student " + student.getFirstName() + " " + student.getLastName() + " is trying to enroll more than max subject count(" + maxSubjectsNumber + ")!");
                 return false;
             }
 
-            // Test if is object already setted.
-            for(Subject subject : ((Student) student).getListOfLearnedSubjects()){
-                if(subject.getId().longValue() == subjectId.longValue()){
+            // Test if is object already set.
+            for (Subject subject : ((Student) student).getListOfLearnedSubjects()) {
+                if (subject.getId().longValue() == subjectId.longValue()) {
                     return false;
                 }
             }
             // Test if is object already absolved.
-            for(Subject subject : ((Student) student).getListOfAbsolvedSubjects()){
-                if(subject.getId().longValue() == subjectId.longValue()){
+            for (Subject subject : ((Student) student).getListOfAbsolvedSubjects()) {
+                if (subject.getId().longValue() == subjectId.longValue()) {
                     return false;
                 }
             }
 
             Subject newSubject = subjectDao.findOne(subjectId);
             // Non-existent subject
-            if(newSubject == null){
+            if (newSubject == null) {
                 return false;
             }
 
@@ -269,10 +296,12 @@ public class BaseStudentService extends BaseUserService implements StudentServic
 
             student = userDao.save(student);
 
-            if(student != null){
+            if (student != null) {
                 return true;
             }
         }
+
+        log.error("Setting studied subject failed.");
         return false;
     }
 
@@ -287,80 +316,95 @@ public class BaseStudentService extends BaseUserService implements StudentServic
     public boolean unsetStudiedSubject(Long studentId, Long subjectId) {
         User student = userDao.findOne(studentId);
 
-        if(student == null)
+        if (student == null) {
+            log.error("Unsetting studied subject failed.");
             return false;
+        }
 
-        if(student instanceof Student){
+        if (student instanceof Student) {
+            log.info("Unsetting studied subject with id " + subjectId + " from student with id " + studentId + ".");
+
             List<ExaminationDate> examinationDateList = getStudentExaminationDatesList(studentId);
             List<Subject> listOfLearnedSubjects = ((Student) student).getListOfLearnedSubjects();
-            for(ExaminationDate e : examinationDateList){
-                if(e.getSubject().getId().longValue() == subjectId.longValue()){
+            for (ExaminationDate e : examinationDateList) {
+                if (e.getSubject().getId().longValue() == subjectId.longValue()) {
                     unsetExaminationDate(studentId, e.getId());
                 }
             }
-            for(Subject s : listOfLearnedSubjects){
-                if(s.getId().longValue() == subjectId.longValue()){
+            for (Subject s : listOfLearnedSubjects) {
+                if (s.getId().longValue() == subjectId.longValue()) {
                     listOfLearnedSubjects.remove(s);
                     student = userDao.save(student);
-                    if(student != null){
+                    if (student != null) {
                         return true;
                     }
                 }
             }
             log.warn("Try to unset not studied subject!");
         }
+        log.error("Unsetting studied subject failed.");
         return false;
     }
 
     /**
      * This method registers student on specific examination date.
      *
-     * @param studentId database id of student
+     * @param studentId  database id of student
      * @param examDateId database id of exam date
      * @return true if examination date was successfully registered, false otherwise.
      */
     @Override
     public boolean setExaminationDate(Long studentId, Long examDateId) {
-        ExaminationDate DateTmp = examinationDateDao.findOne(examDateId);
-        if(DateTmp == null)
-            return false;
 
-        if(DateTmp.getParticipants().size() == DateTmp.getMaxParticipants()){
-            log.error("Try to add more participants than max count!");
+        ExaminationDate DateTmp = examinationDateDao.findOne(examDateId);
+        if (DateTmp == null) {
+            log.error("Setting examination date failed.");
             return false;
         }
+
+        if (DateTmp.getParticipants().size() == DateTmp.getMaxParticipants()) {
+            log.error("Setting examination date failed.");
+            return false;
+        }
+
         // Test if student is learning subject of exam date
         User student = userDao.findOne(studentId);
 
-        if(student != null && student instanceof Student){
-            for(Subject subject : ((Student) student).getListOfLearnedSubjects()){
-                if(subject.getId().longValue() == DateTmp.getSubject().getId().longValue()){
+        if (student instanceof Student) {
+            log.info("Setting examination date with id " + examDateId + " to student with id " + studentId + ".");
+            for (Subject subject : ((Student) student).getListOfLearnedSubjects()) {
+                if (subject.getId().longValue() == DateTmp.getSubject().getId().longValue()) {
                     ExaminationDate date = examinationDateDao.registerStudentOnTerm(examDateId, studentId);
 
-                    if(date != null)
+                    if (date != null) {
                         return true;
+                    }
                 }
             }
         }
+        log.error("Setting examination date failed.");
         return false;
     }
 
     /**
      * This method unregisters student on specific examination date.
      *
-     * @param studentId database id of student
+     * @param studentId  database id of student
      * @param examDateId database id of exam date
      * @return true if examination date was successfully unregistered, false otherwise.
      */
     @Override
     public boolean unsetExaminationDate(Long studentId, Long examDateId) {
+
         User student = userDao.findOne(studentId);
-        if(student != null && student instanceof Student){
+        if (student instanceof Student) {
+            log.info("Unsetting examination date with id " + examDateId + " from student with id " + studentId + ".");
             ExaminationDate date = examinationDateDao.unregisterStudentOnTerm(examDateId, (Student) student);
-            if(date != null){
+            if (date != null) {
                 return true;
             }
         }
+        log.error("Unsetting examination date failed.");
         return false;
     }
 
@@ -371,13 +415,17 @@ public class BaseStudentService extends BaseUserService implements StudentServic
      * @return number of obtained credits.
      */
     @Override
-    public int getStudentTotalCredits(Long studentId){
+    public int getStudentTotalCredits(Long studentId) {
+
         int totalCredits;
         User student = userDao.findOne(studentId);
-        if(student != null && student instanceof Student){
+
+        if (student instanceof Student) {
+            log.info("Getting total number of credits for student with id " + studentId + ".");
             totalCredits = ((Student) student).getListOfAbsolvedSubjects().stream().mapToInt(Subject::getCreditRating).sum();
             return totalCredits;
         }
+        log.error("Getting total number of credits failed.");
         return -1;
     }
 }

@@ -37,37 +37,21 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class BaseTeacherService extends BaseUserService implements TeacherService {
-    /**
-     * DAO object for manipulation with subject data in database
-     */
+    /** DAO object for manipulation with subject data in database */
     protected final SubjectDao subjectDao;
-    /**
-     * DAO object for manipulation with user data in database
-     */
+    /** DAO object for manipulation with user data in database */
     protected final UserDao userDao;
-    /**
-     * DAO object for manipulation with examination terms data in database
-     */
+    /** DAO object for manipulation with examination terms data in database */
     protected final ExaminationDateDao examinationDateDao;
-    /**
-     * DAO object for manipulation with grade data in database
-     */
+    /** DAO object for manipulation with grade data in database */
     protected final GradeDao gradeDao;
-    /**
-     * DAO object for manipulation with grade types data in database
-     */
+    /** DAO object for manipulation with grade types data in database */
     protected final GradeTypeDao gradeTypeDao;
-    /**
-     * Date utility used for dealing with date/time structures
-     */
+    /** Date utility used for dealing with date/time structures */
     protected final DateUtility dateUtility;
-    /**
-     * Application property loader
-     */
+    /** Application property loader */
     protected final PropertyLoader propertyLoader;
-    /**
-     * Shared system logger
-     */
+    /** Shared system logger */
     protected final Logger log = LogManager.getLogger();
 
     /**
@@ -102,8 +86,10 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
     @Override
     public List<Subject> getTaughtSubjectsList(Teacher teacher) {
         if (teacher == null) {
+            log.error("Getting list of taught subjects failed.");
             return null;
         }
+        log.info("Getting list of taught subjects for teacher with id " + teacher.getId() + ".");
 
         Teacher tmpTeacher = (Teacher) userDao.findOne(teacher.getId());
 
@@ -119,8 +105,10 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
     @Override
     public List<Subject> getNonTaughtSubjectsList(Teacher teacher) {
         if (teacher == null) {
+            log.error("Getting list of not taught subjects failed.");
             return null;
         }
+        log.info("Getting list of not taught subjects for teacher with id " + teacher.getId() + ".");
 
         Teacher tmpTeacher = (Teacher) userDao.findOne(teacher.getId());
 
@@ -137,23 +125,31 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
      */
     @Override
     public boolean setMySubject(Teacher teacher, Long subjectId) {
-        if (teacher == null) return false;
+
+        if (teacher == null) {
+            log.error("Setting of subject failed.");
+            return false;
+        }
+        log.info("Setting subject with id " + subjectId + " to teacher with id " + teacher.getId() + ".");
 
         Teacher tmpTeacher = (Teacher) userDao.findOne(teacher.getId());
         Subject tmpSubject = subjectDao.findOne(subjectId);
 
-        if (tmpTeacher == null) return false;
+        if (tmpTeacher == null) {
+            log.error("Setting of subject failed.");
+            return false;
+        }
 
         // Check max subject count for teacher
         int maxSubjectsNumber = Integer.parseInt(propertyLoader.getProperty("teacherMaxSubjects"));
-        if (((Teacher) tmpTeacher).getListOfTaughtSubjects().size() >= maxSubjectsNumber) {
+        if (tmpTeacher.getListOfTaughtSubjects().size() >= maxSubjectsNumber) {
             log.warn("Teacher " + tmpTeacher.getFirstName() + " " + tmpTeacher.getLastName() + " is trying to register more than max subject count(" + maxSubjectsNumber + ")!");
             return false;
         }
 
         // Check max teacher count for subject
         int maxTeachersNumber = Integer.parseInt(propertyLoader.getProperty("subjectMaxTeachers"));
-        if (((Subject) tmpSubject).getTeachers().size() >= maxTeachersNumber) {
+        if (tmpSubject.getTeachers().size() >= maxTeachersNumber) {
             log.warn("Subject " + tmpSubject.getName() + " is trying to register more than max teachers count(" + maxTeachersNumber + ")!");
             return false;
         }
@@ -175,6 +171,7 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
                 }
             }
         }
+        log.error("Setting of subject failed.");
         return false;
     }
 
@@ -187,9 +184,12 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
      */
     @Override
     public boolean unsetMySubject(Teacher teacher, Long subjectId) {
+
         if (teacher == null) {
+            log.error("Unsetting of subject failed.");
             return false;
         }
+        log.info("Unsetting subject with id " + subjectId + " from teacher with id " + teacher.getId() + ".");
 
         Teacher tmpTeacher = (Teacher) userDao.findOne(teacher.getId());
         Subject tmpSubject = subjectDao.findOne(subjectId);
@@ -231,7 +231,7 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
             }
         }
 
-
+        log.error("Unsetting of subject failed.");
         return false;
     }
 
@@ -243,9 +243,12 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
      */
     @Override
     public List<ExaminationDate> getExaminationTermsByTeacher(Teacher teacher) {
+
         if (teacher == null) {
+            log.error("Getting all examination terms by teacher failed.");
             return null;
         }
+        log.info("Getting all examination terms by teacher for teacher with id " +  teacher.getId() + ".");
 
         Teacher tmpTeacher = (Teacher) userDao.findOne(teacher.getId());
         return examinationDateDao.getExaminationTermOfTeacher(tmpTeacher);
@@ -260,8 +263,10 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
     @Override
     public List<ExaminationDate> getExaminationTermsBySubject(Subject subject) {
         if (subject == null) {
+            log.error("Getting all examination terms by subject failed.");
             return null;
         }
+        log.info("Getting all examination terms by subject with id " + subject.getId() + ".");
 
         Subject tmpSubject = (Subject) subjectDao.findOne(subject.getId());
         return examinationDateDao.getExaminationTermOfSubject(tmpSubject);
@@ -278,8 +283,10 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
     @Override
     public List<ExaminationDate> getMyExaminationDatesWithoutGraduateParticipants(Teacher teacher) {
         if (teacher == null) {
+            log.error("Getting all examination terms without graduate participants failed.");
             return null;
         }
+        log.info("Getting all examination terms without graduate participants for teacher with id " + teacher.getId() + ".");
 
         Teacher tmpTeacher = (Teacher) userDao.findOne(teacher.getId());
         List<ExaminationDate> examinationDateList = examinationDateDao.getExaminationTermOfTeacher(tmpTeacher);
@@ -300,11 +307,14 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
      */
     @Override
     public List<ExaminationDate> getAllExaminationTermsByTeacherAndSubject(Teacher teacher, Long subjectId) {
+
         List<ExaminationDate> examinationDates = getExaminationTermsByTeacher(teacher);
 
         if (examinationDates == null) {
+            log.error("Getting all examination terms by teacher and subject failed.");
             return null;
         }
+        log.info("Getting all examination terms by teacher and subject for teacher with id " + teacher.getId() + " and subject with id " + subjectId + ".");
 
         examinationDates.removeIf(e -> e.getSubject().getId().longValue() != subjectId.longValue());
         return examinationDates;
@@ -321,8 +331,10 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
         List<ExaminationDate> examinationDates = getExaminationTermsBySubject(subject);
 
         if (examinationDates == null) {
+            log.error("Getting all examination terms by subject failed.");
             return null;
         }
+        log.info("Getting all examination terms by subject for subject with id " + subject.getId() + ".");
 
         examinationDates.removeIf(e -> e.getSubject().getId().longValue() != subject.getId().longValue());
         return examinationDates;
@@ -341,8 +353,10 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
     public List<ExaminationDate> getMyExaminationTermsWithoutGradedParticipantsBySubject(Teacher teacher, Long subjectId) {
         List<ExaminationDate> examinationDates = getMyExaminationDatesWithoutGraduateParticipants(teacher);
         if (examinationDates == null) {
+            log.error("Getting all examination terms without graded participants failed.");
             return null;
         }
+        log.info("Getting all examination terms without graded participants for subject with id " + subjectId + " and teacher with id " + teacher.getId() + ".");
 
         examinationDates.removeIf(e -> e.getSubject().getId().longValue() != subjectId.longValue());
         return examinationDates;
@@ -360,8 +374,10 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
     @Override
     public boolean createNewExaminationTerm(Teacher teacher, Long subjectId, String dateOfTerm, String maxParticipants) {
         if (teacher == null) {
+            log.error("Creating new examination term failed.");
             return false;
         }
+        log.info("Creating new examination term for subject with id " + subjectId + ", teacher with id " + teacher.getId()  + ", date " + dateOfTerm + " and maximal number of participants " + maxParticipants + ".");
 
         Date tmpDateOfTerm = dateUtility.stringToDate(dateOfTerm);
 
@@ -380,7 +396,7 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
         int maxParticipantsInt = 0;
         try {
             maxParticipantsInt = Integer.parseInt(maxParticipants);
-        } catch (Exception e)  {
+        } catch (Exception e) {
             log.warn("Maximal number of exam date participants exceeded! Creation of new examination term is being canceled.");
         }
 
@@ -415,7 +431,7 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
                 }
             }
 
-            if(lastExam != null) { // Teacher has already registered exam
+            if (lastExam != null) { // Teacher has already registered exam
 
                 // Calculated time for exam dates comparing
                 long latestExamTime = lastExam.getDateOfTest().getTime() / millisecondsInMinute;
@@ -466,7 +482,7 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
             return true;
         }
 
-        log.error("UNKNOWN ERROR");
+        log.error("Creating new examination term failed.");
         return false;
     }
 
@@ -480,8 +496,10 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
     @Override
     public boolean removeExaminationTerm(Teacher teacher, Long examTermId) {
         if (teacher == null) {
+            log.error("Removing examination term failed.");
             return false;
         }
+        log.info("Removing examination term with id " + examTermId + " from teacher with id " + teacher.getId() + ".");
 
         ExaminationDate examinationDate = examinationDateDao.findOne(examTermId);
 
@@ -521,8 +539,10 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
     @Override
     public boolean createNewGrade(Teacher teacher, Long studentId, Long gradeTypeId, Long subjectId, Long examinationDateId) {
         if (teacher == null) {
+            log.error("Creating new grade failed.");
             return false;
         }
+        log.info("Creating new grade for teacher with id " + teacher.getId() + ", student with id " + studentId + ", grade type with id " + gradeTypeId + " and examination term with id " + examinationDateId + ".");
 
         Student tmpStudent = (Student) userDao.findOne(studentId);
         if (tmpStudent == null) {
@@ -584,6 +604,7 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
             return true;
         }
 
+        log.error("Creating new grade failed.");
         return false;
     }
 
@@ -595,6 +616,7 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
      */
     @Override
     public ExaminationDate getExaminationTerm(Long examTermId) {
+        log.info("Getting examination date with id " + examTermId + ".");
         return examinationDateDao.findOne(examTermId);
     }
 
@@ -609,9 +631,12 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
      */
     @Override
     public Student getStudentFromExaminationTerm(ExaminationDate term, long studentId) {
+
         if (term == null) {
+            log.error("Getting student from examination term failed.");
             return null;
         }
+        log.info("Getting student from examination term.");
 
         Student student = null;
         for (Student s : term.getParticipants()) {
@@ -630,6 +655,7 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
      */
     @Override
     public List<GradeType> getAllGradeTypes() {
+        log.info("Getting all grade types.");
         return gradeTypeDao.getAllGradeTypes();
     }
 
@@ -640,6 +666,7 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
      */
     @Override
     public List<Teacher> getAllTeachers() {
+        log.info("Getting all teachers.");
         List<Teacher> allTeachersList = new ArrayList<>();
 
         for (User u : userDao.findAllUsers()) {
@@ -661,8 +688,10 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
     public List<Grade> getGradesForSubject(Long subjectId) {
         Subject subject = subjectDao.findOne(subjectId);
         if (subject != null) {
+            log.info("Getting all grades for subject with id " + subjectId + ".");
             return gradeDao.findGradesBySubject(subject);
         }
+        log.info("Getting all grades for subject with failed.");
         return null;
     }
 
@@ -675,6 +704,7 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
      */
     @Override
     public boolean updateGrade(Long teacherId, Long gradeId, Long newGradeTypeId) {
+        log.info("Updating grade with id " + gradeId + " with teacher with id " + teacherId + " and grade type with id " + newGradeTypeId);
         Grade savedGrade = gradeDao.findOne(gradeId);
         User currentTeacher = userDao.findOne(teacherId);
         GradeType gradeType = gradeTypeDao.findOne(newGradeTypeId);
@@ -697,7 +727,7 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
                     Student tmpStudent = (Student) userDao.findOne(student.getId());
 
                     if (!(gradeType.getId().longValue() == unsuccessfulGrade.getId().longValue())) { // successful grade
-                         //Removing subject from learned subjects
+                        //Removing subject from learned subjects
                         removeFromSubjects(s, tmpStudent.getListOfLearnedSubjects());
 
                         if (!tmpStudent.getListOfAbsolvedSubjects().contains(s)) {
@@ -719,16 +749,19 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
                 }
             }
         }
+        log.error("Updating grade failed.");
         return false;
     }
 
 
     /**
      * Removes subject from list ob subjects
-     * @param subject   Subject to remove
-     * @param subjects  List of subjects
+     *
+     * @param subject  Subject to remove
+     * @param subjects List of subjects
      */
     private void removeFromSubjects(Subject subject, List<Subject> subjects) {
+        log.info("Removing subject with id " + (subject != null ? subject.getId() : null) + " from list of subjects.");
         Iterator<Subject> learnedSubjectsIt = subjects.iterator();
         while (learnedSubjectsIt.hasNext()) {
             if (learnedSubjectsIt.next().getId().longValue() == subject.getId().longValue()) {

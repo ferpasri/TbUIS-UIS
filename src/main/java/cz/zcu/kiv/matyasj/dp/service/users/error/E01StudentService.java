@@ -25,29 +25,28 @@ import java.util.List;
 //@Service
 public class E01StudentService extends BaseStudentService {
 
-
     /** Shared system logger */
     private final Logger log = LogManager.getLogger();
 
     /**
      * E01StudentService constructor is needed because of dependencies in parent (BaseStudentService) constructor.
      *
-     * @param subjectDao DAO object for manipulation with subject data in database
-     * @param userDao DAO object for manipulation with user data in database
+     * @param subjectDao         DAO object for manipulation with subject data in database
+     * @param userDao            DAO object for manipulation with user data in database
      * @param examinationDateDao DAO object for manipulation with exam term data in database
-     * @param gradeTypeDao DAO object for grade types
-     * @param gradeDao DAO object for manipulation with grade data in database
+     * @param gradeTypeDao       DAO object for grade types
+     * @param gradeDao           DAO object for manipulation with grade data in database
      */
     @Autowired
-    public E01StudentService(SubjectDao subjectDao, UserDao userDao, ExaminationDateDao examinationDateDao, GradeDao gradeDao, GradeTypeDao gradeTypeDao, PropertyLoader propertyLoader){
+    public E01StudentService(SubjectDao subjectDao, UserDao userDao, ExaminationDateDao examinationDateDao, GradeDao gradeDao, GradeTypeDao gradeTypeDao, PropertyLoader propertyLoader) {
         super(subjectDao, userDao, examinationDateDao, gradeDao, gradeTypeDao, propertyLoader);
     }
 
     /**
-     *  DELIBERATE ERROR
+     * DELIBERATE ERROR
      *
-     *  This method returns null instead of list of subjects that one particular
-     *  student studies.
+     * This method returns null instead of list of subjects that one particular
+     * student studies.
      *
      * @param studentId database student id
      * @return List of studied subjects
@@ -55,7 +54,7 @@ public class E01StudentService extends BaseStudentService {
     @Override
     @ErrorMethod(errorMessage = "This method returns always null instead of list of subjects.")
     public List<Subject> getStudiedSubjectsList(Long studentId) {
-        log.error("Deliberate error: getStudiedSubjectsList method returns always null instead of list of subjects.");
+        log.error(propertyLoader.getProperty("log.E01StudentService.getStudiedSubjectsList"));
         return null;
     }
 }

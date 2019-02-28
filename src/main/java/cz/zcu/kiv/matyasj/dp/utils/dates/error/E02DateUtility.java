@@ -30,6 +30,8 @@ public class E02DateUtility implements DateUtility {
     private DateFormat sdfDate;
     /** Prepared time format */
     private DateFormat sdfTime;
+    /** Application property loader */
+    protected final PropertyLoader propertyLoader;
 
     /**
      * Default E02DateUtility constructor.
@@ -37,10 +39,11 @@ public class E02DateUtility implements DateUtility {
      * @param propertyLoader Property loader for getting date formats from system properties.
      */
     @Autowired
-    public E02DateUtility(PropertyLoader propertyLoader){
-        sdfDateAndTime= new SimpleDateFormat(propertyLoader.getProperty("dateAndTimeFormat"));
-        sdfDate= new SimpleDateFormat(propertyLoader.getProperty("dateFormat"));
-        sdfTime= new SimpleDateFormat(propertyLoader.getProperty("timeFormat"));
+    public E02DateUtility(PropertyLoader propertyLoader) {
+        sdfDateAndTime = new SimpleDateFormat(propertyLoader.getProperty("dateAndTimeFormat"));
+        sdfDate = new SimpleDateFormat(propertyLoader.getProperty("dateFormat"));
+        sdfTime = new SimpleDateFormat(propertyLoader.getProperty("timeFormat"));
+        this.propertyLoader = propertyLoader;
     }
 
 
@@ -70,13 +73,13 @@ public class E02DateUtility implements DateUtility {
         try {
             switch (stringDate.length()) {
                 case 16:  // yyyy-MM-dd HH:mm
-                    log.error("Deliberate error: stringToDate method returns Date object from static string 2100-12-12 20:00");
+                    log.error(propertyLoader.getProperty("log.E02DateUtility.stringToDate16"));
                     return sdfDateAndTime.parse("2100-12-12 20:00");
                 case 10:  // yyyy-MM-dd
-                    log.error("Deliberate error: stringToDate method returns Date object from static string 2100-12-12");
+                    log.error(propertyLoader.getProperty("log.E02DateUtility.stringToDate10"));
                     return sdfDate.parse("2100-12-12");
                 case 5:  // HH:mm
-                    log.error("Deliberate error: stringToDate method returns Date object from static string 20:00");
+                    log.error(propertyLoader.getProperty("log.E02DateUtility.stringToDate5"));
                     return sdfTime.parse("20:00");
             }
         } catch (ParseException e) {

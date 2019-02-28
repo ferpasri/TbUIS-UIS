@@ -31,7 +31,6 @@ public class ListOfTaughtSubjectController {
     /** Object for resolving messages, with support for the parameterization and internationalization of such messages.*/
     @Autowired
     MessageSource messageSource;
-
     /** Shared system logger */
     protected Logger log = LogManager.getLogger();
 
@@ -42,34 +41,37 @@ public class ListOfTaughtSubjectController {
      * @return ModelAndView object
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView showTaughtSubjectList(Model model){
+    public ModelAndView showTaughtSubjectList(Model model) {
+        log.info("Request for retrieving list of taught subjects for view.");
+
         List<Subject> listOfSubjects = teacherService.getTaughtSubjectsList((Teacher) teacherService.getCurrentUser());
 
         ModelAndView retModel = new ModelAndView("/WEB-INF/pages/teacher-view.jsp");
         retModel.addObject("subjectList", listOfSubjects);
         retModel.addObject("view", "mySubjects");
 
-        log.info("Show taught subjects list");
-        return  retModel;
+        return retModel;
     }
 
     /**
      * This method serves user POST requests to unset taught subject
      *
-     * @param model Model to be sent to view
-     * @param locale Locale object
+     * @param model     Model to be sent to view
+     * @param locale    Locale object
      * @param subjectId Id of subject to set
      * @return ModelAndView object
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView removeStudiedSubject(Locale locale, Model model, @RequestParam("subjectId") Long subjectId){
+    public ModelAndView removeStudiedSubject(Locale locale, Model model, @RequestParam("subjectId") Long subjectId) {
         Teacher teacher = (Teacher) teacherService.getCurrentUser();
 
-        log.info("Unset taught subject(id["+subjectId+"]) for teacher (id["+teacher.getId() + "])");
+        log.info("Request for removing taught subject(id[" + subjectId + "]) for teacher (id[" + teacher.getId() + "])");
         boolean success = teacherService.unsetMySubject(teacher, subjectId);
-        if(success){
+        if (success) {
+            log.info("Request for removing taught subject(id["+subjectId+"]) for teacher (id["+teacher + "]) was successful.");
             model.addAttribute("successMessage", messageSource.getMessage("tea.mySubjects.successMessage", null, locale));
-        }else {
+        } else {
+            log.error("Request for removing taught subject(id["+subjectId+"]) for teacher (id["+teacher + "]) failed.");
             model.addAttribute("errorMessage", messageSource.getMessage("tea.mySubjects.errorMessage", null, locale));
         }
 

@@ -5,7 +5,9 @@ import cz.zcu.kiv.matyasj.dp.domain.university.ExaminationDate;
 import cz.zcu.kiv.matyasj.dp.domain.university.Grade;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
+
 import java.util.Date;
+
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.stereotype.Repository;
@@ -29,11 +31,13 @@ import java.util.List;
  */
 @Repository
 public class GradeDaoCriteria extends GenericDaoJpa<Grade, Long> implements GradeDao {
-    /** Shared system logger */
+    /**
+     * Shared system logger
+     */
     private final Logger log = LogManager.getLogger();
 
     /**
-     *  GradeDaoCriteria constructor
+     * GradeDaoCriteria constructor
      *
      * @param em Entity Manager for communication with database
      */
@@ -42,10 +46,9 @@ public class GradeDaoCriteria extends GenericDaoJpa<Grade, Long> implements Grad
     }
 
     /**
-     *  Base GradeDaoCriteria constructor
-     *
+     * Base GradeDaoCriteria constructor
      */
-    public GradeDaoCriteria(){
+    public GradeDaoCriteria() {
         super(Grade.class);
     }
 
@@ -68,8 +71,10 @@ public class GradeDaoCriteria extends GenericDaoJpa<Grade, Long> implements Grad
         TypedQuery<Grade> q = entityManager.createQuery(query);
 
         try {
-            return q.getResultList();
-        }catch (NoResultException e){
+            List<Grade> grades = q.getResultList();
+            log.info("Returning list of " + grades.size() + " grades for subject with id " + subject.getId() + ".");
+            return grades;
+        } catch (NoResultException e) {
             log.error(" Grades for subject" + subject.getName() + " not found!");
             return new ArrayList<>();
         }
@@ -93,9 +98,11 @@ public class GradeDaoCriteria extends GenericDaoJpa<Grade, Long> implements Grad
         TypedQuery<Grade> q = entityManager.createQuery(query);
 
         try {
-            return q.getResultList();
-        }catch (NoResultException e){
-            log.error("Grades for student " + student.getFirstName() + " " +student.getLastName() + " not found!", e);
+            List<Grade> grades = q.getResultList();
+            log.info("Returning list of " + grades.size() + " for student with id " + student.getId());
+            return grades;
+        } catch (NoResultException e) {
+            log.error("Grades for student " + student.getFirstName() + " " + student.getLastName() + " not found!", e);
             return null;
         }
     }
@@ -123,9 +130,11 @@ public class GradeDaoCriteria extends GenericDaoJpa<Grade, Long> implements Grad
         TypedQuery<Grade> q = entityManager.createQuery(query);
 
         try {
-            return q.getSingleResult();
-        }catch (NoResultException e){
-            log.warn("Grade for student " + student.getFirstName() + " " + student.getLastName() + " and for subject " + subject.getName() + " and for date " + date.getTime() + " not found.");
+            Grade grade = q.getSingleResult();
+            log.info("Returning grade with id " + grade.getId() + " for subject with id " + subject.getId() + " and student with id " + student.getId());
+            return grade;
+        } catch (NoResultException e) {
+            log.warn("Grade for student " + (student != null ? student.getFirstName() : null) + " " + (student != null ? student.getLastName() : null) + " and for subject " + (subject != null ? subject.getName() : null) + " and for date " + (date != null ? date.toString() : null) + " not found.");
             return null;
         }
     }

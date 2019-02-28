@@ -57,7 +57,7 @@ public class BaseInitializer implements Initializer{
      * Initializer constructor
      */
     @Autowired
-    public BaseInitializer(SubjectDao subjectDao, UserDao userDao, ExaminationDateDao examinationDateDao, GradeTypeDao gradeTypeDao, PorterService porterService, PropertyLoader propertyLoader, PasswordEncoder passwordEncoder){
+    public BaseInitializer(SubjectDao subjectDao, UserDao userDao, ExaminationDateDao examinationDateDao, GradeTypeDao gradeTypeDao, PorterService porterService, PropertyLoader propertyLoader, PasswordEncoder passwordEncoder) {
         this.subjectDao = subjectDao;
         this.userDao = userDao;
         this.examinationDateDao = examinationDateDao;
@@ -73,7 +73,7 @@ public class BaseInitializer implements Initializer{
      * @return true if reinit action was successfully completed, false otherwise
      */
     @Override
-    public boolean reinit(){
+    public boolean reinit() {
         inited = false;
         return init();
     }
@@ -85,10 +85,10 @@ public class BaseInitializer implements Initializer{
      * @return true if init action was successfully completed, false otherwise
      */
     @Override
-    public boolean init(){
+    public boolean init() {
         log.info("Initializing ...");
         // Init from file. If init from file is not successful -> run static init
-        if(!fileInit())  staticInit();
+        if (!fileInit()) staticInit();
 
         return inited;
     }
@@ -98,18 +98,18 @@ public class BaseInitializer implements Initializer{
      *
      * @return true if init action was successfully completed, false otherwise
      */
-    private boolean fileInit(){
-        if(!inited){
+    private boolean fileInit() {
+        if (!inited) {
             File initFile = null;
             try {
                 initFile = new File(URLDecoder.decode(propertyLoader.getProperty("initFile"), "UTF-8"));
             } catch (UnsupportedEncodingException e) {
-                log.error("UnsupportedEncodingException: ",e);
+                log.error("UnsupportedEncodingException: ", e);
                 return false;
             }
 
-            if(initFile.exists()){
-                if(porterService.importData(initFile)) {
+            if (initFile.exists()) {
+                if (porterService.importData(initFile)) {
                     inited = true;
                     log.info("Initialized from file!");
                 }
@@ -124,8 +124,8 @@ public class BaseInitializer implements Initializer{
      *
      * @return true if init action was successfully completed, false otherwise
      */
-    private boolean staticInit(){
-        if(!inited){
+    private boolean staticInit() {
+        if (!inited) {
             Subject Computer_System_Engineering = new Subject("Computer System Engineering", 6);
             Subject Computation_Structures = new Subject("Computation Structures", 5);
             Subject Database_Systems = new Subject("Database Systems", 3);
@@ -163,7 +163,7 @@ public class BaseInitializer implements Initializer{
             User blue = new Student("James", "Blue", "blue", passwordHash, "blue@mail.edu");
             User green = new Student("Benjamin", "Green", "green", passwordHash, "green@mail.edu");
             User gray = new Student("Michael", "Gray", "gray", passwordHash, "gray@mail.edu");
-            User cyan =  new Student("Ethan", "Cyan", "cyan", passwordHash, "cyan@mail.edu");
+            User cyan = new Student("Ethan", "Cyan", "cyan", passwordHash, "cyan@mail.edu");
             User pink = new Student("Emma", "Pink", "pink", passwordHash, "pink@mail.edu");
             User red = new Student("Sophia", "Red", "red", passwordHash, "red@mail.edu");
             User yellow = new Student("Isabella", "Yellow", "yellow", passwordHash, "yellow@mail.edu");

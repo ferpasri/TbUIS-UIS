@@ -31,7 +31,6 @@ public class ListOfNotTaughtSubjectController {
     /** Object for resolving messages, with support for the parameterization and internationalization of such messages.*/
     @Autowired
     MessageSource messageSource;
-
     /** Shared system logger */
     protected Logger log = LogManager.getLogger();
 
@@ -42,34 +41,36 @@ public class ListOfNotTaughtSubjectController {
      * @return ModelAndView object
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView showNotTaughtSubjectList(Model model){
+    public ModelAndView showNotTaughtSubjectList(Model model) {
+        log.info("Request for retrieving list of not taught subjects view.");
         List<Subject> listOfSubjects = teacherService.getNonTaughtSubjectsList((Teacher) teacherService.getCurrentUser());
 
         ModelAndView retModel = new ModelAndView("/WEB-INF/pages/teacher-view.jsp");
         retModel.addObject("subjectList", listOfSubjects);
         retModel.addObject("view", "otherSubjects");
 
-        log.info("Show NOT taught subjects list");
-        return  retModel;
+        return retModel;
     }
 
     /**
      * This method serves user POST requests to set new taught subject
      *
-     * @param model Model to be sent to view
-     * @param locale Locale object
+     * @param model     Model to be sent to view
+     * @param locale    Locale object
      * @param subjectId Id of subject to set
      * @return ModelAndView object
      */
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView setTaughtSubject(Locale locale, Model model, @RequestParam("subjectId") Long subjectId){
+    public ModelAndView setTaughtSubject(Locale locale, Model model, @RequestParam("subjectId") Long subjectId) {
         Long teacherId = teacherService.getCurrentUser().getId();
-        log.info("Set new taught subject(id["+subjectId+"]) for teacher (id["+teacherId + "])");
+        log.info("Request for setting new taught subject(id[" + subjectId + "]) for teacher (id[" + teacherId + "]).");
 
         boolean success = teacherService.setMySubject((Teacher) teacherService.getCurrentUser(), subjectId);
-        if(success){
+        if (success) {
+            log.info("Request for setting new taught subject(id["+subjectId+"]) for teacher (id["+teacherId + "]) was successful.");
             model.addAttribute("successMessage", messageSource.getMessage("tea.otherSubjects.successMessage", null, locale));
-        }else{
+        } else {
+            log.error("Request for setting new taught subject(id["+subjectId+"]) for teacher (id["+teacherId + "]) was successful.");
             model.addAttribute("errorMessage", messageSource.getMessage("tea.otherSubjects.errorMessage", null, locale));
         }
 

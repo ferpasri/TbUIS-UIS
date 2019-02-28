@@ -3,6 +3,7 @@ package cz.zcu.kiv.matyasj.dp.web.controllers.teacher;
 import cz.zcu.kiv.matyasj.dp.domain.university.ExaminationDate;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
+import cz.zcu.kiv.matyasj.dp.domain.users.User;
 import cz.zcu.kiv.matyasj.dp.service.TeacherService;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -32,7 +33,6 @@ public class TeachersExamTermsController {
     /** Object for resolving messages, with support for the parameterization and internationalization of such messages.*/
     @Autowired
     MessageSource messageSource;
-
     /** Shared system logger */
     protected Logger log = LogManager.getLogger();
 
@@ -44,7 +44,10 @@ public class TeachersExamTermsController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView showTeachersExamDatesList(Model model) {
-        List<ExaminationDate> listOfExamDates = teacherService.getMyExaminationDatesWithoutGraduateParticipants((Teacher) teacherService.getCurrentUser());
+        User currentUser = teacherService.getCurrentUser();
+        log.info("Request for retrieving list of exam dates of user with id " + currentUser.getId() + " view.");
+
+        List<ExaminationDate> listOfExamDates = teacherService.getMyExaminationDatesWithoutGraduateParticipants((Teacher) currentUser);
         List<Subject> taughtSubjectList = teacherService.getTaughtSubjectsList((Teacher) teacherService.getCurrentUser());
 
         ModelAndView retModel = new ModelAndView("/WEB-INF/pages/teacher-view.jsp");
@@ -52,15 +55,14 @@ public class TeachersExamTermsController {
         retModel.addObject("taughtSubjectList", taughtSubjectList);
         retModel.addObject("view", "myExamDates");
 
-        log.info("Show teaching subject list");
         return retModel;
     }
 
     /**
      * This method serves user POST requests to remove created ExamDate
      *
-     * @param locale Locale object
-     * @param model Model to be sent to view
+     * @param locale     Locale object
+     * @param model      Model to be sent to view
      * @param examDateId id of existent ExamDate to cancel
      * @return ModelAndView object
      */
@@ -68,11 +70,13 @@ public class TeachersExamTermsController {
     public ModelAndView cancelExamDate(Locale locale, Model model, @RequestParam("examDateId") Long examDateId) {
         Teacher teacher = (Teacher) teacherService.getCurrentUser();
 
-        log.info("Canceling examination date id[" + examDateId + "] of userId[" + teacher.getId() + "]");
+        log.info("Request of user with id " + teacher.getId() + " for canceling examination date with id" + examDateId + ".");
         boolean success = teacherService.removeExaminationTerm(teacher, examDateId);
         if (success) {
+            log.info("Request for canceling examination date with id" + examDateId + " was successful.");
             model.addAttribute("successMessage", messageSource.getMessage("tea.myExamDates.successMessage", null, locale));
-        }else {
+        } else {
+            log.info("Request for canceling examination date with id" + examDateId + " failed.");
             model.addAttribute("errorMessage", messageSource.getMessage("tea.myExamDates.errorMessage", null, locale));
         }
         return showTeachersExamDatesList(model);

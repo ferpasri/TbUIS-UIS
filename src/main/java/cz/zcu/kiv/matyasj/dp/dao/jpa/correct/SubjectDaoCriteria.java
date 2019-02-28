@@ -10,6 +10,8 @@ import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.domain.users.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -41,8 +43,11 @@ public class SubjectDaoCriteria extends GenericDaoJpa<Subject, Long> implements 
     @Autowired
     GradeDao gradeDao;
 
+    /** Shared system logger */
+    private final Logger log = LogManager.getLogger();
+
     /**
-     *  GradeDaoCriteria constructor
+     * GradeDaoCriteria constructor
      *
      * @param em Entity Manager for communication with database
      */
@@ -51,10 +56,9 @@ public class SubjectDaoCriteria extends GenericDaoJpa<Subject, Long> implements 
     }
 
     /**
-     *  Base GradeDaoCriteria constructor
-     *
+     * Base GradeDaoCriteria constructor
      */
-    public SubjectDaoCriteria(){
+    public SubjectDaoCriteria() {
         super(Subject.class);
     }
 
@@ -67,9 +71,9 @@ public class SubjectDaoCriteria extends GenericDaoJpa<Subject, Long> implements 
     @Override
     public List<Subject> getSubjectsExceptSelected(List<Subject> excludedSubjects) {
         List<Long> listOfExcludedIds;
-        if(excludedSubjects != null && !excludedSubjects.isEmpty()){
+        if (excludedSubjects != null && !excludedSubjects.isEmpty()) {
             listOfExcludedIds = excludedSubjects.stream().map(Subject::getId).collect(Collectors.toList());
-        }else {
+        } else {
             listOfExcludedIds = new ArrayList<>();
         }
 
@@ -79,13 +83,14 @@ public class SubjectDaoCriteria extends GenericDaoJpa<Subject, Long> implements 
 
         query.select(root);
 
-        if(listOfExcludedIds != null && !listOfExcludedIds.isEmpty()){
+        if (listOfExcludedIds != null && !listOfExcludedIds.isEmpty()) {
             Predicate byExcludedIds = cb.not(root.get("id").in(listOfExcludedIds));
             query.where(byExcludedIds);
         }
         // Return result
         List<Subject> subjectList = entityManager.createQuery(query).getResultList();
         entityManager.flush();
+        log.info("Returning list of " + subjectList.size() + " subjects.");
         return subjectList;
     }
 
@@ -100,56 +105,62 @@ public class SubjectDaoCriteria extends GenericDaoJpa<Subject, Long> implements 
     public void delete(Long id) {
         List<User> allUsers = userDao.findAllUsers();
 
-        for(User u : allUsers){
-            if(u instanceof Student){
-                for(int i = 0; i < ((Student) u).getListOfAbsolvedSubjects().size(); i++){
-                    if(((Student) u).getListOfAbsolvedSubjects().get(i).getId().longValue() == id.longValue()){
+        for (User u : allUsers) {
+            if (u instanceof Student) {
+                for (int i = 0; i < ((Student) u).getListOfAbsolvedSubjects().size(); i++) {
+                    if (((Student) u).getListOfAbsolvedSubjects().get(i).getId().longValue() == id.longValue()) {
                         ((Student) u).getListOfAbsolvedSubjects().remove(i);
                         u = userDao.save(u);
                         break;
                     }
                 }
-                for(int i = 0; i < ((Student) u).getListOfLearnedSubjects().size(); i++){
-                    if(((Student) u).getListOfLearnedSubjects().get(i).getId().longValue() == id.longValue()){
+                log.info("List of all absolved subjects for student with id " + id + " deleted.");
+
+                for (int i = 0; i < ((Student) u).getListOfLearnedSubjects().size(); i++) {
+                    if (((Student) u).getListOfLearnedSubjects().get(i).getId().longValue() == id.longValue()) {
                         ((Student) u).getListOfLearnedSubjects().remove(i);
                         u = userDao.save(u);
                         userDao.findOne(u.getId());
                         break;
                     }
                 }
-            }else if(u instanceof Teacher){
-                for(int i = 0; i < ((Teacher) u).getListOfTaughtSubjects().size(); i++){
-                    if(((Teacher) u).getListOfTaughtSubjects().get(i).getId().longValue() == id.longValue()){
+                log.info("List of all learned subjects for student with id " + id + " deleted.");
+
+            } else if (u instanceof Teacher) {
+                for (int i = 0; i < ((Teacher) u).getListOfTaughtSubjects().size(); i++) {
+                    if (((Teacher) u).getListOfTaughtSubjects().get(i).getId().longValue() == id.longValue()) {
                         ((Teacher) u).getListOfTaughtSubjects().remove(i);
                         userDao.save(u);
                         break;
                     }
                 }
+                log.info("List of all taught subjects for teacher with id " + id + " deleted.");
             }
         }
 
-        for(ExaminationDate examinationDate : examinationDateDao.findAll()){
-            if(examinationDate.getSubject() != null) {
+        for (ExaminationDate examinationDate : examinationDateDao.findAll()) {
+            if (examinationDate.getSubject() != null) {
                 if (examinationDate.getSubject().getId().longValue() == id.longValue()) {
                     examinationDate.setSubject(null);
                     examinationDateDao.save(examinationDate);
                 }
             }
         }
+        log.info("List of all examination dates for user with id " + id + " deleted.");
 
-        for(Grade grade : gradeDao.findAll()){
-            if(grade.getSubject() != null) {
+        for (Grade grade : gradeDao.findAll()) {
+            if (grade.getSubject() != null) {
                 if (grade.getSubject().getId().longValue() == id.longValue()) {
                     grade.setSubject(null);
                     gradeDao.save(grade);
                 }
             }
         }
+        log.info("List of all grades for user with id " + id + " deleted.");
 
         entityManager.flush();
 
-
         super.delete(id);
-
+        log.info("User with id " + id + " deleted.");
     }
 }

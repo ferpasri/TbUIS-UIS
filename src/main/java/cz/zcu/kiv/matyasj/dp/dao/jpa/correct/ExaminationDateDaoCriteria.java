@@ -28,23 +28,23 @@ import java.util.List;
 public class ExaminationDateDaoCriteria extends GenericDaoJpa<ExaminationDate, Long> implements ExaminationDateDao {
     /** Shared system logger */
     private final static Logger log = LogManager.getLogger();
-    /** User DAO object for manipulation with user data*/
+    /** User DAO object for manipulation with user data */
     @Autowired
     private UserDao userDao;
 
     /**
-     *  ExaminationDateDaoCriteria constructor
+     * ExaminationDateDaoCriteria constructor
      *
      * @param em Entity Manager for communication with database
      */
-    public ExaminationDateDaoCriteria(EntityManager em){
+    public ExaminationDateDaoCriteria(EntityManager em) {
         super(em, ExaminationDate.class);
     }
+
     /**
-     *  Base ExaminationDateDaoCriteria constructor
-     *
+     * Base ExaminationDateDaoCriteria constructor
      */
-    public ExaminationDateDaoCriteria(){
+    public ExaminationDateDaoCriteria() {
         super(ExaminationDate.class);
     }
 
@@ -66,7 +66,9 @@ public class ExaminationDateDaoCriteria extends GenericDaoJpa<ExaminationDate, L
 
         query.where(byStudent);
 
-        return entityManager.createQuery(query).getResultList();
+        List<ExaminationDate> examinationDates = entityManager.createQuery(query).getResultList();
+        log.info("Returning list of " + examinationDates.size() + " examination dates for student with id " + student.getId() + ".");
+        return examinationDates;
     }
 
     /**
@@ -89,7 +91,9 @@ public class ExaminationDateDaoCriteria extends GenericDaoJpa<ExaminationDate, L
 
         query.where(cb.and(byStudent, inFuture));
 
-        return entityManager.createQuery(query).getResultList();
+        List<ExaminationDate> examinationDates = entityManager.createQuery(query).getResultList();
+        log.info("Returning list of " + examinationDates.size() + " examination dates in future for student with id " + student.getId() + ".");
+        return examinationDates;
     }
 
     /**
@@ -110,7 +114,9 @@ public class ExaminationDateDaoCriteria extends GenericDaoJpa<ExaminationDate, L
 
         query.where(byTeacher);
 
-        return entityManager.createQuery(query).getResultList();
+        List<ExaminationDate> examinationDates = entityManager.createQuery(query).getResultList();
+        log.info("Returning list of " + examinationDates.size() + " examination dates for teacher with id " + teacher.getId() + ".");
+        return examinationDates;
     }
 
     /**
@@ -131,31 +137,11 @@ public class ExaminationDateDaoCriteria extends GenericDaoJpa<ExaminationDate, L
 
         query.where(bySubject);
 
-        return entityManager.createQuery(query).getResultList();
+        List<ExaminationDate> examinationDates = entityManager.createQuery(query).getResultList();
+        log.info("Returning list of " + examinationDates.size() + " examination dates for subject with id " + subject.getId() + ".");
+        return examinationDates;
     }
 
-    /**
-     * Returns an examination term.
-     *
-     * @param subject list of examination terms of this subject will be returned
-     * @param date list of examination terms of this date will be returned
-     * @return List of Examination Terms
-     */
-    @Override
-    public ExaminationDate getExaminationTermBySubjectAndDate(Subject subject, Date date) {
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<ExaminationDate> query = cb.createQuery(ExaminationDate.class);
-        Root<ExaminationDate> root = query.from(ExaminationDate.class);
-
-        query.select(root);
-
-        Predicate bySubject = cb.equal(root.get("subject"), subject);
-        Predicate byDateOfTest = cb.equal(root.get("dateOfTest"), date);
-
-        query.where(bySubject, byDateOfTest);
-
-        return entityManager.createQuery(query).getSingleResult();
-    }
 
     /**
      * Get all possible exam dates for students who can sign up for or are already registered.
@@ -175,19 +161,21 @@ public class ExaminationDateDaoCriteria extends GenericDaoJpa<ExaminationDate, L
         query.select(root);
 
         Predicate byStudentParticipant = cb.isMember(student, root.get("participants"));
-        Predicate byStudentsSubject = cb.isMember(student,subjectJoin.get("listOfStudents") );
+        Predicate byStudentsSubject = cb.isMember(student, subjectJoin.get("listOfStudents"));
         Predicate inFuture = cb.greaterThan(root.get("dateOfTest"), new Date());
 
         query.where(cb.and(cb.or(byStudentParticipant, byStudentsSubject), inFuture));
 
-        return entityManager.createQuery(query).getResultList();
+        List<ExaminationDate> examinationDates = entityManager.createQuery(query).getResultList();
+        log.info("Returning list of all " + examinationDates.size() + " examination dates for student with id " + student.getId() + ".");
+        return examinationDates;
     }
 
     /**
      * Register student for Examination Date. It means adding student object into list of participants
      * in Examination Term object and persist changes into the database.
      *
-     * @param termId  Id number of examination term
+     * @param termId    Id number of examination term
      * @param studentId id of student who will be added to members of ExaminationDate
      * @return ExaminationDate
      */
@@ -195,18 +183,19 @@ public class ExaminationDateDaoCriteria extends GenericDaoJpa<ExaminationDate, L
     public ExaminationDate registerStudentOnTerm(Long termId, Long studentId) {
         ExaminationDate term = this.findOne(termId);
         Student foundStudent = (Student) userDao.findOne(studentId);
-        if(foundStudent == null){
-            log.error("Student with id "+studentId+" not found!");
+        if (foundStudent == null) {
+            log.error("Student with id " + studentId + " not found!");
             return null;
         }
-        for(Student s : term.getParticipants()){
-            if(s.getId().longValue() == foundStudent.getId().longValue()){
+        for (Student s : term.getParticipants()) {
+            if (s.getId().longValue() == foundStudent.getId().longValue()) {
                 log.warn("Try to register student on term which is already registered!");
                 return null;
             }
         }
         term.getParticipants().add(foundStudent);
 
+        log.info("Student with id " + studentId + " registered on term with id " + termId + ".");
         return this.save(term);
     }
 
@@ -223,20 +212,20 @@ public class ExaminationDateDaoCriteria extends GenericDaoJpa<ExaminationDate, L
         ExaminationDate term = findOne(termId);
         boolean removed = false;
 
-        if(term == null)
+        if (term == null)
             return null;
 
         Iterator<Student> participantsIterator = term.getParticipants().iterator();
-        while (participantsIterator.hasNext()){
+        while (participantsIterator.hasNext()) {
             Student participant = participantsIterator.next();
-            if(student.getId().longValue() == participant.getId().longValue()){
+            if (student.getId().longValue() == participant.getId().longValue()) {
                 participantsIterator.remove();
                 removed = true;
-
             }
         }
 
-        if(removed){
+        if (removed) {
+            log.info("Student with id " + student.getId() + " unregistered from term with id " + termId + ".");
             return this.save(term);
         }
 

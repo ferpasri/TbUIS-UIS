@@ -27,13 +27,13 @@ public class E01TeacherService extends BaseTeacherService {
     /**
      * E01TeacherService constructor is needed because of dependencies in parent (BaseTeacherService) constructor.
      *
-     * @param subjectDao DAO object for manipulation with subject data in database
-     * @param userDao DAO object for manipulation with user data in database
+     * @param subjectDao         DAO object for manipulation with subject data in database
+     * @param userDao            DAO object for manipulation with user data in database
      * @param examinationDateDao DAO object for manipulation with exam term data in database
-     * @param gradeDao DAO object for manipulation with grade data in database
-     * @param gradeTypeDao DAO object for manipulation with grade types data in database
-     * @param dateUtility Date utility used for dealing with date/time structures
-     * @param propertyLoader Application property loader
+     * @param gradeDao           DAO object for manipulation with grade data in database
+     * @param gradeTypeDao       DAO object for manipulation with grade types data in database
+     * @param dateUtility        Date utility used for dealing with date/time structures
+     * @param propertyLoader     Application property loader
      */
     @Autowired
     public E01TeacherService(SubjectDao subjectDao, UserDao userDao, ExaminationDateDao examinationDateDao, GradeDao gradeDao, GradeTypeDao gradeTypeDao, DateUtility dateUtility, PropertyLoader propertyLoader) {
@@ -51,7 +51,7 @@ public class E01TeacherService extends BaseTeacherService {
     @Override
     @ErrorMethod(errorMessage = "This method returns always null instead of list of all Subject of specific teacher.")
     public List<Subject> getTaughtSubjectsList(Teacher teacher) {
-        log.error("Deliberate error: getTaughtSubjectsList method returns always null instead of list of all Subject of specific teacher.");
+        log.error(propertyLoader.getProperty("log.E01TeacherService.getTaughtSubjectsList"));
         return null;
     }
 }

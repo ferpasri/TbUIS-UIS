@@ -1,6 +1,8 @@
 package cz.zcu.kiv.matyasj.dp.web.controllers;
 
 import cz.zcu.kiv.matyasj.dp.service.RestoreDBService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -26,27 +28,33 @@ public class RestoreDbController {
     /** Object for resolving messages, with support for the parameterization and internationalization of such messages.*/
     @Autowired
     MessageSource messageSource;
+    /** Shared system logger */
+    protected Logger log = LogManager.getLogger();
 
     /**
      * This method serves restoreDB user GET request.
      *
-     * @param session HttpSession object
-     * @param locale System locale
+     * @param session            HttpSession object
+     * @param locale             System locale
      * @param redirectAttributes RedirectAttributes object for redirecting attributes
      * @return ModelAndView object
      */
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView restoreDB(HttpSession session, Locale locale, RedirectAttributes redirectAttributes){
+    public ModelAndView restoreDB(HttpSession session, Locale locale, RedirectAttributes redirectAttributes) {
+
+        log.info("Request for restoring database");
 
         boolean success = restoreDBService.restoreDB();
-        if(success){
+        if (success) {
             redirectAttributes.addAttribute("successMessage", messageSource.getMessage("restoreDBPage.successMessage", null, locale));
             // invalidate session for logout user
             session.invalidate();
-        }else{
+            log.info("Database is restored");
+        } else {
             redirectAttributes.addAttribute("errorMessage", messageSource.getMessage("restoreDBPage.errorMessage", null, locale));
+            log.error("Database restoration failed");
         }
 
-        return  new ModelAndView("redirect:/");
+        return new ModelAndView("redirect:/");
     }
 }
