@@ -40,6 +40,7 @@ public class E01GradeTypeDao extends GenericDaoJpa<GradeType, Long> implements G
     /**
      * Base E01GradeTypeDao constructor
      */
+    @Autowired
     public E01GradeTypeDao(PropertyLoader propertyLoader) {
         super(GradeType.class);
         this.propertyLoader = propertyLoader;
