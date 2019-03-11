@@ -172,7 +172,7 @@
             <td>Database Systems</td>
             <td>3</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td>X</td>
             <td>&nbsp;</td>
             <td>X</td>
             <td>&nbsp;</td>
@@ -443,7 +443,7 @@
             <td>E</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td>E</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
@@ -457,7 +457,7 @@
             <td>r</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td>r</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
@@ -713,7 +713,7 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td>E</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
@@ -727,7 +727,7 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td>r</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>

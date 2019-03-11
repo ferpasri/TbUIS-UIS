@@ -218,6 +218,7 @@ public class BaseInitializer implements Initializer{
             ((Student) purple).getListOfLearnedSubjects().add(Computation_Structures);
 
             ((Teacher) pedant).getListOfTaughtSubjects().add(Database_Systems);
+            ((Teacher) keen).getListOfTaughtSubjects().add(Database_Systems);
             ((Student) gray).getListOfLearnedSubjects().add(Database_Systems);
             ((Student) red).getListOfLearnedSubjects().add(Database_Systems);
 
@@ -228,6 +229,7 @@ public class BaseInitializer implements Initializer{
             ((Teacher) keen).getListOfTaughtSubjects().add(Introduction_To_Algorithms);
             ((Student) cyan).getListOfLearnedSubjects().add(Introduction_To_Algorithms);
             ((Student) pink).getListOfLearnedSubjects().add(Introduction_To_Algorithms);
+            ((Student) orange).getListOfLearnedSubjects().add(Introduction_To_Algorithms);
 
             ((Teacher) keen).getListOfTaughtSubjects().add(Mobile_Applications);
             ((Student) cyan).getListOfLearnedSubjects().add(Mobile_Applications);
@@ -269,6 +271,7 @@ public class BaseInitializer implements Initializer{
             ((Student) green).getListOfLearnedSubjects().add(Web_Programming);
             ((Student) gray).getListOfLearnedSubjects().add(Web_Programming);
             ((Student) cyan).getListOfLearnedSubjects().add(Web_Programming);
+            ((Student) orange).getListOfLearnedSubjects().add(Web_Programming);
 
 
             brown = userDao.save(brown);
@@ -355,7 +358,7 @@ public class BaseInitializer implements Initializer{
 
             Term_Computer_System_Engineering.setTeacher(Computer_System_Engineering.getTeachers().get(0));
             Term_Computation_Structures.setTeacher(Computation_Structures.getTeachers().get(0));
-            Term_Database_Systems.setTeacher(Database_Systems.getTeachers().get(0));
+            Term_Database_Systems.setTeacher(Database_Systems.getTeachers().get(1));
             Term_Fundamentals_of_Computer_Networks.setTeacher(Fundamentals_of_Computer_Networks.getTeachers().get(0));
             Term_Introduction_To_Algorithms.setTeacher(Introduction_To_Algorithms.getTeachers().get(0));
             Term_Mobile_Applications.setTeacher(Mobile_Applications.getTeachers().get(0));
@@ -390,6 +393,7 @@ public class BaseInitializer implements Initializer{
 
             Term_Introduction_To_Algorithms.getParticipants().add((Student) cyan);
             Term_Introduction_To_Algorithms.getParticipants().add((Student) pink);
+            Term_Introduction_To_Algorithms.getParticipants().add((Student) orange);
 
             Term_Mobile_Applications.getParticipants().add((Student) pink);
 
@@ -411,6 +415,7 @@ public class BaseInitializer implements Initializer{
             Term_Web_Programming.getParticipants().add((Student) green);
             Term_Web_Programming.getParticipants().add((Student) gray);
             Term_Web_Programming.getParticipants().add((Student) cyan);
+            Term_Web_Programming.getParticipants().add((Student) orange);
 
 
             Term_Programming_In_Java = examinationDateDao.save(Term_Programming_In_Java);

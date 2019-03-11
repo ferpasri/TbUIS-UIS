@@ -7,7 +7,7 @@
     <groupId>cz.zcu.kiv.matyasj.dp</groupId>
     <artifactId>UIS-web</artifactId>
     <packaging>war</packaging>
-    <version>1.5.0</version>
+    <version>1.5.1</version>
     <name>UIS-web - KIV/DP - Jiri Matyas</name>
 
     <properties>
