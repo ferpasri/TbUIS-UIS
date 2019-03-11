@@ -76,17 +76,17 @@ public class E01DateUtility implements DateUtility {
                 case 16:  // yyyy-MM-dd HH:mm
                     date = sdfDateAndTime.parse(stringDate);
                     date = new Date(date.getTime() + 86400000);
-                    log.error(propertyLoader.getProperty("log.E01DateUtility.stringToDate16"));
+                    log.error(propertyLoader.getProperty("log.E01DateUtility.stringToDate"));
                     return date;
                 case 10:  // yyyy-MM-dd
                     date = sdfDate.parse(stringDate);
                     date = new Date(date.getTime() + 86400000);
-                    log.error(propertyLoader.getProperty("log.E01DateUtility.stringToDate10"));
+                    log.error(propertyLoader.getProperty("log.E01DateUtility.stringToDate"));
                     return date;
                 case 5:  // HH:mm
                     date = sdfTime.parse(stringDate);
                     date = new Date(date.getTime() + 86400000);
-                    log.error(propertyLoader.getProperty("log.E01DateUtility.stringToDate5"));
+                    log.error(propertyLoader.getProperty("log.E01DateUtility.stringToDate"));
                     return date;
             }
         } catch (ParseException e) {

@@ -73,13 +73,13 @@ public class E02DateUtility implements DateUtility {
         try {
             switch (stringDate.length()) {
                 case 16:  // yyyy-MM-dd HH:mm
-                    log.error(propertyLoader.getProperty("log.E02DateUtility.stringToDate16"));
+                    log.error(propertyLoader.getProperty("log.E02DateUtility.stringToDate"));
                     return sdfDateAndTime.parse("2100-12-12 20:00");
                 case 10:  // yyyy-MM-dd
-                    log.error(propertyLoader.getProperty("log.E02DateUtility.stringToDate10"));
+                    log.error(propertyLoader.getProperty("log.E02DateUtility.stringToDate"));
                     return sdfDate.parse("2100-12-12");
                 case 5:  // HH:mm
-                    log.error(propertyLoader.getProperty("log.E02DateUtility.stringToDate5"));
+                    log.error(propertyLoader.getProperty("log.E02DateUtility.stringToDate"));
                     return sdfTime.parse("20:00");
             }
         } catch (ParseException e) {

@@ -26,7 +26,7 @@
             <a id="stu.menu.myExamDates" class="nav-link<%if(Objects.equals(view, "myExamDates")){%> active<%}%>" href="<c:url value="/student-view/myExamDates"/>" title="<spring:message code="stu.side-menu.myExaminationTerms.tooltip"/>"><spring:message code="stu.side-menu.myExaminationTerms"/></a>
         </li>
         <li class="nav-item">
-            <a id="stu.menu.otherExamDates" class="nav-link<%if(Objects.equals(view, "otherExamDates")){%> active<%}%>" href="<c:url value="/student-view/otherExamDates"/>" title="<spring:message code="stu.side-menu.otherExaminatinoTerms.tooltip"/>"><spring:message code="stu.side-menu.otherExaminatinoTerms"/></a>
+            <a id="stu.menu.otherExamDates" class="nav-link<%if(Objects.equals(view, "otherExamDates")){%> active<%}%>" href="<c:url value="/student-view/otherExamDates"/>" title="<spring:message code="stu.side-menu.otherExaminationTerms.tooltip"/>"><spring:message code="stu.side-menu.otherExaminationTerms"/></a>
         </li>
     </ul>
 </div>
