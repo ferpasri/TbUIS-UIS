@@ -128,4 +128,63 @@ public interface StudentService extends UserService {
      * @return number of obtained credits.
      */
     int getStudentTotalCredits(Long studentId);
+
+    /**
+     * This method returns title
+     *
+     * @return Title
+     */
+    String setTitle();
+
+    /**
+     * This method indicates whether to change view
+     * that is shown after removal of subject
+     *
+     * @return Indication for showing overview after removal of subject
+     */
+    boolean afterRemoveShowOverview();
+
+    /**
+     * This method indicates whether click on overview
+     * changes view to other exam
+     *
+     * @return Indication whether change overview to other exam page
+     */
+    boolean changeOverviewToOtherExam();
+
+    /**
+     * This method indicates whether to show teacher column
+     *
+     * @return Indication for showing teacher column
+     */
+    boolean hideTeacherColumn();
+
+    /**
+     * This method indicates whether to change color
+     * of participants button or not
+     *
+     * @return Indication whether to change color
+     */
+    boolean changeParticipantsButtonColor();
+
+    /**
+     * This method indicates whether to duplicate last participant
+     *
+     * @return Indication whether to duplicate
+     */
+    boolean duplicateLastParticipant();
+
+    /**
+     * This method indicates whether to hide unenroll button
+     *
+     * @return Indication of hiding unenroll button
+     */
+    boolean hideUnenrollButton();
+
+    /**
+     * This method indicates whether to change number of participants
+     *
+     * @return Indication of changing number of participants
+     */
+    boolean changeNumberOfParticipants();
 }

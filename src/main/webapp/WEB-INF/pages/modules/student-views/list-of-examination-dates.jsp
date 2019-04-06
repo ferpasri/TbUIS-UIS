@@ -50,7 +50,7 @@
                             <button id="stu.otherExamDates.table.participantsButton-${subjectIndex}-${examTermIndex}" type="button" class="btn btn-primary btn-sm"
                                     data-toggle="modal" data-target="#showListOfParticipants"
                                     onclick="showListOfParticipants(${examinationDate.id})"
-                                    title="<spring:message code="stu.otherExamDates.table.participantsButtonTitle"/>"><spring:message code="stu.otherExamDates.table.participantsButtonLabel"/> (${fn:length(examinationDate.participants)}/${examinationDate.maxParticipants})
+                                    title="<spring:message code="stu.otherExamDates.table.participantsButtonTitle"/>"><spring:message code="stu.otherExamDates.table.participantsButtonLabel"/> <c:if test="${duplicatedLastParticipant == true}">(${fn:length(examinationDate.participants) - 1}</c:if><c:if test="${duplicatedLastParticipant == false}">(${fn:length(examinationDate.participants)}</c:if>/${examinationDate.maxParticipants})
                             </button>
                         </td>
                         <td>

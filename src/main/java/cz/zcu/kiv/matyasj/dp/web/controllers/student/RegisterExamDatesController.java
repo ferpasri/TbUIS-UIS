@@ -48,6 +48,8 @@ public class RegisterExamDatesController {
         ModelAndView retModel = new ModelAndView("/WEB-INF/pages/student-view.jsp");
         retModel.addObject("view", "myExamDates");
         retModel.addObject("examinationDateList", examinationDateList);
+        retModel.addObject("changeParticipantsButtonColor", studentService.changeParticipantsButtonColor());
+        retModel.addObject("changeParticipantsNumber", studentService.changeNumberOfParticipants());
 
         return retModel;
     }
@@ -57,7 +59,7 @@ public class RegisterExamDatesController {
      *
      * @param locale     System locale object
      * @param model      Model to be sent to view
-     * @param examDateId Id of Examinatino Date to unregister
+     * @param examDateId Id of Examination Date to unregister
      * @return ModelAndView object
      */
     @RequestMapping(method = RequestMethod.POST)

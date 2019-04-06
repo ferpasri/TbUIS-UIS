@@ -49,6 +49,7 @@ public class ListOfTaughtSubjectController {
         ModelAndView retModel = new ModelAndView("/WEB-INF/pages/teacher-view.jsp");
         retModel.addObject("subjectList", listOfSubjects);
         retModel.addObject("view", "mySubjects");
+        retModel.addObject("swapNameAndTeacher", teacherService.swapNameAndTeacher());
 
         return retModel;
     }

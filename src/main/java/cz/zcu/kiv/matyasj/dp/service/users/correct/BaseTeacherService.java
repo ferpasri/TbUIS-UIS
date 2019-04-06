@@ -753,6 +753,16 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
         return false;
     }
 
+    /**
+     * This method indicates whether to
+     * swap name column with teacher column
+     *
+     * @return Indication for swap of columns
+     */
+    @Override
+    public boolean swapNameAndTeacher() {
+        return false;
+    }
 
     /**
      * Removes subject from list ob subjects

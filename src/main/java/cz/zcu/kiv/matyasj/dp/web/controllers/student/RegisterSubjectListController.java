@@ -3,6 +3,8 @@ package cz.zcu.kiv.matyasj.dp.web.controllers.student;
 import cz.zcu.kiv.matyasj.dp.domain.university.Grade;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
+import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
+import cz.zcu.kiv.matyasj.dp.domain.users.User;
 import cz.zcu.kiv.matyasj.dp.service.StudentService;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -58,6 +60,11 @@ public class RegisterSubjectListController {
 
         retModel.addObject("view", "mySubjects");
 
+        if (studentService.hideUnenrollButton()) {
+            int randomSubject = (int) (Math.random() * listOfSubject.size());
+            retModel.addObject("indexOfHiddenSubject", randomSubject);
+        }
+
         return retModel;
     }
 
@@ -83,6 +90,29 @@ public class RegisterSubjectListController {
             model.addAttribute("errorMessage", messageSource.getMessage("stu.mySubjects.errorMessage", null, locale));
         }
 
+        if (studentService.afterRemoveShowOverview()) {
+            return showUserOverview();
+        }
+
         return showStudiedSubjectList(model);
     }
+
+    /**
+     * This method shows user overview
+     *
+     * @return ModelAndView object
+     */
+    private ModelAndView showUserOverview() {
+        User currentUser = studentService.getCurrentUser();
+
+        log.info("Request for overview of student with id " + currentUser.getId() + " for view.");
+        ModelAndView retModel = new ModelAndView("/WEB-INF/pages/student-view.jsp");
+
+        retModel.addObject("title", studentService.setTitle());
+        retModel.addObject("view", "overview");
+        retModel.addObject("currentUser", currentUser);
+
+        return retModel;
+    }
+
 }

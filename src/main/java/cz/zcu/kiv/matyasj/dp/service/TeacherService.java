@@ -177,4 +177,11 @@ public interface TeacherService extends UserService {
      * @return true if success
      */
     boolean updateGrade(Long teacherId, Long gradeId, Long newGradeTypeId);
+
+    /**
+     * This method indicates whether to swap columns
+     *
+     * @return Indication for swap of columns
+     */
+    boolean swapNameAndTeacher();
 }

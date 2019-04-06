@@ -14,8 +14,15 @@
 <div id="side-menu-panel" class="bootstrap-vertical-nav">
     <ul id="menu" class="nav nav-pills flex-column">
         <li class="nav-item">
-            <a id="stu.menu.overview" class="nav-link<%if(Objects.equals(view, "overview")){%> active<%}%>" href="<c:url value="/student-view/overview"/>" title="<spring:message code="stu.side-menu.overview.tooltip"/>"><spring:message code="stu.side-menu.overview"/></a>
-        </li>
+            <c:choose>
+                <c:when test="${changeOverview == false}">
+                    <a id="stu.menu.overview" class="nav-link<%if(Objects.equals(view, "overview")){%> active<%}%>" href="<c:url value="/student-view/overview"/>" title="<spring:message code="stu.side-menu.overview.tooltip"/>"><spring:message code="stu.side-menu.overview"/></a>
+                </c:when>
+                <c:otherwise>
+                    <a id="stu.menu.overview" class="nav-link<%if(Objects.equals(view, "overview")){%> active<%}%>" href="<c:url value="/student-view/otherExamDates"/>" title="<spring:message code="stu.side-menu.overview.tooltip"/>"><spring:message code="stu.side-menu.overview"/></a>
+                </c:otherwise>
+            </c:choose>
+            </li>
         <li class="nav-item">
             <a id="stu.menu.mySubjects" class="nav-link<%if(Objects.equals(view, "mySubjects")){%> active<%}%>" href="<c:url value="/student-view/mySubjects"/>" title="<spring:message code="stu.side-menu.mySubjects.tooltip"/>"><spring:message code="stu.side-menu.mySubjects"/></a>
         </li>

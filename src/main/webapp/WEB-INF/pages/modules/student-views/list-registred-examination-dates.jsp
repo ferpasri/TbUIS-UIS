@@ -29,7 +29,20 @@
             <td>${examinationDate.subject.name}</td>
             <td>${examinationDate.teacher.firstName} ${examinationDate.teacher.lastName}</td>
             <td><fmt:formatDate pattern = "yyyy-MM-dd HH:mm" value ="${examinationDate.dateOfTest}"/></td>
-            <td><button id="stu.myExamDates.table.ParticipantsButton-${examinationTermListLoop.index}" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#showListOfParticipants" onclick="showListOfParticipants(${examinationDate.id})" title="<spring:message code="stu.myExamDates.table.ParticipantsButtonTitle"/>"><spring:message code="stu.myExamDates.table.ParticipantsButtonLabel"/> (${fn:length(examinationDate.participants)}/${examinationDate.maxParticipants})</button></td>
+            <c:if test="${changeParticipantsNumber == true}">
+                <td>
+                    <button id="stu.myExamDates.table.ParticipantsButton-${examinationTermListLoop.index}" type="button"
+                            <c:if test="${changeParticipantsButtonColor == true}">class="btn btn-danger btn-sm"</c:if>
+                            <c:if test="${changeParticipantsButtonColor == false}">class="btn btn-primary btn-sm"</c:if>
+                            data-toggle="modal" data-target="#showListOfParticipants" onclick="showListOfParticipants(${examinationDate.id})" title="<spring:message code="stu.myExamDates.table.ParticipantsButtonTitle"/>"><spring:message code="stu.myExamDates.table.ParticipantsButtonLabel"/> (${fn:length(examinationDate.participants) + 1}/${examinationDate.maxParticipants})</button>
+                </td></c:if>
+            <c:if test="${changeParticipantsNumber == false}">
+                <td>
+                    <button id="stu.myExamDates.table.ParticipantsButton-${examinationTermListLoop.index}" type="button"
+                            <c:if test="${changeParticipantsButtonColor == true}">class="btn btn-danger btn-sm"</c:if>
+                            <c:if test="${changeParticipantsButtonColor == false}">class="btn btn-primary btn-sm"</c:if>
+                            data-toggle="modal" data-target="#showListOfParticipants" onclick="showListOfParticipants(${examinationDate.id})" title="<spring:message code="stu.myExamDates.table.ParticipantsButtonTitle"/>"><spring:message code="stu.myExamDates.table.ParticipantsButtonLabel"/> (${fn:length(examinationDate.participants)}/${examinationDate.maxParticipants})</button>
+                </td></c:if>
             <td class="text-center"><form method="post"><input type="hidden" name="examDateId" value="${examinationDate.id}"><button id="stu.myExamDates.table.unregisterButton-${examinationTermListLoop.index}" type="submit" class="btn btn-danger btn-sm" title="<spring:message code="stu.myExamDates.table.unregisterButtonTitle"/>"><spring:message code="stu.myExamDates.table.unregisterButtonLabel"/></button></form></td>
         </tr>
     </c:forEach>

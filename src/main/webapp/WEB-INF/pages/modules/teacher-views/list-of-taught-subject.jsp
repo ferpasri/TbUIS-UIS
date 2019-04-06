@@ -12,8 +12,14 @@
     <thead class="thead-inverse">
     <tr>
         <th><spring:message code="tea.mySubjects.table.numberColumn"/></th>
-        <th><spring:message code="tea.mySubjects.table.nameColumn"/></th>
-        <th><spring:message code="tea.mySubjects.table.teachersColumn"/></th>
+        <c:if test="${swapNameAndTeacher == true}">
+            <th><spring:message code="tea.mySubjects.table.teachersColumn"/></th>
+            <th><spring:message code="tea.mySubjects.table.nameColumn"/></th>
+        </c:if>
+        <c:if test="${swapNameAndTeacher == false}">
+            <th><spring:message code="tea.mySubjects.table.nameColumn"/></th>
+            <th><spring:message code="tea.mySubjects.table.teachersColumn"/></th>
+        </c:if>
         <th><spring:message code="tea.mySubjects.table.newTermColumn"/></th>
         <th><spring:message code="tea.mySubjects.table.listOfStudentsColumn"/></th>
         <th><spring:message code="tea.mySubjects.table.unregisterSubjectsColumn"/></th>
@@ -24,12 +30,22 @@
         <c:forEach var="subject" items="${subjectList}" varStatus="subjectLoop">
             <tr id="tea.mySubjects.table.subjectRow-${subjectLoop.index}">
                 <td>${subjectLoop.index + 1}</td>
-                <td>${subject.name}</td>
-                <td>
-                    <c:forEach var="teacher" items="${subject.teachers}" varStatus="loop">
-                        ${teacher.firstName} ${teacher.lastName}<c:if test="${!loop.last}">,</c:if>
-                    </c:forEach>
-                </td>
+                <c:if test="${swapNameAndTeacher == true}">
+                    <td>
+                        <c:forEach var="teacher" items="${subject.teachers}" varStatus="loop">
+                            ${teacher.firstName} ${teacher.lastName}<c:if test="${!loop.last}">,</c:if>
+                        </c:forEach>
+                    </td>
+                    <td>${subject.name}</td>
+                </c:if>
+                <c:if test="${swapNameAndTeacher == false}">
+                    <td>${subject.name}</td>
+                    <td>
+                        <c:forEach var="teacher" items="${subject.teachers}" varStatus="loop">
+                            ${teacher.firstName} ${teacher.lastName}<c:if test="${!loop.last}">,</c:if>
+                        </c:forEach>
+                    </td>
+                </c:if>
                 <td class="text-center">
                     <form id="tea.mySubjects.table.newTermForm-${subjectLoop.index}" action="<c:url value="/teacher-view/newExamDates"/>/<c:out value="${subject.id}"/>" method="get">
                         <button id="tea.mySubjects.table.newTermButton-${subjectLoop.index}" type="submit" class="btn btn-primary btn-sm" title="<spring:message code="tea.mySubjects.table.newTermButtonTitle"/>"><spring:message code="tea.mySubjects.table.newTermButtonLabel"/></button>

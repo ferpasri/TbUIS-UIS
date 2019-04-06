@@ -2,6 +2,7 @@ package cz.zcu.kiv.matyasj.dp.web.controllers.student;
 
 import cz.zcu.kiv.matyasj.dp.domain.university.ExaminationDate;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
+import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.domain.users.User;
 import cz.zcu.kiv.matyasj.dp.service.StudentService;
 import org.apache.logging.log4j.Logger;
@@ -57,6 +58,18 @@ public class ExamDatesController {
         retModel.addObject("subjectsWithExamDates", subjectsWithExamDates);
         retModel.addObject("studiedSubjects", studiedSubjects);
         retModel.addObject("view", "otherExamDates");
+        retModel.addObject("duplicatedLastParticipant", false);
+
+        if (studentService.duplicateLastParticipant()) {
+            for (ExaminationDate examDate : notRegisteredExaminationDatesList) {
+
+                List<Student> students = examDate.getParticipants();
+                Student student = students.get(students.size() - 1);
+                students.add(student);
+            }
+
+            retModel.addObject("duplicatedLastParticipant", true);
+        }
 
         return  retModel;
     }

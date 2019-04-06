@@ -41,13 +41,14 @@ public class OverviewController {
      * @return ModelAndView object
      */
     @RequestMapping(value = {"/student-view", "/student-view/overview", "/teacher-view", "/teacher-view/overview"}, method = RequestMethod.GET)
-    public ModelAndView showUserOverview(Model model) {
+    public ModelAndView showUserOverview(Model model, HttpSession session) {
         User currentUser = studentService.getCurrentUser();
 
         ModelAndView retModel = null;
         if (currentUser instanceof Student) {
             log.info("Request for overview of student with id " + currentUser.getId() + " for view.");
             retModel = new ModelAndView("/WEB-INF/pages/student-view.jsp");
+            retModel.addObject("title", studentService.setTitle());
         } else if (currentUser instanceof Teacher) {
             log.info("Request for overview of teacher with id " + currentUser.getId() + " for view.");
             retModel = new ModelAndView("/WEB-INF/pages/teacher-view.jsp");
@@ -56,6 +57,7 @@ public class OverviewController {
         if (retModel != null) {
             retModel.addObject("view", "overview");
             retModel.addObject("currentUser", currentUser);
+            session.setAttribute("changeOverview", studentService.changeOverviewToOtherExam());
         }
 
         return retModel;
@@ -86,6 +88,6 @@ public class OverviewController {
             log.error("User update failed");
         }
 
-        return showUserOverview(model);
+        return showUserOverview(model, session);
     }
 }

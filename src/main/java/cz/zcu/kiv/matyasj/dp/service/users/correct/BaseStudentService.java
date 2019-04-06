@@ -184,7 +184,7 @@ public class BaseStudentService extends BaseUserService implements StudentServic
      * are not included exam dates with evaluation for particular student.
      *
      * @param studentId database student id
-     * @return List of students examination dates
+     * @return List of students for examination dates
      */
     @Override
     public List<ExaminationDate> getStudentExaminationDatesList(Long studentId) {
@@ -428,4 +428,87 @@ public class BaseStudentService extends BaseUserService implements StudentServic
         log.error("Getting total number of credits failed.");
         return -1;
     }
+    
+    /**
+     * This method returns title
+     *
+     * @return Title
+     */
+    @Override
+    public String setTitle() {
+        return "";
+    }
+
+    /**
+     * This method indicates whether to change view
+     * that is shown after removal of subject
+     *
+     * @return Indication for showing overview after removal of subject
+     */
+    @Override
+    public boolean afterRemoveShowOverview() {
+        return false;
+    }
+
+    /**
+     * This method indicates whether overview
+     * changes view to other exam
+     *
+     * @return Indication whether change overview to other exam page
+     */
+    @Override
+    public boolean changeOverviewToOtherExam() {
+        return false;
+    }
+
+    /**
+     * This method makes sure to show teacher column
+     *
+     * @return Indication for hiding teacher column
+     */
+    @Override
+    public boolean hideTeacherColumn() {
+        return false;
+    }
+
+    /**
+     * This method leaves basic color of participants button
+     *
+     * @return Indication whether to change color
+     */
+    @Override
+    public boolean changeParticipantsButtonColor() {
+        return false;
+    }
+
+    /**
+     * This method makes sure to not duplicate last participant
+     *
+     * @return Indication whether to duplicate
+     */
+    @Override
+    public boolean duplicateLastParticipant() {
+        return false;
+    }
+
+    /**
+     * This method makes sure to show all unenroll buttons
+     *
+     * @return Indication of hiding unenroll button
+     */
+    @Override
+    public boolean hideUnenrollButton() {
+        return false;
+    }
+
+    /**
+     * This method makes sure to show corrent number of participants
+     *
+     * @return Indication of changing number of participants
+     */
+    @Override
+    public boolean changeNumberOfParticipants() {
+        return false;
+    }
+
 }

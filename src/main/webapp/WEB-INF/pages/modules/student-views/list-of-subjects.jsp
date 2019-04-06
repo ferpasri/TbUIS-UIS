@@ -13,7 +13,7 @@
     <tr>
         <th><spring:message code="stu.otherSubjects.table.numberColumn"/></th>
         <th><spring:message code="stu.otherSubjects.table.nameColumn"/></th>
-        <th><spring:message code="stu.otherSubjects.table.teachersColumn"/></th>
+        <c:if test="${hideTeacherColumn == false}"><th><spring:message code="stu.otherSubjects.table.teachersColumn"/></th></c:if>
         <th><spring:message code="stu.otherSubjects.table.creditRatingColumn"/></th>
         <th><spring:message code="stu.otherSubjects.table.registerColumn"/></th>
     </tr>
@@ -24,11 +24,11 @@
             <tr id="stu.otherSubjects.table.subjectRow-${subjectListLoop.index}">
                 <td>${subjectListLoop.index + 1}</td>
                 <td>${subject.name}</td>
-                <td>
+                <c:if test="${hideTeacherColumn == false}"><td>
                     <c:forEach var="teacher" items="${subject.teachers}" varStatus="loop">
                         ${teacher.firstName} ${teacher.lastName}<c:if test="${!loop.last}">,</c:if>
                     </c:forEach>
-                </td>
+                </td></c:if>
                 <td>${subject.creditRating}</td>
                 <td class="text-center">
                     <form id="stu.otherSubjects.table.enrollSubjectForm-${subjectListLoop.index}" method="post">

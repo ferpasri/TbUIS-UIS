@@ -44,7 +44,7 @@
         </div>
     </c:if>
 
-    <h1 id="stu.view.title"><spring:message code="stu.view.title"/></h1>
+    <h1 id="stu.view.title"><c:if test="${empty title}"><spring:message code="stu.view.title"/></c:if><c:if test="${not empty title}">${title}</c:if></h1>
     <div class="row">
         <div id="side-panel" class="col-4">
             <c:import url="modules/menus/side-menu.jsp"/>

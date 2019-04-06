@@ -29,7 +29,9 @@
                     </c:forEach>
                 </td>
                 <td>${subject.creditRating}</td>
-                <td id="stu.mySubjects.enrolledTable.UnregisterSubjectButton-${subjectListIndex.index}" class="text-center"><button id="stu.mySubjects.enrolledTable.unenrollSubjectButton-${subjectListIndex.index}" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#unenrollSubjectModal" onclick="setSubjectInModal(${subject.id});" title="<spring:message code="stu.mySubjects.enrolledTable.UnregisterSubjectButtonTitle"/>">X</button></td>
+                <c:if test="${indexOfHiddenSubject != subjectListIndex.index}">
+                    <td id="stu.mySubjects.enrolledTable.UnregisterSubjectButton-${subjectListIndex.index}" class="text-center"><button id="stu.mySubjects.enrolledTable.unenrollSubjectButton-${subjectListIndex.index}" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#unenrollSubjectModal" onclick="setSubjectInModal(${subject.id});" title="<spring:message code="stu.mySubjects.enrolledTable.UnregisterSubjectButtonTitle"/>">X</button></td>
+                </c:if>
             </tr>
         </c:forEach>
     </c:if>

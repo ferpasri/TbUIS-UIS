@@ -47,6 +47,7 @@ public class SubjectListController {
         ModelAndView retModel = new ModelAndView("/WEB-INF/pages/student-view.jsp");
         retModel.addObject("subjectList", listOfSubjects);
         retModel.addObject("view", "otherSubjects");
+        retModel.addObject("hideTeacherColumn", studentService.hideTeacherColumn());
 
         return retModel;
     }
