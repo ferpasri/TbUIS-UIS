@@ -133,12 +133,12 @@
         </tr>
     </table>
 
-    <h2>Subjects taught</h2>
+    <h2>Subjects Taught and Exam Dates Released</h2>
     <table class="table">
         <tr>
             <th rowspan="2">Subject</th>
             <th rowspan="2">Credits</th>
-            <th colspan="6">Taught by</th>
+            <th class="text-center" colspan="6"><strong>T</strong><small>aught subject</small><br><strong>r</strong><small>eleased exam date</small></th>
         </tr>
         <tr>
             <td>Easyrider</td>
@@ -149,79 +149,99 @@
             <td>Strict</td>
         </tr>
         <tr>
-            <td>Computation Structures</td>
-            <td>5</td>
+            <td rowspan="2">Computation Structures</td>
+            <td rowspan="2">5</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>X</td>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>Computer System Engineering</td>
-            <td>6</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>X</td>
-            <td>&nbsp;</td>
+            <td>T</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td>Database Systems</td>
-            <td>3</td>
             <td>&nbsp;</td>
-            <td>X</td>
             <td>&nbsp;</td>
-            <td>X</td>
             <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>r</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td>Fundamentals of Computer Networks</td>
-            <td>3</td>
-            <td>&nbsp;</td>
-            <td>X</td>
+            <td rowspan="2">Computer System Engineering</td>
+            <td rowspan="2">6</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>T</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td>Introduction to Algorithms</td>
-            <td>3</td>
-            <td>&nbsp;</td>
-            <td>X</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>r</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td>Linear Algebra</td>
-            <td>1</td>
+            <td rowspan="2">Database Systems</td>
+            <td rowspan="2">3</td>
             <td>&nbsp;</td>
+            <td>T</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td>T</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td>Mobile Applications</td>
-            <td>5</td>
             <td>&nbsp;</td>
-            <td>X</td>
+            <td>-</td>
+            <td>&nbsp;</td>
+            <td>r</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td rowspan="2">Fundamentals of Computer Networks</td>
+            <td rowspan="2">3</td>
+            <td>&nbsp;</td>
+            <td>T</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td>Numerical Methods</td>
-            <td>2</td>
-            <td>X</td>
+            <td>&nbsp;</td>
+            <td>r</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td rowspan="2">Introduction to Algorithms</td>
+            <td rowspan="2">3</td>
+            <td>&nbsp;</td>
+            <td>T</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>r</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td rowspan="2">Linear Algebra</td>
+            <td rowspan="2">1</td>
+            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -229,60 +249,152 @@
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td>Operating Systems</td>
-            <td>2</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>X</td>
             <td>&nbsp;</td>
-            <td>X</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
         </tr>
         <tr>
-            <td>Programming in Java</td>
-            <td>4</td>
+            <td rowspan="2">Mobile Applications</td>
+            <td rowspan="2">5</td>
+            <td>&nbsp;</td>
+            <td>T</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>X</td>
-        </tr>
-        <tr>
-            <td>Programming Techniques</td>
-            <td>1</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>X</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td>Software Engineering</td>
-            <td>6</td>
+            <td>&nbsp;</td>
+            <td>r</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>X</td>
         </tr>
         <tr>
-            <td>Software Quality Assurance</td>
-            <td>5</td>
+            <td rowspan="2">Numerical Methods</td>
+            <td rowspan="2">2</td>
+            <td>T</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>X</td>
         </tr>
         <tr>
-            <td>Web Programming</td>
-            <td>4</td>
+            <td>r</td>
             <td>&nbsp;</td>
-            <td>X</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td rowspan="2">Operating Systems</td>
+            <td rowspan="2">2</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>T</td>
+            <td>&nbsp;</td>
+            <td>T</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>-</td>
+            <td>&nbsp;</td>
+            <td>r</td>
+        </tr>
+        <tr>
+            <td rowspan="2">Programming in Java</td>
+            <td rowspan="2">4</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>T</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>r</td>
+        </tr>
+        <tr>
+            <td rowspan="2">Programming Techniques</td>
+            <td rowspan="2">1</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>T</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>r</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td rowspan="2">Software Engineering</td>
+            <td rowspan="2">6</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>T</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>r</td>
+        </tr>
+        <tr>
+            <td rowspan="2">Software Quality Assurance</td>
+            <td rowspan="2">5</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>T</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>r</td>
+        </tr>
+        <tr>
+            <td rowspan="2">Web Programming</td>
+            <td rowspan="2">4</td>
+            <td>&nbsp;</td>
+            <td>T</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>r</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>

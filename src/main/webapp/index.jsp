@@ -33,18 +33,20 @@
         </div>
     </c:if>
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-8">
             <div id="homePage.warningAlert" class="alert alert-warning" role="alert">
                 <strong><spring:message code="alert.warning"/></strong> <spring:message code="homePage.notRealWarning"/>
             </div>
             <h1><spring:message code="homePage.title"/></h1>
             <p class="lead"><spring:message code="homePage.welcomeText"/></p>
-            <p>Application use-cases are <a href="<c:url value="/use-cases.jsp"/>">here</a></p>
-            <p>Database content is <a href="<c:url value="/db-content.jsp"/>">here</a></p>
-            <p>Application constraints are <a href="<c:url value="/constraints.jsp"/>">here</a></p>
-            <p></p>
+            <p>You can explore:</p>
+            <ul>
+                <li><a href="<c:url value="/use-cases.jsp"/>">App</a></li>
+                <li><a href="<c:url value="/db-content.jsp"/>">DB</a></li>
+                <li><a href="<c:url value="/constraints.jsp"/>">Application constraints</a></li>
+            </ul>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <ul class="list-group">
                 <li class="list-group-item"><spring:message code="homePage.sidePanel.buildNumberLabel"/> <span id="homePage.build-version" class="badge badge-pill badge-primary"><spring:eval expression="@propertyLoader.getProperty('project.version')" /></span></li>
                 <li class="list-group-item"><spring:message code="homePage.sidePanel.errors"/> <span id="homePage.inject-version" class="badge badge-pill badge-primary"><spring:eval expression="@injectVersion" /></span></li>
