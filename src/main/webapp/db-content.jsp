@@ -134,7 +134,7 @@
     </table>
 
     <h2>Subjects Taught and Exam Dates Released</h2>
-    <table class="table">
+    <table style="width:100%" class="table-bordered">
         <tr>
             <th rowspan="2">Subject</th>
             <th rowspan="2">Credits</th>

@@ -41,8 +41,8 @@
             <p class="lead"><spring:message code="homePage.welcomeText"/></p>
             <p>You can explore:</p>
             <ul>
-                <li><a href="<c:url value="/use-cases.jsp"/>">App</a></li>
-                <li><a href="<c:url value="/db-content.jsp"/>">DB</a></li>
+                <li><a href="<c:url value="/use-cases.jsp"/>">Application use-cases</a></li>
+                <li><a href="<c:url value="/db-content.jsp"/>">Database content</a></li>
                 <li><a href="<c:url value="/constraints.jsp"/>">Application constraints</a></li>
             </ul>
         </div>
