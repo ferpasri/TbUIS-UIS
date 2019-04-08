@@ -403,8 +403,8 @@ public class StudentServiceTest {
         testExaminationDate1.setSubject(testSubject1);
         testExaminationDate1 = examinationDateDao.save(testExaminationDate1);
 
-
         Grade newGrade = new Grade();
+        newGrade.setDayOfGrant(testExaminationDate1.getDateOfTest());
         newGrade = gradeDao.save(newGrade);
         newGrade.setOwner(testStudent1);
         newGrade.setSubject(testSubject1);

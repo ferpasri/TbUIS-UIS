@@ -428,7 +428,7 @@ public class BaseStudentService extends BaseUserService implements StudentServic
         log.error("Getting total number of credits failed.");
         return -1;
     }
-    
+
     /**
      * This method returns title
      *

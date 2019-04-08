@@ -517,6 +517,7 @@ public class TeacherServiceTest {
         newGrade.setOwner(testStudent1);
         newGrade.setSubject(testSubject1);
         newGrade.setWhoGradeGranted(testTeacher1);
+        newGrade.setDayOfGrant(examinationDateCurrent.getDateOfTest());
         newGrade = gradeDao.save(newGrade);
 
         examinationDates = teacherService.getMyExaminationDatesWithoutGraduateParticipants(testTeacher1);
@@ -532,7 +533,7 @@ public class TeacherServiceTest {
         newGrade.setOwner(null);
         newGrade.setSubject(null);
         newGrade.setWhoGradeGranted(null);
-        newGrade = gradeDao.save(newGrade);
+        gradeDao.save(newGrade);
     }
 
     /**
@@ -675,7 +676,7 @@ public class TeacherServiceTest {
 
         // Parsing date string removes seconds - format.parse(testDateString) instead of testDate
         assertEquals(format.parse(testDateString).getTime(), examinationDates.get(0).getDateOfTest().getTime());
-        assertEquals(maxParticipants, examinationDates.get(0).getMaxParticipants());
+        assertEquals(Integer.parseInt(maxParticipants), examinationDates.get(0).getMaxParticipants());
         examinationDateDao.delete(examinationDates.get(0).getId());
     }
 
@@ -718,7 +719,7 @@ public class TeacherServiceTest {
     public void createNewExaminationTermMoreThanMax() {
         log.info("Testing more than maximum new examination terms creation.");
 
-        int maxExamDatesNumber = Integer.parseInt(propertyLoader.getProperty("maxTeacherExamDates"));
+        int maxExamDatesNumber = Integer.parseInt(propertyLoader.getProperty("subjectMaxExamDate"));
         String maxParticipants = propertyLoader.getProperty("examTermMaxParticipants");
         DateFormat format = new SimpleDateFormat(propertyLoader.getProperty("dateAndTimeFormat"));
         Date testDate = new Date(new Date().getTime() + 500000);
@@ -818,6 +819,7 @@ public class TeacherServiceTest {
 
         testStudent1.getListOfLearnedSubjects().add(testSubject1);
         testStudent1 = (Student) userDao.save(testStudent1);
+        examinationDateCurrent.setSubject(testSubject1);
 
         int beforeLearnedSubjects = testStudent1.getListOfLearnedSubjects().size();
 
@@ -853,13 +855,15 @@ public class TeacherServiceTest {
 
         testStudent1.getListOfLearnedSubjects().add(testSubject1);
         testStudent1 = (Student) userDao.save(testStudent1);
+        examinationDateCurrent.setSubject(testSubject1);
+        examinationDateCurrent = examinationDateDao.save(examinationDateCurrent);
 
         boolean success1 = teacherService.createNewGrade(testTeacher1, testStudent1.getId(), pass.getId(), testSubject1.getId(), examinationDateCurrent.getId());
         assertTrue(success1);
         boolean success2 = teacherService.createNewGrade(testTeacher1, testStudent1.getId(), pass.getId(), testSubject1.getId(), examinationDateCurrent.getId());
         assertFalse(success2);
 
-        Grade g = gradeDao.findGradeByStudentAndSubjectAndDate(testStudent1, examinationDateCurrent.getSubject(), examinationDateCurrent.getDateOfTest());
+        Grade g = gradeDao.findGradeByStudentAndSubjectAndDate(testStudent1, testSubject1, examinationDateCurrent.getDateOfTest());
 
         assertNotNull(g);
         assertEquals(pass.getName(), g.getTypeOfGrade().getName());
@@ -890,12 +894,14 @@ public class TeacherServiceTest {
         assertTrue(success1);
 
         Grade g = gradeDao.findGradeByStudentAndSubjectAndDate(testStudent1, examinationDateCurrent.getSubject(), examinationDateCurrent.getDateOfTest());
-        assertNull(g);
+        assertNotNull(g);
 
         examinationDateCurrent = examinationDateDao.findOne(examinationDateCurrent.getId());
         for (Student s : examinationDateCurrent.getParticipants()) {
-            assertFalse(s.getId().longValue() == testStudent1.getId().longValue());
+            assertTrue(s.getId().longValue() == testStudent1.getId().longValue());
         }
+
+        gradeDao.delete(g.getId());
     }
 
     /**

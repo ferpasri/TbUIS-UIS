@@ -140,6 +140,11 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
             return false;
         }
 
+        if (tmpSubject == null) {
+            log.warn("Setting of subject failed");
+            return false;
+        }
+
         // Check max subject count for teacher
         int maxSubjectsNumber = Integer.parseInt(propertyLoader.getProperty("teacherMaxSubjects"));
         if (tmpTeacher.getListOfTaughtSubjects().size() >= maxSubjectsNumber) {
@@ -414,6 +419,11 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
 
         Subject subject = subjectDao.findOne(subjectId);
 
+        if (subject == null) {
+            log.error("Creating new examination term failed.");
+            return false;
+        }
+
         List<ExaminationDate> examinationDates = getAllExaminationTermsBySubject(subject);
         final int millisecondsInMinute = 60000;
         final int minutesInDay = 24 * 60;
@@ -470,6 +480,7 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
         Subject tmpSubject = subjectDao.findOne(subjectId);
 
         if (tmpSubject == null) {
+            log.error("Creating new examination term failed.");
             return false;
         }
 

@@ -182,7 +182,7 @@ public class EvaluationTableControllerTest extends BaseControllerTest{
         log.info("Testing new grade creation.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(get("/teacher-view/evaluationTable").param("filterSubjectId", testSubject.getId()+"").param("filterIncludeGraduateStudents", "on"));
-        mockMvc.perform(post("/teacher-view/evaluationTable/createNewGrade").param("studentId", testStudent1.getId()+"").param("gradeTypeId", testGradeType.getId()+"").param("subjectId", testSubject.getId()+""))
+        mockMvc.perform(post("/teacher-view/evaluationTable/createNewGrade").param("studentId", testStudent1.getId()+"").param("gradeTypeId", testGradeType.getId()+"").param("subjectId", testSubject.getId()+"").param("examinationDateId", testExamTerm.getId()+""))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/WEB-INF/pages/teacher-view.jsp"))
                 .andExpect(model().attributeExists("successMessage"))
@@ -209,7 +209,7 @@ public class EvaluationTableControllerTest extends BaseControllerTest{
         log.info("Testing new grade for not existing student creation.");
         setUserLogin(TEST_USER_TEACHER_USERNAME, TEST_USER_TEACHER_PASSWORD);
         mockMvc.perform(get("/teacher-view/evaluationTable").param("filterSubjectId", testSubject.getId()+"").param("filterIncludeGraduateStudents", "on"));
-        mockMvc.perform(post("/teacher-view/evaluationTable/createNewGrade").param("studentId", "-1").param("gradeTypeId", testGradeType.getId()+"").param("subjectId", testSubject.getId()+""))
+        mockMvc.perform(post("/teacher-view/evaluationTable/createNewGrade").param("studentId", "-1").param("gradeTypeId", testGradeType.getId()+"").param("subjectId", testSubject.getId()+"").param("examinationDateId", testExamTerm.getId()+""))
                 .andExpect(status().isOk())
                 .andExpect(view().name("/WEB-INF/pages/teacher-view.jsp"))
                 .andExpect(model().attributeExists("errorMessage"))

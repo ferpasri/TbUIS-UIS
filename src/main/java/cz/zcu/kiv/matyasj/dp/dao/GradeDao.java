@@ -1,6 +1,5 @@
 package cz.zcu.kiv.matyasj.dp.dao;
 
-import cz.zcu.kiv.matyasj.dp.domain.university.ExaminationDate;
 import cz.zcu.kiv.matyasj.dp.domain.university.Grade;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
@@ -13,7 +12,7 @@ import java.util.List;
  *
  * @author Jiri Matyas
  */
-public interface GradeDao extends GenericDao<Grade, Long>{
+public interface GradeDao extends GenericDao<Grade, Long> {
     /**
      * Finds and returns list of grades created in one subject.
      *
@@ -30,5 +29,13 @@ public interface GradeDao extends GenericDao<Grade, Long>{
      */
     List<Grade> findGradesByStudent(Student student);
 
+    /**
+     * Finds
+     *
+     * @param student   For this Student will be grades found.
+     * @param subject   For this subject will be grades found.
+     * @param date      For this Date will be grades found.
+     * @return  List of grades
+     */
     Grade findGradeByStudentAndSubjectAndDate(Student student, Subject subject, Date date);
 }

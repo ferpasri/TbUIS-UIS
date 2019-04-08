@@ -64,11 +64,11 @@ public class BaseUserServiceTest extends BaseControllerTest {
         log.info("Testing user update.");
         // User login
         setUserLogin(TEST_USER_STUDENT_USERNAME, TEST_USER_STUDENT_PASSWORD);
-        studentService.updateUser("Tom", "Cat", "mail");
+        studentService.updateUser("Tom", "Cat", "changedMail");
 
         User currentUser = studentService.getCurrentUser();
         assertEquals("Tom", currentUser.getFirstName());
         assertEquals("Cat", currentUser.getLastName());
-        assertEquals("mail", currentUser.getEmail());
+        assertEquals("changedMail", currentUser.getEmail());
     }
 }
