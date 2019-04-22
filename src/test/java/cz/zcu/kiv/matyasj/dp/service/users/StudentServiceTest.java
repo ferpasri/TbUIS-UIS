@@ -943,4 +943,97 @@ public class StudentServiceTest {
 
         assertEquals(0, creditSum1);
     }
+
+    /**
+     * This method tests StudentService function - Setting title for student view (normal behaviour
+     * sets empty string, so title is not changed - return "").
+     */
+    @Test
+    public void setTitle() {
+        String title = studentService.setTitle();
+
+        assertEquals("", title);
+    }
+
+    /**
+     * This method tests StudentService function - After remove show overview indicates whether
+     * to change view that is show after removal of subject (normal behaviour
+     * does not change showing overview - return false).
+     */
+    @Test
+    public void afterRemoveShowOverview() {
+        boolean success = studentService.afterRemoveShowOverview();
+
+        assertFalse(success);
+    }
+
+    /**
+     * This method tests StudentService function - Change overview to other exam
+     * indicates whether overview changes view to other exam (normal behaviour
+     * does not change showing other exam - return false).
+     */
+    @Test
+    public void changeOverviewToOtherExam() {
+        boolean success = studentService.changeOverviewToOtherExam();
+
+        assertFalse(success);
+    }
+
+    /**
+     * This method tests StudentService function - Hide teacher column makes sure
+     * to show teacher column (normal behaviour
+     * does not change showing teacher column - return false).
+     */
+    @Test
+    public void hideTeacherColumn() {
+        boolean success = studentService.hideTeacherColumn();
+
+        assertFalse(success);
+    }
+
+    /**
+     * This method tests StudentService function - Change participants button color
+     * leaves basic color of participants button (normal behaviour
+     * does not change participants button - return false).
+     */
+    @Test
+    public void changeParticipantsButtonColor() {
+        boolean success = studentService.changeParticipantsButtonColor();
+
+        assertFalse(success);
+    }
+
+    /**
+     * This method tests StudentService function - Duplicate last participant makes sure
+     * to not duplicate last participant (normal behaviour
+     * does not duplicates last participant - return false).
+     */
+    @Test
+    public void duplicateLastParticipant() {
+        boolean success = studentService.duplicateLastParticipant();
+
+        assertFalse(success);
+    }
+
+    /**
+     * This method tests StudentService function - Hide unenroll button makes sure
+     * to show all unenroll buttons (normal behaviour shows all buttons - return false).
+     */
+    @Test
+    public void hideUnenrollButton() {
+        boolean success = studentService.hideUnenrollButton();
+
+        assertFalse(success);
+    }
+
+    /**
+     * This method tests StudentService function - Change number of participants makes sure
+     * to show correct number of participants unenroll buttons (normal behaviour shows all buttons - return false).
+     */
+    @Test
+    public void changeNumberOfParticipants() {
+        boolean success = studentService.changeNumberOfParticipants();
+
+        assertFalse(success);
+    }
 }

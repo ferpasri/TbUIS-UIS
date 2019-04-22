@@ -1208,4 +1208,15 @@ public class TeacherServiceTest {
 
         assertNull(gradeList);
     }
+
+    /**
+     * This method tests TeacherService function - Swap name and teacher column indicates whether
+     * to swap name column with teacher column (normal behaviour does not swaps - return false).
+     */
+    @Test
+    public void swapNameAndTeacher() {
+        boolean success = teacherService.swapNameAndTeacher();
+
+        assertFalse(success);
+    }
 }

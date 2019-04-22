@@ -502,7 +502,7 @@ public class BaseStudentService extends BaseUserService implements StudentServic
     }
 
     /**
-     * This method makes sure to show corrent number of participants
+     * This method makes sure to show correct number of participants
      *
      * @return Indication of changing number of participants
      */
