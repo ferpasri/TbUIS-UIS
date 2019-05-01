@@ -57,7 +57,8 @@
                             <form id="stu.otherExamDates.table.registerExamTermForm-${subjectIndex}-${examTermIndex}" method="post">
                                 <input id="stu.otherExamDates.table.examTermInput-${subjectIndex}-${examTermIndex}" type="hidden" name="examDateId" value="${examinationDate.id}">
                                 <button id="stu.otherExamDates.table.registerButton-${subjectIndex}-${examTermIndex}" type="submit"
-                                        <c:if test="${(fn:length(examinationDate.participants) == examinationDate.maxParticipants) || (isSubjectWithRegisredExamTerms eq true)}">disabled</c:if>
+                                        <c:if test="${duplicatedLastParticipant == true}"><c:if test="${(fn:length(examinationDate.participants) - 1 == examinationDate.maxParticipants) || (isSubjectWithRegisredExamTerms eq true)}">disabled</c:if></c:if>
+                                        <c:if test="${duplicatedLastParticipant == false}"><c:if test="${(fn:length(examinationDate.participants) == examinationDate.maxParticipants) || (isSubjectWithRegisredExamTerms eq true)}">disabled</c:if></c:if>
                                         class="btn btn-primary btn-sm" title="<spring:message code="stu.otherExamDates.table.registerButtonTitle"/>"><spring:message code="stu.otherExamDates.table.registerButtonLabel"/>
                                 </button>
                             </form>

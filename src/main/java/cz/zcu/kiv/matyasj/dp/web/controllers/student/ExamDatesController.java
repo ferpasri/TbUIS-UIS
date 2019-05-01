@@ -62,12 +62,15 @@ public class ExamDatesController {
 
         if (studentService.duplicateLastParticipant()) {
             for (ExaminationDate examDate : notRegisteredExaminationDatesList) {
-
                 List<Student> students = examDate.getParticipants();
+
+                if (students.isEmpty()) {
+                    continue;
+                }
+
                 Student student = students.get(students.size() - 1);
                 students.add(student);
             }
-
             retModel.addObject("duplicatedLastParticipant", true);
         }
 
