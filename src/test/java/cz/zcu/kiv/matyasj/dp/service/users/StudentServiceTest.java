@@ -388,6 +388,7 @@ public class StudentServiceTest {
         assertTrue(examinationDateList instanceof List);
         assertTrue(examinationDateList.size() == 1);
         assertEquals(testExaminationDate1.getId(), examinationDateList.get(0).getId());
+        assertEquals(testExaminationDate1.getParticipants(), examinationDateList.get(0).getParticipants());
 
         testExaminationDate1.getParticipants().remove(0);
         testExaminationDate1 = examinationDateDao.save(testExaminationDate1);
