@@ -30,6 +30,8 @@ public class E11StudentService extends BaseStudentService {
      * @param userDao            DAO object for manipulation with user data in database
      * @param examinationDateDao DAO object for manipulation with exam term data in database
      * @param gradeDao           DAO object for manipulation with grade data in database
+     * @param gradeTypeDao       DAO object for manipulation with grade types data in database
+     * @param propertyLoader     Application property loader
      */
     @Autowired
     public E11StudentService(SubjectDao subjectDao, UserDao userDao, ExaminationDateDao examinationDateDao, GradeDao gradeDao, GradeTypeDao gradeTypeDao, PropertyLoader propertyLoader) {

@@ -40,7 +40,7 @@ public class ImportExportController {
      * This method serves user GET requests for getting import-export view.
      *
      * @param model Model to be sent to view
-     * @return
+     * @return model
      */
     @GetMapping("/import-export")
     public ModelAndView getImportExport(ModelAndView model) {
@@ -91,8 +91,8 @@ public class ImportExportController {
     /**
      * This method serves user GET request for exporting application data in file to be sent to view.
      *
-     * @param response
-     * @param exportFormat
+     * @param response      HTTP servlet response
+     * @param exportFormat  Export format
      * @throws IOException
      */
     @GetMapping("/exportdata")

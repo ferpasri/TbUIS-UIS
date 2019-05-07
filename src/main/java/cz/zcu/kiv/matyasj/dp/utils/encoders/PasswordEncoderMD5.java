@@ -33,7 +33,7 @@ public class PasswordEncoderMD5 implements PasswordEncoder{
     /**
      * This method encode string a return MD5 hash
      *
-     * @param password
+     * @param password  Password
      * @return hash of password
      */
     @Override
@@ -51,9 +51,9 @@ public class PasswordEncoderMD5 implements PasswordEncoder{
     /**
      * Validate if equal password in plaintext and password in MD5 hash
      *
-     * @param password
-     * @param hash
-     * @return
+     * @param password  Password
+     * @param hash      Hash of password
+     * @return true if password matches
      */
     @Override
     public boolean matches(CharSequence password, String hash) {

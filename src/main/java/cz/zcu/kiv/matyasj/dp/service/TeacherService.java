@@ -100,9 +100,10 @@ public interface TeacherService extends UserService {
     /**
      * This method creates new exam date for particular teacher and for subject.
      *
-     * @param teacher    Teacher who wants to create a new exam
-     * @param subjectId  New exam date will be created for subject with this database id
-     * @param dateOfTerm Date of new examination
+     * @param teacher           Teacher who wants to create a new exam
+     * @param subjectId         New exam date will be created for subject with this database id
+     * @param dateOfTerm        Date of new examination
+     * @param maxParticipants   Maximal number of participants
      * @return true if operation will be successfully completed, false otherwise
      */
     boolean createNewExaminationTerm(Teacher teacher, Long subjectId, String dateOfTerm, String maxParticipants);
@@ -172,6 +173,7 @@ public interface TeacherService extends UserService {
     /**
      * This method update persisted grade object.
      *
+     * @param teacherId      Database id of teacher
      * @param gradeId        Database id of updated grade
      * @param newGradeTypeId Database id of grade type
      * @return true if success

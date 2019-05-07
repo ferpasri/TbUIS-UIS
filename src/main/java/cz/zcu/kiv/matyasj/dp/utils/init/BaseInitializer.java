@@ -55,6 +55,14 @@ public class BaseInitializer implements Initializer{
 
     /**
      * Initializer constructor
+     *
+     * @param subjectDao            DAO object for manipulation with subject data in database
+     * @param userDao               DAO object for manipulation with user data in database
+     * @param examinationDateDao    DAO object for manipulation with exam term data in database
+     * @param gradeTypeDao          DAO object for manipulation with grade types data in database
+     * @param porterService
+     * @param propertyLoader        Application property loader
+     * @param passwordEncoder       Password encoder used for password hashes validation
      */
     @Autowired
     public BaseInitializer(SubjectDao subjectDao, UserDao userDao, ExaminationDateDao examinationDateDao, GradeTypeDao gradeTypeDao, PorterService porterService, PropertyLoader propertyLoader, PasswordEncoder passwordEncoder) {

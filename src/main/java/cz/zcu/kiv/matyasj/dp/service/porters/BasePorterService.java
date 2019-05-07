@@ -35,6 +35,11 @@ public class BasePorterService implements PorterService {
 
     /**
      * Default BasePorterService constructor
+     *
+     * @param xmlDataPorter     XML data porter
+     * @param jsonDataPorter    JSON data porter
+     * @param propertyLoader    Application property loader
+     * @param databaseDao       DAO object for database manipulation
      */
     @Autowired
     public BasePorterService(DataPorter xmlDataPorter, DataPorter jsonDataPorter, PropertyLoader propertyLoader, DatabaseDao databaseDao) {
