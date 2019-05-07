@@ -34,7 +34,7 @@ public class DatabaseConnectionTest {
     private final Logger log = LogManager.getLogger();
 
     /**
-     * SetUp method prepare entityManager instance for UIS-web DB
+     * SetUp method prepare entityManager instance for UIS DB
      */
     @Before
     public void setUp() {
@@ -43,7 +43,7 @@ public class DatabaseConnectionTest {
     }
 
     /**
-     * This method tests UIS-web - DB connection
+     * This method tests UIS - DB connection
      */
     @Test
     public void databaseConnectionTest() {

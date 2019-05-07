@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cz.zcu.kiv.matyasj.dp</groupId>
-    <artifactId>UIS-web</artifactId>
+    <artifactId>UIS</artifactId>
     <packaging>war</packaging>
     <version>1.5.2</version>
-    <name>UIS-web - KIV/DP - Jiri Matyas</name>
+    <name>UIS - KIV/DP - Jiri Matyas</name>
 
     <properties>
         <junit.version>4.12</junit.version>

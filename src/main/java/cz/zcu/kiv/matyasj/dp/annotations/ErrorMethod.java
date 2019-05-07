@@ -1,7 +1,7 @@
 package cz.zcu.kiv.matyasj.dp.annotations;
 
 /**
- * UIS-web annotation for labeling methods with error functionality.
+ * UIS annotation for labeling methods with error functionality.
  *
  * @author Jiri Matyas
  */
