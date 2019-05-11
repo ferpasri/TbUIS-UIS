@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Objects of this class represent <b>ERROR</b> services providing functions for manipulation with data
  * related to teachers. BaseTeacherService provide method for register/unregister subjects
  * to teacher, creation/removing examination terms, creating/updating evaluation, etc.
+ *
+ * @author Jakub Smaus
  */
 public class E02TeacherService extends BaseTeacherService {
     /** Shared system logger */

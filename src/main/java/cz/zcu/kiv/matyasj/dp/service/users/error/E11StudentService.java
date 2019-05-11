@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Objects of this class represent <b>ERROR</b> services providing functions for manipulation with data
  * related to students. BaseStudentService provide method for enroll/unenroll subjects to
  * student, register/unregister examination date for student, etc.
+ *
+ * @author Jakub Smaus
  */
 //@Service
 public class E11StudentService extends BaseStudentService {

@@ -18,6 +18,8 @@ import java.util.List;
  * Objects of this class represent <b>ERROR</b> services providing functions for manipulation with data
  * related to students. BaseStudentService provide method for enroll/unenroll subjects to
  * student, register/unregister examination date for student, etc.
+ *
+ * @author Jakub Smaus
  */
 //@Service
 public class E08StudentService extends BaseStudentService {
@@ -68,7 +70,7 @@ public class E08StudentService extends BaseStudentService {
                 examinationDateList.removeIf(examinationDate -> (examinationDate.getSubject().getId().longValue() == g.getSubject().getId().longValue() && examinationDate.getDateOfTest().equals(g.getDayOfGrant())));
             }
 
-            Student dummyStudent = new Student("John", "Doe", "jDoe", "pass", "mail@edu.com");
+            Student dummyStudent = new Student("Tony", "Noname", "noname", "pass", "mail@noname.com");
 
             for (ExaminationDate examDate : examinationDateList) {
                 examDate.getParticipants().add(dummyStudent);

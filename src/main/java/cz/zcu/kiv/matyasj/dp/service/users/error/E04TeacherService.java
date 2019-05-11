@@ -18,6 +18,8 @@ import java.util.List;
  * Objects of this class represent <b>ERROR</b> services providing functions for manipulation with data
  * related to teachers. BaseTeacherService provide method for register/unregister subjects
  * to teacher, creation/removing examination terms, creating/updating evaluation, etc.
+ *
+ * @author Jakub Smaus
  */
 public class E04TeacherService extends BaseTeacherService {
     /** Shared system logger */
