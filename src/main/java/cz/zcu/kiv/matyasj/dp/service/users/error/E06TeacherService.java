@@ -127,7 +127,7 @@ public class E06TeacherService extends BaseTeacherService {
 
         if (!tmpTeacher.getListOfTaughtSubjects().contains(tmpSubject)) {
             taughtSubjects.add(tmpSubject);
-            log.error(propertyLoader.getProperty("log.E06TeacherService.removeExaminationTerm"));
+            log.error(propertyLoader.getProperty("log.E06TeacherService.setMySubject"));
             return true;
         }
 

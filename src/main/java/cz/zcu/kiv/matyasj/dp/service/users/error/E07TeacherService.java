@@ -28,7 +28,7 @@ public class E07TeacherService extends BaseTeacherService {
     private final Logger log = LogManager.getLogger();
 
     /**
-     * E05TeacherService constructor is needed because of dependencies in parent (BaseTeacherService) constructor.
+     * E07TeacherService constructor is needed because of dependencies in parent (BaseTeacherService) constructor.
      *
      * @param subjectDao         DAO object for manipulation with subject data in database
      * @param userDao            DAO object for manipulation with user data in database
