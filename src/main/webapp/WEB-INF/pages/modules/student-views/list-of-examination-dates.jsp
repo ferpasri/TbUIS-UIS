@@ -27,7 +27,7 @@
             <c:set var="subjectHasExaminationTerm" value="false"/>
             <tbody class="table-dark">
             <tr id="stu.otherExamDates.table.subject-${subjectIndex}">
-                <th id="stu.otherExamDates.table.subjectColumn-${subjectIndex}" colspan="5"><spring:message code="stu.otherExamDates.table.subjectColumn"/> ${subject.name}</th>
+                <th id="stu.otherExamDates.table.subjectColumn-${subjectIndex}" colspan="5">${subject.name}</th>
             </tr>
             </tbody>
             <tbody>
