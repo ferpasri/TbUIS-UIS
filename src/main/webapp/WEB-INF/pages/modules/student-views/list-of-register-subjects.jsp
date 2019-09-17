@@ -48,8 +48,8 @@
         <th><spring:message code="stu.mySubjects.completedTable.NumberColumn"/></th>
         <th><spring:message code="stu.mySubjects.completedTable.NameColumn"/></th>
         <th><spring:message code="stu.mySubjects.completedTable.TeacherColumn"/></th>
-        <th><spring:message code="stu.mySubjects.completedTable.CreditRatingColumn"/></th>
-        <th><spring:message code="stu.mySubjects.completedTable.GradeColumn"/></th>
+        <th class="text-center"><spring:message code="stu.mySubjects.completedTable.CreditRatingColumn"/></th>
+        <th class="text-center"><spring:message code="stu.mySubjects.completedTable.GradeColumn"/></th>
     </tr>
     </thead>
     <tbody>
@@ -63,8 +63,8 @@
                         ${teacher.firstName} ${teacher.lastName}<c:if test="${!loop.last}">,</c:if>
                     </c:forEach>
                 </td>
-                <td>${subject.creditRating}</td>
-                <td>
+                <td class="text-center">${subject.creditRating}</td>
+                <td class="text-center">
                 <c:forEach var="grade" items="${listOfGrades}" varStatus="loop">
                     <c:if test="${grade.subject.id == subject.id}">
                         ${grade.typeOfGrade.name}
