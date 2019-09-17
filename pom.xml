@@ -7,8 +7,21 @@
     <groupId>cz.zcu.kiv.matyasj.dp</groupId>
     <artifactId>UIS</artifactId>
     <packaging>war</packaging>
-    <version>1.5.2</version>
-    <name>UIS - KIV/DP - Jiri Matyas, Jakub Smaus</name>
+    <version>1.6.0</version>
+
+    <name>UIS - KIV/DP</name>
+
+    <contributors>
+        <contributor>
+            <name>Jiri Matyas</name>
+        </contributor>
+        <contributor>
+            <name>Jakub Smaus</name>
+        </contributor>
+        <contributor>
+            <name>Radek Vais</name>
+        </contributor>
+    </contributors>
 
     <properties>
         <junit.version>4.12</junit.version>
