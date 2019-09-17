@@ -18,7 +18,7 @@
     <!-- Enables setting system variable log4jConfiguration to designated conf.-->
     <context-param>
         <param-name>log4jConfiguration</param-name>
-        <param-value>file:///C:/Users/Kuba/Desktop/projects/school/gitlab/TbUIS-UIS/src/main/resources/uis-logger-config.xml</param-value>
+        <param-value>uis-logger-config.xml</param-value>
     </context-param>
 
     <servlet>
