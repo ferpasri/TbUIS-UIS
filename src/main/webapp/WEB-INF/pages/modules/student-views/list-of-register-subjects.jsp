@@ -13,8 +13,8 @@
         <th><spring:message code="stu.mySubjects.enrolledTable.NumberColumn"/></th>
         <th><spring:message code="stu.mySubjects.enrolledTable.NameColumn"/></th>
         <th><spring:message code="stu.mySubjects.enrolledTable.TeachersColumn"/></th>
-        <th><spring:message code="stu.mySubjects.enrolledTable.CreditRatingColumn"/></th>
-        <th><spring:message code="stu.mySubjects.enrolledTable.UnregisterSubjectColumn"/></th>
+        <th class="text-center"><spring:message code="stu.mySubjects.enrolledTable.CreditRatingColumn"/></th>
+        <th class="text-center"><spring:message code="stu.mySubjects.enrolledTable.UnregisterSubjectColumn"/></th>
     </tr>
     </thead>
     <tbody>
@@ -28,7 +28,7 @@
                         ${teacher.firstName} ${teacher.lastName}<c:if test="${!loop.last}">,</c:if>
                     </c:forEach>
                 </td>
-                <td>${subject.creditRating}</td>
+                <td class="text-center">${subject.creditRating}</td>
                 <c:if test="${indexOfHiddenSubject != subjectListIndex.index}">
                     <td class="text-center"><button id="stu.mySubjects.enrolledTable.unenrollSubjectButton-${subjectListIndex.index}" type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#unenrollSubjectModal" onclick="setSubjectInModal(${subject.id});" title="<spring:message code="stu.mySubjects.enrolledTable.UnregisterSubjectButtonTitle"/>">X</button></td>
                 </c:if>
