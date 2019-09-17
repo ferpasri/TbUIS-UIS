@@ -24,7 +24,7 @@
         <c:set var="subjectHasExaminationTerm" value="false"/>
         <tbody class="table-dark">
         <tr id="tea.myExamDates.table.subjectRow-${taughtSubjectListLoop.index}">
-            <th id="tea.myExamDates.table.subjectColumn-${taughtSubjectListLoop.index}" colspan="5"><spring:message code="tea.myExamDates.table.subjectColumn"/> ${subject.name}</th>
+            <th id="tea.myExamDates.table.subjectColumn-${taughtSubjectListLoop.index}" colspan="5">${subject.name}</th>
         </tr>
         </tbody>
         <tbody>
