@@ -26,3 +26,6 @@ target/*
 out/*
 UIS.iml
 .idea/*
+
+#ignore log files
+*log.txt
