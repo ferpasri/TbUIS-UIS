@@ -93,7 +93,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label  id="stu.mySubjects.unenrollSubjectModal.subjectSelectLabel" for="stu.mySubjects.unenrollSubjectModal.subjectSelect"><spring:message code="stu.mySubjects.unenrollSubjectModal.SubjectSelect"/></label>
-                        <select id="stu.mySubjects.unenrollSubjectModal.subjectSelect" name="subjectId">
+                        <select id="stu.mySubjects.unenrollSubjectModal.subjectSelect" name="subjectId" title="<spring:message code="stu.mySubjects.unenrollSubjectModal.SubjectSelectTooltip"/>">
                             <c:if test="${not empty subjectList}">
                                 <c:forEach var="subject" items="${subjectList}">
                                     <option value="${subject.id}">${subject.name}</option>
