@@ -16,7 +16,7 @@
         <th><spring:message code="tea.myExamDates.table.examinerColumn"/></th>
         <th><spring:message code="tea.myExamDates.table.dateColumn"/></th>
         <th><spring:message code="tea.myExamDates.table.participantsColumn"/></th>
-        <th><spring:message code="tea.myExamDates.table.unregisterTermColumn"/></th>
+        <th class="text-center"><spring:message code="tea.myExamDates.table.unregisterTermColumn"/></th>
     </tr>
     </thead>
     <c:if test="${not empty taughtSubjectList}">
@@ -42,7 +42,7 @@
                                 onclick="showListOfParticipants(${examinationDate.id})" title="<spring:message code="tea.myExamDates.table.participantsButtonTitle"/>"><spring:message code="tea.myExamDates.table.participantsButtonLabel"/> (${fn:length(examinationDate.participants)}/${examinationDate.maxParticipants})
                         </button>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <form onsubmit="participantsExistsBeforeExamTermDeletion(event, ${fn:length(examinationDate.participants)})" id="tea.myExamDates.table.unregisterTermForm-${taughtSubjectListLoop.index}-${examTermIndex}" method="post">
                             <input id="tea.myExamDates.table.examinationTermInput-${taughtSubjectListLoop.index}-${examTermIndex}" type="hidden" name="examDateId" value="${examinationDate.id}">
                             <button id="tea.myExamDates.table.cancelButton-${taughtSubjectListLoop.index}-${examTermIndex}" type="submit" class="btn btn-danger btn-sm" title="<spring:message code="tea.myExamDates.table.cancelButtonTitle"/>"><spring:message code="tea.myExamDates.table.cancelButtonLabel"/></button>
