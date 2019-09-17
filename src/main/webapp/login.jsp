@@ -40,7 +40,7 @@
     </c:if>
 
     <h1 id="loginPage.title"><spring:message code="loginPage.title"/></h1>
-    <form id="loginPage.loginForm" action="login" method="post">
+    <form id="loginPage.loginForm" action="<spring:url value="/login"/>" method="post">
         <div id="loginPage.userNameField" class="form-group">
             <label id="loginPage.usernameLabel" for="loginPage.userNameInput"><spring:message code="loginPage.usernameLabel"/></label>
             <input type="text" class="form-control" id="loginPage.userNameInput" name="username" placeholder="<spring:message code="loginPage.usernamePlacehoder"/>" title="<spring:message code="loginPage.usernameTitle"/>">

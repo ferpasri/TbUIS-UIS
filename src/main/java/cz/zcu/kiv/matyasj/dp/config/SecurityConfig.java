@@ -146,7 +146,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             log.info("Login error.");
             HttpSession session = httpServletRequest.getSession();
             session.setAttribute("error", "Login error.");
-            httpServletResponse.sendRedirect("/login?error");
+            httpServletResponse.sendRedirect("login?error");
         };
     }
 }
