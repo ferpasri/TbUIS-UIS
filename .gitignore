@@ -29,3 +29,7 @@ UIS.iml
 
 #ignore log files
 *log.txt
+
+#ignore temporary backup files
+*.bck
+
