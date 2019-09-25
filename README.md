@@ -12,6 +12,20 @@ mvn clean install -DskipTests
 
 After a successful build, the resulting WAR file will be located in the _target_ folder. The goal **-DskipTests** allows skipping tests that could end the assembly process when using beans with a deliberate error.
 
+## Batch building error versions
+
+To build many versions in batch you can use script `version_maker.cmd`. By default script expects at least one `seed.xml` in folder `version_seeds`. Script cleans project, perform rebuild and copy result into `release_archive/generated_versions`.
+Result will be named same as script (e.g. `UIS-C0.H0.M0.L0_ALL_OK.xml` creates `UIS-C0.H0.M0.L0_ALL_OK.war` in output directory)
+Script create backup of actual `seed.xml` in `seed.bck` if script fails, you coudl restore `seed.xml` manualy.
+
+Script has some configuration fields:
+
+- Name of output war from Maven process
+- Seed input directory
+- Output directory 
+
+File `seed.xml` is configuration xml for Spring framework which declares used JavaBeans.
+
 ## Deployment of application
 #### If you already have WAR file, you can continue with setting up a database - part: 2. a)
 ### 1. a) Running an application using the Maven plugin
