@@ -1,5 +1,6 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
 <!--    <bean id="dateUtility" class="cz.zcu.kiv.matyasj.dp.utils.dates.correct.BaseDateUtility"/>-->
     <bean id="dateUtility" class="cz.zcu.kiv.matyasj.dp.utils.dates.error.E01DateUtility"/>
 
