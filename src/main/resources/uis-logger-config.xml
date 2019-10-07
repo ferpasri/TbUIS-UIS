@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
     <Properties>
-        <Property name="pFileName">./uis-log.txt</Property>
+        <Property name="pFileName">${env:UIS_LOG_FILE:-uis-log.txt}</Property>
         <Property name="pFormat">%-5level %c{1}:%L - %msg%n</Property>
     </Properties>
     <Appenders>

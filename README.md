@@ -51,3 +51,15 @@ Basic database settings:
 - Username: 	**uis-web**
 - Password: 	**uis**
 
+### 2. b) Change DB connection settings 
+
+You can change DB connection settings before creating war file. You have to change connection properties in two files: **persistence.xml** and **application-context.xml**. 
+
+### 3. Logging
+
+Application creates default log file in runtime folder of program named **uis-log.txt**. This option can be changed by setting up environment variable named **UIS_LOG_FILE**. Whenever environment variable UIS_LOG_FILE is set up, application use value of this variable as path to log file (including filename). Ensure that folder is created before application starts. 
+
+You can prove correct setting using program ```set``` in ```cmd```. Output should contains line similar to:
+```
+UIS_LOG_FILE=C:\xxx\log-file-name.txt
+```
