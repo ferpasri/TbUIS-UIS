@@ -58,7 +58,6 @@ public class ExamDatesController {
         retModel.addObject("subjectsWithExamDates", subjectsWithExamDates);
         retModel.addObject("studiedSubjects", studiedSubjects);
         retModel.addObject("view", "otherExamDates");
-        retModel.addObject("duplicatedLastParticipant", false);
 
         if (studentService.duplicateLastParticipant()) {
             for (ExaminationDate examDate : notRegisteredExaminationDatesList) {
@@ -71,7 +70,6 @@ public class ExamDatesController {
                 Student student = students.get(students.size() - 1);
                 students.add(student);
             }
-            retModel.addObject("duplicatedLastParticipant", true);
         }
 
         return  retModel;
