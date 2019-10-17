@@ -69,7 +69,7 @@ public class ImportExportController {
             return getImportExport(retModel);
         }
 
-        File fileToImport = new File(System.getProperty("java.io.tmpdir") + file.getOriginalFilename());
+        File fileToImport = new File(System.getProperty("java.io.tmpdir"), file.getOriginalFilename());
 
         try {
             file.transferTo(fileToImport);
