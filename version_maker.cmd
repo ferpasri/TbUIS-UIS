@@ -21,6 +21,7 @@ mkdir %outDir%
 
 ::Creating loop
 for /f %%f in ('dir /b %seedDir%') do (
+ :: for every seed process build
  echo %%f
  copy .\%seedDir%\%%f .\src\main\resources\seed.xml
  mvn clean
@@ -28,9 +29,9 @@ for /f %%f in ('dir /b %seedDir%') do (
  move /Y .\target\%mavenOutFileName% %outDir%\%%~nf.war
 )
 
-::Clean after building
+::Clean maven project after building
 mvn clean
 
-::Return backup file
+::Delete tmp seed file and return backup file
 del .\src\main\resources\seed.xml
 move .\src\main\resources\seed.bck .\src\main\resources\seed.xml
