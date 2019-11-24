@@ -6,7 +6,8 @@ import java.io.File;
  * This interface defines methods of service objects for a data porting (import/export) from and to database.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 public interface PorterService {
 
     /**

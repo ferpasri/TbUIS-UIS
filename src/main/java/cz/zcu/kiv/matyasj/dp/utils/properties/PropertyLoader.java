@@ -4,7 +4,8 @@ package cz.zcu.kiv.matyasj.dp.utils.properties;
  * This interface defines method for getting system property attributes from system property file.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 public interface PropertyLoader {
     /**
      * This method return property value (string) from system property file

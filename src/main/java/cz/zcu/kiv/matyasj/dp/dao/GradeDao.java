@@ -11,7 +11,8 @@ import java.util.List;
  * This interface defines methods of DAOs for manipulation with Grade data in database.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 public interface GradeDao extends GenericDao<Grade, Long> {
     /**
      * Finds and returns list of grades created in one subject.

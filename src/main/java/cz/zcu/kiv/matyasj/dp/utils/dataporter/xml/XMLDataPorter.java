@@ -21,7 +21,8 @@ import java.util.List;
  * Objects use JAXB library.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Component
 public class XMLDataPorter implements DataPorter {
     /** JAXB context for creation of JAXB Marshaller/UnMarshaller */

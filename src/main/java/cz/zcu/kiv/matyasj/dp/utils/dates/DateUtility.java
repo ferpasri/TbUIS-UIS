@@ -7,7 +7,8 @@ import java.util.Date;
  * This interface defines methods for dealing with dates in the whole application.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 public interface DateUtility {
     /**
      * This method returns date string representation of given Date object.

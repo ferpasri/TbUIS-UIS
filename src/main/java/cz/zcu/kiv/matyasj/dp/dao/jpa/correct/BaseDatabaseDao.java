@@ -26,7 +26,8 @@ import java.util.Map;
  * Objects are able to get and insert all data from/to database and delete all data from database.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Repository
 public class BaseDatabaseDao extends GenericDaoJpa<BaseEntity, Long> implements DatabaseDao {
     /** List of all DAO objects for each domain class */

@@ -32,7 +32,8 @@ import javax.sql.DataSource;
  * </ul>
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

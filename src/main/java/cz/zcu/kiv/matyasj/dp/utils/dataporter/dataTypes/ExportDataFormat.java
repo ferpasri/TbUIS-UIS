@@ -5,7 +5,8 @@ package cz.zcu.kiv.matyasj.dp.utils.dataporter.dataTypes;
  * by data porter objects
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 public enum ExportDataFormat {
     /** ExportDataFormat values */
     JSON("json"), XML("xml");

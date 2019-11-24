@@ -15,7 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
  * Objects of this class represent controllers which serve user requests for login.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Controller
 @RequestMapping("login")
 public class LoginController {

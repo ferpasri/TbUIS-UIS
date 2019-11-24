@@ -11,7 +11,8 @@ import javax.persistence.Transient;
  * Creating a new domain object is simply an extension of this class.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @MappedSuperclass
 public abstract class BaseEntity implements IEntity<Long>{
     /** Unique identification number for identification in the database */

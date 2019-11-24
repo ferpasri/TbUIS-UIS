@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
  * Objects of this class represent services for database restoring.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Service
 public class BaseRestoreDBService implements RestoreDBService {
     /** DAO object for manipulation with all data in system database */

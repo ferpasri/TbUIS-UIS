@@ -15,7 +15,8 @@ import java.util.List;
  * absolved subjects.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Entity
 @DiscriminatorValue("STUDENT")
 @XmlRootElement

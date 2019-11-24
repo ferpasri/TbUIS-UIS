@@ -14,7 +14,8 @@ import java.util.Properties;
  * values.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Component("propertyLoader")
 public class BasePropertyLoader implements PropertyLoader{
     /** java.util.Properties object for reading properties file in default format */

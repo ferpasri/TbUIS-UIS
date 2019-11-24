@@ -12,7 +12,8 @@ import java.util.List;
  * This interface defines methods of DAOs for manipulation with ExaminationDate data in database.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 public interface ExaminationDateDao extends GenericDao<ExaminationDate, Long>{
     /**
      * Returns list of all examination terms of one student from database.

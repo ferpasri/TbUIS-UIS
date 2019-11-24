@@ -19,7 +19,8 @@ import java.util.Date;
  * string to date objects. BaseDateUtility use by default SimpleDateFormat.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Component
 public class E02DateUtility implements DateUtility {
     /** Shared system logger */

@@ -7,7 +7,8 @@ import cz.zcu.kiv.matyasj.dp.domain.users.User;
  * related to a generic logged on user.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 public interface UserService {
     /**
      * Method returns object of currently logged in user.

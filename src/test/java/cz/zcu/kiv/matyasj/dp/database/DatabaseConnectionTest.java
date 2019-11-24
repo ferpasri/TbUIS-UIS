@@ -23,7 +23,8 @@ import static junit.framework.TestCase.assertNotNull;
  * DatabaseConnectionTest test suite
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 public class DatabaseConnectionTest {
     @PersistenceContext
     protected EntityManager entityManager;

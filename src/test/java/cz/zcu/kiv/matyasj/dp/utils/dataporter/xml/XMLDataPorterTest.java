@@ -28,7 +28,8 @@ import static org.junit.Assert.*;
  * XMLDataPorter test suite
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:applicationContext.xml")
 public class XMLDataPorterTest {

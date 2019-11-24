@@ -19,7 +19,8 @@ import java.util.Date;
  * and jsonDataPorter utility components.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Service
 public class BasePorterService implements PorterService {
     /** DAO object for manipulation with database (create database dump/ erase database/ fill database) */

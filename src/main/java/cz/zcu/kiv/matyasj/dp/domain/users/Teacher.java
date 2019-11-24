@@ -12,7 +12,8 @@ import java.util.List;
  * These objects have lists of currently taught subjects.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Entity
 @DiscriminatorValue("TEACHER")
 @XmlRootElement

@@ -20,7 +20,8 @@ import java.util.Locale;
  * Objects of this class represent controllers which serve user requests related to Student unenrolled subjects.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Controller
 @RequestMapping("/student-view/otherSubjects")
 public class SubjectListController {

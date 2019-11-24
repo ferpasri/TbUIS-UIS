@@ -12,7 +12,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Typically used GradeTypes are: A, B, C, D, E, F
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Entity
 @Table(name="grade_types")
 @XmlRootElement

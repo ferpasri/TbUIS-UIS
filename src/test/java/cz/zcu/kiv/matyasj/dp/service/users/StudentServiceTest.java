@@ -30,7 +30,8 @@ import static org.junit.Assert.*;
  * StudentService test suite (tests all student business logic of application)
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:applicationContext.xml")
 public class StudentServiceTest {

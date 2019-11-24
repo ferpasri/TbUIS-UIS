@@ -21,7 +21,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * RestoreDbController test suite
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = "classpath*:applicationContext.xml")

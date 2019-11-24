@@ -18,7 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * student, register/unregister examination date for student, etc.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 //@Service
 public class E02StudentService extends BaseStudentService {
     /** Shared system logger */

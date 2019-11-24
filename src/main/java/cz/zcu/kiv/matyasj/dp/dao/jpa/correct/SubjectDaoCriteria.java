@@ -30,7 +30,8 @@ import java.util.stream.Collectors;
  * This DAO Objects uses JPA Criteria API.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Repository
 public class SubjectDaoCriteria extends GenericDaoJpa<Subject, Long> implements SubjectDao {
     /** User DAO object for manipulation with user data*/

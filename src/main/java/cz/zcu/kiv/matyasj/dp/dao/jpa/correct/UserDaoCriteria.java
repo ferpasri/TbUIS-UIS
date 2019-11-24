@@ -20,7 +20,8 @@ import java.util.List;
  * This DAO Objects uses JPA Criteria API.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 //@Repository
 public class UserDaoCriteria extends GenericDaoJpa<User, Long> implements UserDao {
     /** Shared system logger */

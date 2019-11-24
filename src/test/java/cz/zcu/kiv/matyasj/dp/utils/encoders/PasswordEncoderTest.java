@@ -14,7 +14,8 @@ import static org.junit.Assert.*;
  * PasswordEncoderMD5 test suite for BCrypt hash
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath*:applicationContext.xml")
 public class PasswordEncoderTest {
