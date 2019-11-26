@@ -9,7 +9,8 @@ import java.util.List;
  * This interface defines methods of Generic DAOs
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 public interface GenericDao<E extends IEntity<PK>, PK extends Serializable> {
     /**
      * Either inserts new or updates existing instance.

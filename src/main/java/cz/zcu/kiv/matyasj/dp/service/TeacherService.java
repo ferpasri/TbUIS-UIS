@@ -15,7 +15,8 @@ import java.util.List;
  * related to teachers.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 public interface TeacherService extends UserService {
     /**
      * This method returns list of all Subject of specific teacher.

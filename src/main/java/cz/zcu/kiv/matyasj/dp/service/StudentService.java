@@ -12,7 +12,8 @@ import java.util.List;
  * related to students.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 public interface StudentService extends UserService {
     /**
      *  This method returns list of subjects that are enrolled by

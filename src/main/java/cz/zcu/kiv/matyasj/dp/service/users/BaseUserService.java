@@ -22,7 +22,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * class sorts list of subjects and users alphabetically.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 public abstract class BaseUserService implements UserService {
 
     private final Logger log = LogManager.getLogger();

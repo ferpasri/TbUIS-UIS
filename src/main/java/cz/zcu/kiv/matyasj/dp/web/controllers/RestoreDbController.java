@@ -18,7 +18,8 @@ import java.util.Locale;
  * Objects of this class represent controllers which serve restoreDB user requests.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Controller
 @RequestMapping("/restoreDB")
 public class RestoreDbController {

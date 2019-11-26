@@ -19,7 +19,8 @@ import java.util.List;
  * to teacher, creation/removing examination terms, creating/updating evaluation, etc.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 public class E01TeacherService extends BaseTeacherService {
     /** Shared system logger */
     private final Logger log = LogManager.getLogger();

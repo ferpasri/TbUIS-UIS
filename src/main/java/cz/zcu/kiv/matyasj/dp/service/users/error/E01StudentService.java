@@ -21,7 +21,8 @@ import java.util.List;
  * student, register/unregister examination date for student, etc.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 //@Service
 public class E01StudentService extends BaseStudentService {
 

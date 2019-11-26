@@ -9,7 +9,8 @@ import java.util.List;
  * This interface defines the method for importing data into system database.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 public interface DataImporter {
     /**
      * This method creates data import into system database. This data

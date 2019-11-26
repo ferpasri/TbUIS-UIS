@@ -11,7 +11,8 @@ import java.security.NoSuchAlgorithmException;
  * MD5 is not safe, but there is just for testing purpose.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Component
 public class PasswordEncoderMD5 implements PasswordEncoder{
     /** static object MessageDigest */

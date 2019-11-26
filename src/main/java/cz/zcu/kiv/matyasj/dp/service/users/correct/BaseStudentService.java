@@ -28,7 +28,8 @@ import java.util.List;
  * student, register/unregister examination date for student, etc.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Service
 public class BaseStudentService extends BaseUserService implements StudentService {
     /** DAO object for manipulation with subject data in database */

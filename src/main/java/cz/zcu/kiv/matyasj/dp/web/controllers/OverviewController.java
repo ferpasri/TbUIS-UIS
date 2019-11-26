@@ -22,7 +22,8 @@ import java.util.Locale;
  * Objects of this class represent controllers which serve user requests related to overview.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Controller
 public class OverviewController {
     /** service object providing functions for manipulation with data related to students.*/

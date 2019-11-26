@@ -8,7 +8,8 @@ import java.util.List;
  * This interface defines the method for exporting data from system database.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 public interface DataExporter {
     /**
      * This method creates system database data export into file.

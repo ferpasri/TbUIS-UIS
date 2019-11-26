@@ -20,7 +20,8 @@ import java.util.Locale;
  * Objects of this class represent controllers which serve user requests related to Teacher's new examination dates.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Controller
 @RequestMapping("/teacher-view/newExamDates")
 public class NewExamDateController {

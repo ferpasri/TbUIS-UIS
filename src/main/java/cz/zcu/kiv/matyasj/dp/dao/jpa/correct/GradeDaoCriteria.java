@@ -28,7 +28,8 @@ import java.util.List;
  * This DAO Objects uses JPA Criteria API.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Repository
 public class GradeDaoCriteria extends GenericDaoJpa<Grade, Long> implements GradeDao {
     /**

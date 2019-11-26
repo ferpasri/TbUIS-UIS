@@ -11,7 +11,8 @@ import java.util.Objects;
  * These objects contain user atributes (name, username, email, password).
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Entity
 @Table(name="users")
 public abstract class User extends BaseEntity {

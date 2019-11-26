@@ -26,7 +26,8 @@ import java.util.Date;
  * class make database initialization and reinitialization.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Component
 public class BaseInitializer implements Initializer{
     /** DAO object for manipulation with subject data in database */

@@ -8,7 +8,8 @@ import java.util.List;
  * This interface defines methods of DAOs for manipulation with User data in database.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 public interface UserDao extends GenericDao<User, Long> {
     /**
      * Create new user in database by existent user instance

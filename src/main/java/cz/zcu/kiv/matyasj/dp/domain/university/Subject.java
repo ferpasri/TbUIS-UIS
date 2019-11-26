@@ -19,7 +19,8 @@ import java.util.Objects;
  * and Teachers whose taught this subject.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Entity
 @Table(name="subjects")
 @XmlRootElement

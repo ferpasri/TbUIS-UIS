@@ -9,7 +9,8 @@ import java.util.List;
  * This interface defines methods of DAOs for manipulation with all data in system database.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 public interface DatabaseDao extends GenericDao<BaseEntity, Long>{
     /**
      * This method erase all data from system database without backup.

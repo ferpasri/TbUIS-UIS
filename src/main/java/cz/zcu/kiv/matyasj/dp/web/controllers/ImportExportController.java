@@ -24,7 +24,8 @@ import java.util.Locale;
  * Objects of this class represent controllers which serve import/export user requests.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Controller
 public class ImportExportController {
     /** Service for data porting (import/export) from and to database. */

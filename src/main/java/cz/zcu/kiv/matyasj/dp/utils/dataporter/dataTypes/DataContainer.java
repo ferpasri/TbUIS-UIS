@@ -14,7 +14,8 @@ import java.util.ArrayList;
  * and used as a root element.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @XmlRootElement
 public class DataContainer {
     /** List of domain objects from system domain model */

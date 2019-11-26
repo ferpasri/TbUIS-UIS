@@ -24,7 +24,8 @@ import java.util.ArrayList;
  * Class also provides method for logging user.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 public abstract class BaseControllerTest {
     protected static final String TEST_USER_STUDENT_USERNAME = "testStudent1";
     protected static final String TEST_USER_STUDENT_PASSWORD = "password";

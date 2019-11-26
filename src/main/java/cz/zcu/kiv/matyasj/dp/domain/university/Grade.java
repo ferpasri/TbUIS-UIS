@@ -13,7 +13,8 @@ import java.util.Date;
  * These objects have reference to the teacher who grade granted, student who was evaluated
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Entity
 @Table(name="grades")
 @XmlRootElement

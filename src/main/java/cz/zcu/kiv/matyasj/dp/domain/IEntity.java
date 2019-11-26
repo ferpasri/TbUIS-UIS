@@ -8,7 +8,8 @@ import java.io.Serializable;
  * @param <PK> type of primary key
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 public interface IEntity<PK extends Serializable> extends Serializable {
     /**
      * This method get and returns primary key of this object.

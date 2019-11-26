@@ -23,7 +23,8 @@ import java.util.List;
  * Objects use JAXB library with EclipseLink MOXy provider.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Component
 public class JSONDataPorter implements DataPorter {
     /** JAXB context for creation of JAXB Marshaller/UnMarshaller */

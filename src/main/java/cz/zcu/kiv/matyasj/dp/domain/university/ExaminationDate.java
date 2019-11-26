@@ -18,7 +18,8 @@ import java.util.List;
  * list of participants of term.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Entity
 @Table(name="examination_dates")
 @XmlRootElement

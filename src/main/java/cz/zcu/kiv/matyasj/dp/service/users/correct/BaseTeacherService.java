@@ -34,7 +34,8 @@ import org.springframework.stereotype.Service;
  * to teacher, creation/removing examination terms, creating/updating evaluation, etc.
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Service
 public class BaseTeacherService extends BaseUserService implements TeacherService {
     /** DAO object for manipulation with subject data in database */

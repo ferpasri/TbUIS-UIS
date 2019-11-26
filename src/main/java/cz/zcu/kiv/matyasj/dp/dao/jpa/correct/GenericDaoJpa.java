@@ -22,7 +22,8 @@ import java.util.List;
  * @param <PK> Primary key of entities
  *
  * @author Jiri Matyas
- */
+ * @version 2019-24-11
+*/
 @Transactional
 public class GenericDaoJpa<E extends IEntity<PK>, PK extends Serializable> implements GenericDao<E, PK> {
     /** Entity service for communication with database. */
