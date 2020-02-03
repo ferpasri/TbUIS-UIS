@@ -7,6 +7,7 @@ import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.domain.users.User;
 import cz.zcu.kiv.matyasj.dp.service.UserService;
+import cz.zcu.kiv.matyasj.dp.utils.comparators.StudentsComparator;
 import cz.zcu.kiv.matyasj.dp.utils.properties.PropertyLoader;
 
 import java.util.List;
@@ -113,6 +114,8 @@ public abstract class BaseUserService implements UserService {
         subjectList.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
         for (Subject s : subjectList) {
             s.getTeachers().sort((o1, o2) -> o1.getLastName().compareToIgnoreCase(o2.getLastName()));
+            s.getListOfStudents().sort(StudentsComparator::lastNameAsc);
+            s.getListOfAbsolvents().sort(StudentsComparator::lastNameAsc);
         }
         return subjectList;
     }
