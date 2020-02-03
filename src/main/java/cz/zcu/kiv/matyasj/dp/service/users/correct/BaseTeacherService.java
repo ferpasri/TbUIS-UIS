@@ -14,6 +14,8 @@ import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.domain.users.User;
 import cz.zcu.kiv.matyasj.dp.service.TeacherService;
 import cz.zcu.kiv.matyasj.dp.service.users.BaseUserService;
+import cz.zcu.kiv.matyasj.dp.utils.comparators.ExaminationsComparator;
+import cz.zcu.kiv.matyasj.dp.utils.comparators.StudentsComparator;
 import cz.zcu.kiv.matyasj.dp.utils.dates.DateUtility;
 import cz.zcu.kiv.matyasj.dp.utils.properties.PropertyLoader;
 
@@ -284,7 +286,7 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
      * terms participants lists.
      *
      * @param teacher For this teacher will be list of exam terms returned.
-     * @return List of Examination terms which are created by specific teacher
+     * @return ordered List of Examination terms which are created by specific teacher
      */
     @Override
     public List<ExaminationDate> getMyExaminationDatesWithoutGraduateParticipants(Teacher teacher) {
@@ -299,7 +301,11 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
 
         for (ExaminationDate e : examinationDateList) {
             e.getParticipants().removeIf(student -> gradeDao.findGradeByStudentAndSubjectAndDate(student, e.getSubject(), e.getDateOfTest()) != null);
+            e.getParticipants().sort(StudentsComparator::lastNameAsc);
         }
+
+        examinationDateList.sort(ExaminationsComparator::nameAscDateAsc);
+
         return examinationDateList;
     }
 
