@@ -31,135 +31,172 @@
     <h3>Use-cases</h3>
     <table class="table table-hover">
         <thead class="thead-inverse">
-        <tr class="table-primary">
+        <tr>
             <th colspan="3"><strong>Actor: Unlogged user</strong></th>
         </tr>
         <tr>
-            <th>Use-case number</th>
-            <th>Use-case name</th>
-            <th>Description</th>
+            <th>ID</th>
+            <th>Brief description</th>
+            <th>
+                <div class="table-responsive">Description</div>
+            </th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <td>1</td>
-            <td>Web browsing</td>
-            <td>Use-case allows an unregistered user to view web pages that are accessible to an unregistered user (home page, Db content page, use cases page, export / import page, logon page).
-            </td>
-        </tr>
-        <tr>
-            <td>2</td>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-01.html" target="_blank">UC.01</a></td>
             <td>Login</td>
-            <td>Use-case allows an unregistered user to log into the application.</td>
+            <td>A registered user logs into the application</td>
         </tr>
         <tr>
-            <td>3</td>
-            <td>Export/Import dat</td>
-            <td>Use-case allows an unregistered user to import and export application data in JSON and XML format.
-            </td>
+            <th colspan="3"><strong>Actor: General logged user &mdash; student or teacher</strong></th>
         </tr>
         <tr>
-            <td>4</td>
-            <td>Restore DB</td>
-            <td>Use-case allows an unregistered user to restore a state of the database in which database was after the start of the application.
-            </td>
-        </tr>
-        <tr class="table-primary">
-            <th colspan="3"><strong>Actor: General logged user</strong></th>
+            <th>ID</th>
+            <th>Brief description</th>
+            <th>
+                <div class="table-responsive">Description</div>
+            </th>
         </tr>
         <tr>
-            <th>Use-case number</th>
-            <th>Use-case name</th>
-            <th>Description</th>
-        </tr>
-        <tr>
-            <td>5</td>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-02.html" target="_blank">UC.02</a></td>
             <td>Logout</td>
-            <td>Use-case allows the logged-in user to log off from the application.</td>
+            <td>A logged-in user logs out from the application</td>
         </tr>
         <tr>
-            <td>6</td>
-            <td>Get/Set user data</td>
-            <td>Use-case enables a logged-in user to check their details (name, surname, email) and change them if necessary.</td>
-        </tr>
-        <tr class="table-primary">
-            <th colspan="3"><strong>Actor: Logged user - Student</strong></th>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-03.html" target="_blank">UC.03</a></td>
+            <td>Get/Set user's personal data</td>
+            <td>A logged-in user can check details (first name, last name, email) and can change some of them</td>
         </tr>
         <tr>
-            <th>Use-case number</th>
-            <th>Use-case name</th>
-            <th>Description</th>
+            <th colspan="3"><strong>Actor: Logged users &mdash; Student</strong></th>
         </tr>
         <tr>
-            <td>7</td>
+            <th>ID</th>
+            <th>Brief description</th>
+            <th>
+                <div class="table-responsive">Description</div>
+            </th>
+        </tr>
+        <tr>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-04.html" target="_blank">UC.04</a></td>
             <td>Get/Unenroll enrolled subjects</td>
-            <td>Use-case allows a logged-in student to check his or her enrolled subjects and eventually unenroll them.</td>
+            <td>A student checks his/her enrolled subjects and eventually unenrolls some of them</td>
         </tr>
         <tr>
-            <td>8</td>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-05.html" target="_blank">UC.05</a></td>
+            <td>Get information about passed subjects</td>
+            <td>A student checks list of subjects that he/she passed</td>
+        </tr>
+        <tr>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-06.html" target="_blank">UC.06</a></td>
             <td>Get/Enroll unenrolled subjects</td>
-            <td>Use-case allows a logged-in student to check items that he / she does not study and eventually enroll them.</td>
+            <td>A student checks subjects that he/she does not study&nbsp;now and eventually enrolls some of them</td>
         </tr>
         <tr>
-            <td>9</td>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-07.html" target="_blank">UC.07</a></td>
             <td>Get/Unregister examination dates</td>
-            <td>Use-case allows a logged-in student to check the examination dates on which he / she is registered and eventually unregister himself / herself.
-            </td>
+            <td>A student checks the examination dates on which he/she is registered and eventually unregisters some of them</td>
         </tr>
         <tr>
-            <td>10</td>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-08.html" target="_blank">UC.08</a></td>
             <td>Get/Register examination dates</td>
-            <td>Use-case allows a logged-in student to check the examination dates which he / she is not registered for and eventually register himself / herself.
-            </td>
-        </tr>
-        <tr class="table-primary">
-            <th colspan="3"><strong>Actor: Logged user - Teacher</strong></th>
+            <td>A student checks the examination dates which he/she is not registered for and eventually register some of them</td>
         </tr>
         <tr>
-            <th>Use-case number</th>
-            <th>Use-case name</th>
-            <th>Description</th>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-09.html" target="_blank">UC.09</a></td>
+            <td>Get information about exam's participants</td>
+            <td>A student checks the list of participants (schoolmates) on some examination date</td>
         </tr>
         <tr>
-            <td>11</td>
+            <th colspan="3"><strong>Actor: Logged user &mdash; Teacher</strong></th>
+        </tr>
+        <tr>
+            <th>ID</th>
+            <th>Brief description</th>
+            <th>
+                <div class="table-responsive">Description</div>
+            </th>
+        </tr>
+        <tr>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-10.html" target="_blank">UC.10</a></td>
             <td>Get/Remove registered subjects</td>
-            <td>Use-case allows a logged-in teacher to check the subjects he / she teaches and eventually to remove them.</td>
+            <td>A teacher checks the subjects he/she teaches actually and eventually to remove some of them</td>
         </tr>
         <tr>
-            <td>12</td>
-            <td>Get/Participate in unregistered subjects</td>
-            <td>Use-case allows a logged-in teacher to check subjects that he / she does not teach and eventually regester them.</td>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-11.html" target="_blank">UC.11</a></td>
+            <td>Get information about students on subject</td>
+            <td>A teacher checks the list of students enrolled on some subject</td>
         </tr>
         <tr>
-            <td>13</td>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-12.html" target="_blank">UC.12</a></td>
             <td>Get/Cancel examination dates</td>
-            <td>Use-case allows a logged-in teacher to check the examination dates he / she has created and eventually cancel them.</td>
+            <td>A teacher checks examination dates he/she has released and eventually cancel some of them</td>
         </tr>
         <tr>
-            <td>14</td>
-            <td>Create a new Examination date</td>
-            <td>Use-case allows a logged-in teacher to create a new examination date for the subject he / she teaches.</td>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-13.html" target="_blank">UC.13</a></td>
+            <td>Get information about exam's participants</td>
+            <td>A teacher checks the list of participants on some examination date</td>
         </tr>
         <tr>
-            <td>15</td>
-            <td>Create/Update Evaluation by Evaluation Form</td>
-            <td>Use-case allows a logged-in teacher to evaluate a student who participated in the examination date using
-                the generated form and later to change this evaluation.
-            </td>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-14.html" target="_blank">UC.14</a></td>
+            <td>Release a new examination date</td>
+            <td>A teacher releases a new examination date for the subject he/she teaches</td>
         </tr>
         <tr>
-            <td>16</td>
-            <td>Create/Update Evaluation by Evaluation Table</td>
-            <td>Use-case allows a logged-in teacher to evaluate a student who participated in the examination date using
-                the evaluation table and later to change this evaluation.
-            </td>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-15.html" target="_blank">UC.15</a></td>
+            <td>Set student's evaluation by Evaluation Form</td>
+            <td>A teacher evaluates a student who participated in the examination date using a simple form</td>
         </tr>
         <tr>
-            <td>17</td>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-16.html" target="_blank">UC.16</a></td>
+            <td>Set/Update student's evaluation by Evaluation Table</td>
+            <td>A teacher can evaluate or check/update existing evaluation of a student who participated in the examination date using the evaluation table</td>
+        </tr>
+        <tr>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-17.html" target="_blank">UC.17</a></td>
+            <td>Get/Participate in untaught subjects</td>
+            <td>A teacher checks subjects that he/she does not teach and eventually participate in some of them</td>
+        </tr>
+        <tr>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-18.html" target="_blank">UC.18</a></td>
             <td>Get a list of all teachers</td>
-            <td>Use-case allows a logged-in teacher to show the table of all teachers in the application with the subjects they teach.</td>
+            <td>A teacher can observe the list of all teachers with the subjects they teach</td>
         </tr>
         </tbody>
+        <thead>
+        <tr>
+            <th colspan="3"><strong>Actor: Unlogged user &mdash; a special activity for testing</strong></th>
+        </tr>
+        <tr>
+            <th>ID</th>
+            <th>Brief description</th>
+            <th>
+                <div class="table-responsive">Description</div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-19.html" target="_blank">UC.19</a></td>
+            <td>Restore DB</td>
+            <td>An unregistered user restores a content of the database into predefined values</td>
+        </tr>
+        <tr>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-20.html" target="_blank">UC.20</a></td>
+            <td>Geting information</td>
+            <td>An unregistered user checks important information about possibilities of UIS (a list of use-cases, a content of predefined database and application constraints)</td>
+        </tr>
+        <tr>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-21.html" target="_blank">UC.21</a></td>
+            <td>Export dat</td>
+            <td>An unregistered user exports whole application data in JSON or XML format from database</td>
+        </tr>
+        <tr>
+            <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-22.html" target="_blank">UC.22</a></td>
+            <td>Import dat</td>
+            <td>An unregistered user imports whole application data in JSON or XML format into database</td>
+        </tr>
     </table>
     <h3>Diagram</h3>
     <img src="<spring:url value="/images/use-case.png"/>" class="img-fluid" alt="Use case diagram">
