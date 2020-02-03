@@ -176,6 +176,7 @@ public class BaseStudentService extends BaseUserService implements StudentServic
                         aExaminationDateIterator.remove();
                     }
                 }
+                examinationDate.getParticipants().sort(StudentsComparator::lastNameAsc);
             }
             return sortListOfExamDates(allExamDates);
         }
