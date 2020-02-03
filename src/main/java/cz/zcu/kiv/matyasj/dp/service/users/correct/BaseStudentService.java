@@ -12,6 +12,7 @@ import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.domain.users.User;
 import cz.zcu.kiv.matyasj.dp.service.StudentService;
 import cz.zcu.kiv.matyasj.dp.service.users.BaseUserService;
+import cz.zcu.kiv.matyasj.dp.utils.comparators.StudentsComparator;
 import cz.zcu.kiv.matyasj.dp.utils.properties.PropertyLoader;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -202,6 +203,10 @@ public class BaseStudentService extends BaseUserService implements StudentServic
             // Remove exam dates of already graduated subjects
             for (Grade g : gradeList) {
                 examinationDateList.removeIf(examinationDate -> (examinationDate.getSubject().getId().longValue() == g.getSubject().getId().longValue() && examinationDate.getDateOfTest().equals(g.getDayOfGrant())));
+            }
+
+            for (ExaminationDate ed: examinationDateList) {
+                ed.getParticipants().sort(StudentsComparator::lastNameAsc);
             }
 
             return examinationDateList;
