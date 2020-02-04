@@ -99,6 +99,21 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
         return sortListOfSubjects(tmpTeacher.getListOfTaughtSubjects());
     }
 
+    @Override
+    public List<Subject> getSubjectsForCreateExaminations(Teacher teacher) {
+        List<Subject> taughtSubjectList = getTaughtSubjectsList(teacher);
+
+        List<Subject> toRemove = new LinkedList<>();
+        for (Subject s : taughtSubjectList) {
+            List<ExaminationDate> examinations = getAllExaminationTermsByTeacherAndSubject(teacher, s.getId());
+            if (examinations.size() >= Integer.parseInt(propertyLoader.getProperty("subjectMaxExamDate"))) {
+                toRemove.add(s);
+            }
+        }
+        taughtSubjectList.removeAll(toRemove);
+        return taughtSubjectList;
+    }
+
     /**
      * This method returns list of all Subjects which particular teacher does not taught.
      *
