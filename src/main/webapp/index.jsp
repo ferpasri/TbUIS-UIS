@@ -58,7 +58,7 @@
 <!-- FOOTER -->
 <footer class="footer">
     <div class="container text-center">
-        <span class="text-muted">This application has been developed by Jiří Matyáš and Jakub Šmaus supervised by Pavel Herout.</span>
+        <span class="text-muted">This application has been developed by Jiří Matyáš, Jakub Šmaus and Radek Vais supervised by Pavel Herout. University of West Bohemia. 2018-2020</span>
         <span class="text-muted">University of West Bohemia. 2018</span>
     </div>
 </footer>
