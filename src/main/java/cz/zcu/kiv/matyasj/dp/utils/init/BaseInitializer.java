@@ -221,7 +221,6 @@ public class BaseInitializer implements Initializer{
             ((Student) green).getListOfLearnedSubjects().add(Computation_Structures);
             ((Student) gray).getListOfLearnedSubjects().add(Computation_Structures);
             ((Student) cyan).getListOfLearnedSubjects().add(Computation_Structures);
-            ((Student) red).getListOfLearnedSubjects().add(Computation_Structures);
             ((Student) yellow).getListOfLearnedSubjects().add(Computation_Structures);
             ((Student) orange).getListOfLearnedSubjects().add(Computation_Structures);
             ((Student) purple).getListOfLearnedSubjects().add(Computation_Structures);
@@ -229,7 +228,6 @@ public class BaseInitializer implements Initializer{
             ((Teacher) pedant).getListOfTaughtSubjects().add(Database_Systems);
             ((Teacher) keen).getListOfTaughtSubjects().add(Database_Systems);
             ((Student) gray).getListOfLearnedSubjects().add(Database_Systems);
-            ((Student) red).getListOfLearnedSubjects().add(Database_Systems);
 
             ((Teacher) keen).getListOfTaughtSubjects().add(Fundamentals_of_Computer_Networks);
             ((Student) orange).getListOfLearnedSubjects().add(Fundamentals_of_Computer_Networks);
@@ -258,7 +256,6 @@ public class BaseInitializer implements Initializer{
             ((Student) gray).getListOfLearnedSubjects().add(Programming_In_Java);
             ((Student) cyan).getListOfLearnedSubjects().add(Programming_In_Java);
             ((Student) pink).getListOfLearnedSubjects().add(Programming_In_Java);
-            ((Student) red).getListOfLearnedSubjects().add(Programming_In_Java);
             ((Student) yellow).getListOfLearnedSubjects().add(Programming_In_Java);
             ((Student) orange).getListOfLearnedSubjects().add(Programming_In_Java);
             ((Student) purple).getListOfLearnedSubjects().add(Programming_In_Java);
@@ -272,7 +269,6 @@ public class BaseInitializer implements Initializer{
 
             ((Teacher) strict).getListOfTaughtSubjects().add(Software_Quality_Assurance);
             ((Student) pink).getListOfLearnedSubjects().add(Software_Quality_Assurance);
-            ((Student) red).getListOfLearnedSubjects().add(Software_Quality_Assurance);
             ((Student) yellow).getListOfLearnedSubjects().add(Software_Quality_Assurance);
             ((Student) orange).getListOfLearnedSubjects().add(Software_Quality_Assurance);
 
@@ -281,6 +277,7 @@ public class BaseInitializer implements Initializer{
             ((Student) gray).getListOfLearnedSubjects().add(Web_Programming);
             ((Student) cyan).getListOfLearnedSubjects().add(Web_Programming);
             ((Student) orange).getListOfLearnedSubjects().add(Web_Programming);
+            ((Student) yellow).getListOfLearnedSubjects().add(Web_Programming);
 
 
             brown = userDao.save(brown);
@@ -389,13 +386,11 @@ public class BaseInitializer implements Initializer{
             Term_Computation_Structures.getParticipants().add((Student) green);
             Term_Computation_Structures.getParticipants().add((Student) gray);
             Term_Computation_Structures.getParticipants().add((Student) cyan);
-            Term_Computation_Structures.getParticipants().add((Student) red);
             Term_Computation_Structures.getParticipants().add((Student) yellow);
             Term_Computation_Structures.getParticipants().add((Student) orange);
             Term_Computation_Structures.getParticipants().add((Student) purple);
 
             Term_Database_Systems.getParticipants().add((Student) gray);
-            Term_Database_Systems.getParticipants().add((Student) red);
 
             Term_Fundamentals_of_Computer_Networks.getParticipants().add((Student) orange);
             Term_Fundamentals_of_Computer_Networks.getParticipants().add((Student) purple);
@@ -411,13 +406,11 @@ public class BaseInitializer implements Initializer{
             Term_Programming_In_Java.getParticipants().add((Student) gray);
             Term_Programming_In_Java.getParticipants().add((Student) cyan);
             Term_Programming_In_Java.getParticipants().add((Student) pink);
-            Term_Programming_In_Java.getParticipants().add((Student) red);
             Term_Programming_In_Java.getParticipants().add((Student) yellow);
             Term_Programming_In_Java.getParticipants().add((Student) orange);
             Term_Programming_In_Java.getParticipants().add((Student) purple);
 
             Term_Software_Quality_Assurance.getParticipants().add((Student) pink);
-            Term_Software_Quality_Assurance.getParticipants().add((Student) red);
             Term_Software_Quality_Assurance.getParticipants().add((Student) yellow);
             Term_Software_Quality_Assurance.getParticipants().add((Student) orange);
 

@@ -433,7 +433,7 @@
             <td>E</td>
             <td>E</td>
             <td>&nbsp;</td>
-            <td>E</td>
+            <td>&nbsp;</td>
             <td>E</td>
             <td>E</td>
             <td>E</td>
@@ -447,7 +447,7 @@
             <td>r</td>
             <td>r</td>
             <td>&nbsp;</td>
-            <td>r</td>
+            <td>&nbsp;</td>
             <td>r</td>
             <td>r</td>
             <td>r</td>
@@ -493,7 +493,7 @@
             <td>E</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>E</td>
+            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -507,7 +507,7 @@
             <td>r</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>r</td>
+            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -703,7 +703,7 @@
             <td>E</td>
             <td>E</td>
             <td>E</td>
-            <td>E</td>
+            <td>&nbsp;</td>
             <td>E</td>
             <td>E</td>
             <td>E</td>
@@ -717,7 +717,7 @@
             <td>r</td>
             <td>r</td>
             <td>r</td>
-            <td>r</td>
+            <td>&nbsp;</td>
             <td>r</td>
             <td>r</td>
             <td>r</td>
@@ -793,7 +793,7 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>E</td>
-            <td>E</td>
+            <td>&nbsp;</td>
             <td>E</td>
             <td>E</td>
             <td>&nbsp;</td>
@@ -807,7 +807,7 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>r</td>
-            <td>r</td>
+            <td>&nbsp;</td>
             <td>r</td>
             <td>r</td>
             <td>&nbsp;</td>
@@ -824,7 +824,7 @@
             <td>E</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td>E</td>
             <td>E</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -838,7 +838,7 @@
             <td>r</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td>&ndash;<td>
             <td>r</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
