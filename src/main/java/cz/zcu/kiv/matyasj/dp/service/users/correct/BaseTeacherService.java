@@ -19,10 +19,7 @@ import cz.zcu.kiv.matyasj.dp.utils.comparators.StudentsComparator;
 import cz.zcu.kiv.matyasj.dp.utils.dates.DateUtility;
 import cz.zcu.kiv.matyasj.dp.utils.properties.PropertyLoader;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
