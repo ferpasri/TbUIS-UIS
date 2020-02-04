@@ -2,6 +2,7 @@ package cz.zcu.kiv.matyasj.dp.web.controllers.student;
 
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.service.StudentService;
+import cz.zcu.kiv.matyasj.dp.utils.properties.PropertyLoader;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class SubjectListController {
     /** Object for resolving messages, with support for the parameterization and internationalization of such messages.*/
     @Autowired
     MessageSource messageSource;
+    /** Application property loader */
+    @Autowired
+    protected PropertyLoader propertyLoader;
     /** Shared system logger */
     private final Logger log = LogManager.getLogger();
 
@@ -45,10 +49,14 @@ public class SubjectListController {
         log.info("Request for retrieving other subject view.");
         List<Subject> listOfSubjects = studentService.getOtherSubjectsList(studentService.getCurrentUser().getId());
 
+        List<Subject> registeredSubjects = studentService.getStudiedSubjectsList(studentService.getCurrentUser().getId());
+        boolean isRegisterAllowed = Integer.parseInt(propertyLoader.getProperty("studentMaxSubjects")) > registeredSubjects.size();
+
         ModelAndView retModel = new ModelAndView("/WEB-INF/pages/student-view.jsp");
         retModel.addObject("subjectList", listOfSubjects);
         retModel.addObject("view", "otherSubjects");
         retModel.addObject("hideTeacherColumn", studentService.hideTeacherColumn());
+        retModel.addObject("isRegisterAllowed", isRegisterAllowed);
 
         return retModel;
     }

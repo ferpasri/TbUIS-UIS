@@ -36,7 +36,7 @@
                                name="subjectId" value="${subject.id}">
                             <button id="stu.otherSubjects.table.enrollButton-${subjectListLoop.index}" type="submit"
                                     class="btn btn-primary btn-sm" title="<spring:message code="stu.otherSubjects.table.RegisterButtonTitle"/>"
-                            <c:if test="${fn:length(subject.teachers) == 0}"> disabled </c:if>>
+                            <c:if test="${fn:length(subject.teachers) == 0 || isRegisterAllowed == false}"> disabled </c:if>>
                                 <spring:message code="stu.otherSubjects.table.RegisterButtonLabel"/>
                             </button>
                     </form>
