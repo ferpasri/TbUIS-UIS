@@ -3,6 +3,7 @@ package cz.zcu.kiv.matyasj.dp.web.controllers.teacher;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.service.TeacherService;
+import cz.zcu.kiv.matyasj.dp.utils.properties.PropertyLoader;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class ListOfNotTaughtSubjectController {
     /** Object for resolving messages, with support for the parameterization and internationalization of such messages.*/
     @Autowired
     MessageSource messageSource;
+    /** Application property loader */
+    @Autowired
+    protected PropertyLoader propertyLoader;
     /** Shared system logger */
     protected Logger log = LogManager.getLogger();
 
@@ -46,9 +50,12 @@ public class ListOfNotTaughtSubjectController {
         log.info("Request for retrieving list of not taught subjects view.");
         List<Subject> listOfSubjects = teacherService.getNonTaughtSubjectsList((Teacher) teacherService.getCurrentUser());
 
+        int maxTeacherCount = Integer.parseInt(propertyLoader.getProperty("subjectMaxTeachers"));
+
         ModelAndView retModel = new ModelAndView("/WEB-INF/pages/teacher-view.jsp");
         retModel.addObject("subjectList", listOfSubjects);
         retModel.addObject("view", "otherSubjects");
+        retModel.addObject("maxTeacherCount", maxTeacherCount);
 
         return retModel;
     }
