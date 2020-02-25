@@ -99,8 +99,8 @@
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-09.html" target="_blank">UC.09</a></td>
-                <td>Display all examination attendees&ndash;classmates</td>
-                <td>A summarized overview of all attendees of the date of an examination for a specific subject i.e. the student&#39;s classmates</td>
+                <td>Display all examination participants&ndash;classmates</td>
+                <td>A summarized overview of all participants of the date of an examination for a specific subject i.e. the student&#39;s classmates</td>
             </tr>
             <tr>
                 <th colspan="3"><strong>Actor: Logged user &mdash; Teacher</strong></th>
@@ -127,8 +127,8 @@
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-13.html" target="_blank">UC.13</a></td>
-                <td>Display all examination attendees</td>
-                <td>A summarized overview of all attendees of the date of an examination for a specific subject</td>
+                <td>Display all examination participants</td>
+                <td>A summarized overview of all participants of the date of an examination for a specific subject</td>
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-14.html" target="_blank">UC.14</a></td>
