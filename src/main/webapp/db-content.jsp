@@ -81,32 +81,44 @@
                         <th>First name</th>
                     </tr>
                     <tr>
-                        <td>Brown</td>
-                        <td>Noah</td>
-                    </tr>
-                    <tr>
-                        <td>Maroon</td>
-                        <td>William</td>
-                    </tr>
-                    <tr>
                         <td>Blue</td>
                         <td>James</td>
                     </tr>
                     <tr>
-                        <td>Green</td>
-                        <td>Benjamin</td>
-                    </tr>
-                    <tr>
-                        <td>Gray</td>
-                        <td>Michael</td>
+                        <td>Brown</td>
+                        <td>Noah</td>
                     </tr>
                     <tr>
                         <td>Cyan</td>
                         <td>Ethan</td>
                     </tr>
                     <tr>
+                        <td>Gray</td>
+                        <td>Michael</td>
+                    </tr>
+                    <tr>
+                        <td>Green</td>
+                        <td>Benjamin</td>
+                    </tr>
+                    <tr>
+                        <td>Magenta</td>
+                        <td>Emily</td>
+                    </tr>
+                    <tr>
+                        <td>Maroon</td>
+                        <td>William</td>
+                    </tr>
+                    <tr>
+                        <td>Orange</td>
+                        <td>Mia</td>
+                    </tr>
+                    <tr>
                         <td>Pink</td>
                         <td>Emma</td>
+                    </tr>
+                    <tr>
+                        <td>Purple</td>
+                        <td>Charlotte</td>
                     </tr>
                     <tr>
                         <td>Red</td>
@@ -115,18 +127,6 @@
                     <tr>
                         <td>Yellow</td>
                         <td>Isabella</td>
-                    </tr>
-                    <tr>
-                        <td>Orange</td>
-                        <td>Mia</td>
-                    </tr>
-                    <tr>
-                        <td>Purple</td>
-                        <td>Charlotte</td>
-                    </tr>
-                    <tr>
-                        <td>Magenta</td>
-                        <td>Emily</td>
                     </tr>
                 </table>
             </td>
@@ -285,7 +285,7 @@
             <td>&nbsp;</td>
         </tr>
         <tr>
-            <td>r</td>
+            <td>&dash;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -410,78 +410,78 @@
             <th class="text-center" colspan="12"><strong>E</strong><small>nrolled subject</small><br><strong>r</strong><small>egistered exam date</small></th>
         </tr>
         <tr>
-            <td>Brown</td>
-            <td>Maroon</td>
             <td>Blue</td>
-            <td>Green</td>
-            <td>Gray</td>
+            <td>Brown</td>
             <td>Cyan</td>
+            <td>Gray</td>
+            <td>Green</td>
+            <td>Magenta</td>
+            <td>Maroon</td>
+            <td>Orange</td>
             <td>Pink</td>
+            <td>Purple</td>
             <td>Red</td>
             <td>Yellow</td>
-            <td>Orange</td>
-            <td>Purple</td>
-            <td>Magenta</td>
         </tr>
         <tr>
             <td rowspan="2">Computation Structures</td>
             <td rowspan="2">5</td>
-            <td>&nbsp;</td>
             <td>E</td>
-            <td>E</td>
-            <td>E</td>
-            <td>E</td>
-            <td>E</td>
-            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>E</td>
             <td>E</td>
             <td>E</td>
             <td>&nbsp;</td>
+            <td>E</td>
+            <td>E</td>
+            <td>&nbsp;</td>
+            <td>E</td>
+            <td>&nbsp;</td>
+            <td>E</td>
         </tr>
         <tr>
-            <td>&nbsp;</td>
-            <td>r</td>
             <td>&ndash;</td>
-            <td>r</td>
-            <td>r</td>
-            <td>r</td>
-            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>r</td>
             <td>r</td>
             <td>r</td>
             <td>&nbsp;</td>
+            <td>r</td>
+            <td>r</td>
+            <td>&nbsp;</td>
+            <td>r</td>
+            <td>&nbsp;</td>
+            <td>r</td>
         </tr>
         <tr>
             <td rowspan="2">Computer System Engineering</td>
             <td rowspan="2">6</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>E</td>
-            <td>E</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>E</td>
-            <td>E</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
             <td>E</td>
             <td>&nbsp;</td>
+            <td>E</td>
+            <td>&nbsp;</td>
+            <td>E</td>
         </tr>
         <tr>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&ndash;</td>
-            <td>r</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>r</td>
-            <td>r</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
             <td>r</td>
             <td>&nbsp;</td>
+            <td>r</td>
+            <td>&nbsp;</td>
+            <td>r</td>
         </tr>
         <tr>
             <td rowspan="2">Database Systems</td>
@@ -489,8 +489,8 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
             <td>E</td>
+            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -503,8 +503,8 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
             <td>r</td>
+            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -523,10 +523,10 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td>E</td>
             <td>&nbsp;</td>
             <td>E</td>
-            <td>E</td>
+            <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
@@ -537,10 +537,10 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
             <td>r</td>
-            <td>r</td>
+            <td>&nbsp;</td>
+            <td>&ndash;</td>
+            <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
@@ -548,6 +548,8 @@
             <td rowspan="2">3</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
+            <td>E</td>
+            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -556,22 +558,20 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>E</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
         </tr>
         <tr>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
+            <td>r</td>
+            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>r</td>
-            <td>r</td>
+            <td>&ndash;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>r</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
         </tr>
         <tr>
             <td rowspan="2">Linear Algebra</td>
@@ -608,13 +608,13 @@
             <td rowspan="2">5</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
+            <td>E</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>E</td>
-            <td>E</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -622,13 +622,13 @@
         <tr>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
             <td>&ndash;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
             <td>r</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -642,9 +642,9 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
             <td>E</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -656,9 +656,9 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
             <td>&ndash;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
@@ -701,27 +701,27 @@
             <td>E</td>
             <td>E</td>
             <td>E</td>
-            <td>E</td>
-            <td>E</td>
             <td>&nbsp;</td>
             <td>E</td>
             <td>E</td>
             <td>E</td>
+            <td>E</td>
             <td>&nbsp;</td>
+            <td>E</td>
         </tr>
         <tr>
-            <td>r</td>
-            <td>r</td>
-            <td>&ndash;</td>
             <td>&ndash;</td>
             <td>r</td>
             <td>r</td>
             <td>r</td>
+            <td>&ndash;</td>
             <td>&nbsp;</td>
             <td>r</td>
             <td>r</td>
+            <td>&ndash;</td>
             <td>r</td>
             <td>&nbsp;</td>
+            <td>r</td>
         </tr>
         <tr>
             <td rowspan="2">Programming Techniques</td>
@@ -735,8 +735,8 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
             <td>E</td>
+            <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
@@ -749,8 +749,8 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&nbsp;</td>
             <td>&ndash;</td>
+            <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
@@ -763,11 +763,11 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
             <td>E</td>
             <td>E</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
         </tr>
         <tr>
             <td>&nbsp;</td>
@@ -777,11 +777,11 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
             <td>&ndash;</td>
             <td>&ndash;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
         </tr>
         <tr>
             <td rowspan="2">Software Quality Assurance</td>
@@ -792,10 +792,10 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>E</td>
             <td>&nbsp;</td>
             <td>E</td>
-            <td>E</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
@@ -806,18 +806,17 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>r</td>
             <td>&nbsp;</td>
             <td>r</td>
-            <td>r</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
         </tr>
         <tr>
             <td rowspan="2">Web Programming</td>
             <td rowspan="2">4</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td>E</td>
             <td>&nbsp;</td>
             <td>E</td>
             <td>E</td>
@@ -825,23 +824,24 @@
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>E</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
+            <td>&nbsp;</td>
             <td>E</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
         </tr>
         <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
+            <td>&ndash;</td>
             <td>&nbsp;</td>
             <td>r</td>
             <td>r</td>
             <td>r</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td>&ndash;<td>
             <td>r</td>
+            <td>&nbsp;<td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
+            <td>&ndash;</td>
         </tr>
     </table>
 </div>
