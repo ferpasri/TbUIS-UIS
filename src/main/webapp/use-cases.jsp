@@ -39,12 +39,14 @@
                 <th>Name of UC</th>
                 <th>Context of Use</th>
             </tr>
-            </thead>
-            <tbody>
+        </thead>
+        <tbody>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-01.html" target="_blank">UC.01</a></td>
                 <td>Application login</td>
-                <td>Already registered user will log in to the application and according to the users&#39; login name will be recognized as either a student or a teacher</td>
+                <td>Registered user will log into the application and based on the login name the user will be recognized
+                    either as a student or a teacher
+                </td>
             </tr>
             <tr>
                 <th colspan="3"><strong>Actor: General logged user &mdash; student or teacher</strong></th>
@@ -62,7 +64,7 @@
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-03.html" target="_blank">UC.03</a></td>
                 <td>Change of user&#39;s personal data</td>
-                <td>The logged in user can change his/her first name and/or last name and/or email</td>
+                <td>Logged in user can change his/her first name and/or last name and/or email</td>
             </tr>
             <tr>
                 <th colspan="3"><strong>Actor: Logged users &mdash; Student</strong></th>
@@ -74,33 +76,35 @@
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-04.html" target="_blank">UC.04</a></td>
-                <td>Cancellation the registration (enrollment) of a subject</td>
-                <td>The student cancels the registration on his already enrolled subject</td>
+                <td>Cancelling the registration (enrollment) to a subject</td>
+                <td>Student cancels the registration to a subject he/she previously enrolled</td>
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-05.html" target="_blank">UC.05</a></td>
-                <td>Display subjects with passed examinaiton</td>
-                <td>The summarized information about all subjects with successful examination and its&#39; evaluations</td>
+                <td>Displays subjects with passed examination</td>
+                <td>Summarized information about all subjects with successful examination and their evaluations</td>
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-06.html" target="_blank">UC.06</a></td>
                 <td>Subject enrollment</td>
-                <td>The student enrolls one of the so far not enrolled subjects</td>
+                <td>Student enrolls to one of the so far not enrolled subjects</td>
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-07.html" target="_blank">UC.07</a></td>
-                <td>Cancellation of registered examination date</td>
-                <td>The student unregisters his/her examination date for the selected subject</td>
+                <td>Cancellation of registered exam date</td>
+                <td>Student unregisters his/her exam date for the selected subject</td>
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-08.html" target="_blank">UC.08</a></td>
-                <td>Registration of a new examination date</td>
-                <td>The student registers a new examination date for the selected subject</td>
+                <td>Registration of a new exam date</td>
+                <td>Student registers a new exam date for the selected subject</td>
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-09.html" target="_blank">UC.09</a></td>
-                <td>Display all examination participants&ndash;classmates</td>
-                <td>A summarized overview of all participants of the date of an examination for a specific subject i.e. the student&#39;s classmates</td>
+                <td>Displays all examination participants <strong>&mdash;</strong> classmates</td>
+                <td>Summarized overview of all students registered for the date of an examination for a specific subject (&quot;participants&quot;),
+                    i.e. the student&#39;s classmates
+                </td>
             </tr>
             <tr>
                 <th colspan="3"><strong>Actor: Logged user &mdash; Teacher</strong></th>
@@ -112,51 +116,55 @@
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-10.html" target="_blank">UC.10</a></td>
-                <td>Cancellation of the registered subject</td>
-                <td>The teacher cancels a subject he/she teaches</td>
+                <td>Cancellation of registered subject</td>
+                <td>Teacher cancels a subject he/she teaches</td>
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-11.html" target="_blank">UC.11</a></td>
-                <td>Visualization of students registered on the subject</td>
+                <td>Displays students registered in the subject</td>
                 <td>Summarized list of all students attending the specific subject</td>
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-12.html" target="_blank">UC.12</a></td>
-                <td>Cancellation of the examination date</td>
-                <td>The teacher cancels the examination date for his subject</td>
+                <td>Cancellation of the exam date</td>
+                <td>Teacher cancels the exam date for his/her subject</td>
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-13.html" target="_blank">UC.13</a></td>
-                <td>Display all examination participants</td>
-                <td>A summarized overview of all participants of the date of an examination for a specific subject</td>
+                <td>Displays all examination participants</td>
+                <td>An overview of all students registered for the date of an examination for a specific subject (&quot;participants&quot;)</td>
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-14.html" target="_blank">UC.14</a></td>
-                <td>Announcement of the new examination date</td>
-                <td>The teacher announces the new examination date for his/her subject</td>
+                <td>Announcement of a new exam date</td>
+                <td>Teacher announces a new exam date for his/her subject</td>
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-15.html" target="_blank">UC.15</a></td>
-                <td>Entering the examination evaluation by Evaluation Form</td>
-                <td>The teacher enters the examination evaluation to the selected student for the selected examination date he/she teaches</td>
+                <td>Enters the examination evaluation</td>
+                <td>Teacher enters the examination evaluation of the selected student for the selected exam date he/she
+                    teaches
+                </td>
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-16.html" target="_blank">UC.16</a></td>
-                <td>Entering or changing of the evaluation of the examination by Evaluation Table</td>
-                <td>The teacher enters an evaluation of an examination to the selected student or changes already entered evaluations</td>
+                <td>Enters or reenters (changes) the evaluation of the examination</td>
+                <td>Teacher enters an evaluation of an examination of the selected student or changes already entered
+                    evaluation
+                </td>
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-17.html" target="_blank">UC.17</a></td>
-                <td>Commencement of the subject&#39;s sessions</td>
-                <td>The teacher begins to teach a certain subject</td>
+                <td>Signs up to teach a subject</td>
+                <td>Teacher begins to teach a certain subject</td>
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-18.html" target="_blank">UC.18</a></td>
-                <td>Display of the list of teachers and subjects they teach</td>
-                <td>A summarized overview of teachers and subjects they teach</td>
+                <td>Displays the list of teachers and subjects they teach</td>
+                <td>Overview of teachers and subjects they teach</td>
             </tr>
-            </tbody>
-            <thead>
+        </tbody>
+        <thead>
             <tr>
                 <th colspan="3"><strong>Actor: Unlogged user &mdash; a special activity for testing</strong></th>
             </tr>
@@ -165,30 +173,34 @@
                 <th>Name of UC</th>
                 <th>Context of Use</th>
             </tr>
-            </thead>
-            <tbody>
+        </thead>
+        <tbody>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-19.html" target="_blank">UC.19</a></td>
-                <td>Restoring the database</td>
-                <td>Logged off user restores DB&#39;s default state, usually before proceeding the tests</td>
+                <td>Restoration of the database</td>
+                <td>Unlogged user restores DB&#39;s into the default state, usually before proceeding to the tests</td>
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-20.html" target="_blank">UC.20</a></td>
-                <td>Getting the info about the system&#39;s abilities</td>
-                <td>Logged off user gets information about existing use-cases, contents of the database and restrictions in the UIS</td>
+                <td>Displays information about system&#39;s abilities</td>
+                <td>Unlogged user gets information about existing use-cases, contents of databes and restrictions in the
+                    UIS
+                </td>
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-21.html" target="_blank">UC.21</a></td>
                 <td>Export of the database</td>
-                <td>Logged off user saves the current content of the database as an external XML/JSON file</td>
+                <td>Unlogged user saves the current content of the database as an external XML/JSON file</td>
             </tr>
             <tr>
                 <td><a href="https://projects.kiv.zcu.cz/tbuis/web/files/uis/uc/en/html/use-case-22.html" target="_blank">UC.22</a></td>
                 <td>Import of the database</td>
-                <td>Logged off user sets the current content of database according the content of external XML or JSON file</td>
+                <td>Unlogged user rewriters the current content of the database with the content of external XML or JSON
+                    file
+                </td>
             </tr>
-            </tbody>
-        </table>
+        </tbody>
+    </table>
     <h3>Diagram</h3>
     <img src="<spring:url value="/images/use-case.png"/>" class="img-fluid" alt="Use case diagram">
 </div><!-- /.container -->
