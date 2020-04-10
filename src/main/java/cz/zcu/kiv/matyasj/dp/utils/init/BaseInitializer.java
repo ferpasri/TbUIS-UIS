@@ -405,7 +405,6 @@ public class BaseInitializer implements Initializer{
 
             Term_Software_Quality_Assurance.getParticipants().add((Student) orange);
 
-            Term_Web_Programming.getParticipants().add((Student) blue);
             Term_Web_Programming.getParticipants().add((Student) green);
             Term_Web_Programming.getParticipants().add((Student) gray);
             Term_Web_Programming.getParticipants().add((Student) cyan);
