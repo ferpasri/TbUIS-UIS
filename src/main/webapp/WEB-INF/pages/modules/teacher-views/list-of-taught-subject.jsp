@@ -59,7 +59,12 @@
                 </td>
                 <td class="text-center">
                     <form id="tea.mySubjects.table.unregisterSubjectForm-${subjectLoop.index}" method="post"><input id="tea.mySubjects.table.subjectInput-${subjectLoop.index}" type="hidden" name="subjectId" value="${subject.id}">
-                        <button id="tea.mySubjects.table.unregisterSubjectButton-${subjectLoop.index}" type="submit" class="btn btn-danger btn-sm" title="<spring:message code="tea.mySubjects.table.unregisterSubjectButtonTitle"/>"><spring:message code="tea.mySubjects.table.unregisterSubjectButtonLabel"/></button>
+                        <button id="tea.mySubjects.table.unregisterSubjectButton-${subjectLoop.index}"
+                                type="submit"
+                                class="btn btn-danger btn-sm"
+                                title="<spring:message code="tea.mySubjects.table.unregisterSubjectButtonTitle"/>"
+                                <c:if test="${not empty subject.listOfStudents}">disabled</c:if>
+                        ><spring:message code="tea.mySubjects.table.unregisterSubjectButtonLabel"/></button>
                     </form>
                 </td>
             </tr>
@@ -115,7 +120,9 @@
             </div>
             <div class="modal-footer">
                 <button id="tea.mySubjects.studentsModal.closeButtonTitle" type="button" class="btn btn-secondary" data-dismiss="modal"
-                        title="<spring:message code="tea.mySubjects.studentsModal.closeButtonTitle"/>"><spring:message code="tea.mySubjects.studentsModal.closeButtonLabel"/></button>
+                        title="<spring:message code="tea.mySubjects.studentsModal.closeButtonTitle"/>">
+                    <spring:message code="tea.mySubjects.studentsModal.closeButtonLabel"/>
+                </button>
             </div>
         </div>
     </div>
