@@ -108,7 +108,7 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
             }
         }
         taughtSubjectList.removeAll(toRemove);
-        return taughtSubjectList;
+        return sortListOfSubjects(taughtSubjectList);
     }
 
     /**
@@ -271,7 +271,9 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
         log.info("Getting all examination terms by teacher for teacher with id " +  teacher.getId() + ".");
 
         Teacher tmpTeacher = (Teacher) userDao.findOne(teacher.getId());
-        return examinationDateDao.getExaminationTermOfTeacher(tmpTeacher);
+        List<ExaminationDate> examinationDateList = examinationDateDao.getExaminationTermOfTeacher(tmpTeacher);
+
+        return sortListOfExamDates(examinationDateList);
     }
 
     /**
@@ -288,8 +290,10 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
         }
         log.info("Getting all examination terms by subject with id " + subject.getId() + ".");
 
-        Subject tmpSubject = (Subject) subjectDao.findOne(subject.getId());
-        return examinationDateDao.getExaminationTermOfSubject(tmpSubject);
+        Subject tmpSubject = subjectDao.findOne(subject.getId());
+        List<ExaminationDate> examinationDateList = examinationDateDao.getExaminationTermOfSubject(tmpSubject);
+
+        return sortListOfExamDates(examinationDateList);
     }
 
     /**
@@ -316,9 +320,7 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
             e.getParticipants().sort(StudentsComparator::lastNameAsc);
         }
 
-        examinationDateList.sort(ExaminationsComparator::nameAscDateAsc);
-
-        return examinationDateList;
+        return sortListOfExamDates(examinationDateList);
     }
 
     /**
@@ -341,7 +343,8 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
         log.info("Getting all examination terms by teacher and subject for teacher with id " + teacher.getId() + " and subject with id " + subjectId + ".");
 
         examinationDates.removeIf(e -> e.getSubject().getId().longValue() != subjectId.longValue());
-        return examinationDates;
+
+        return sortListOfExamDates(examinationDates);
     }
 
     /**
@@ -361,7 +364,8 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
         log.info("Getting all examination terms by subject for subject with id " + subject.getId() + ".");
 
         examinationDates.removeIf(e -> e.getSubject().getId().longValue() != subject.getId().longValue());
-        return examinationDates;
+
+        return sortListOfExamDates(examinationDates);
     }
 
     /**
@@ -383,7 +387,8 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
         log.info("Getting all examination terms without graded participants for subject with id " + subjectId + " and teacher with id " + teacher.getId() + ".");
 
         examinationDates.removeIf(e -> e.getSubject().getId().longValue() != subjectId.longValue());
-        return examinationDates;
+
+        return sortListOfExamDates(examinationDates);
     }
 
     /**

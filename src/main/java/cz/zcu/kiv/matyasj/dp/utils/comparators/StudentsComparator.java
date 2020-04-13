@@ -2,6 +2,7 @@ package cz.zcu.kiv.matyasj.dp.utils.comparators;
 
 import cz.zcu.kiv.matyasj.dp.domain.university.ExaminationDate;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
+import cz.zcu.kiv.matyasj.dp.domain.users.User;
 
 /**
  * Class holds static methods to compare two Setudents
@@ -21,6 +22,6 @@ public class StudentsComparator {
      *         and a value greater than 0 if name of st1 is lexicographically greater than the name of st2 argument.
      */
     public static int lastNameAsc (Student st1, Student st2 ) {
-        return st1.getLastName().compareTo(st2.getLastName());
+        return UsersComparator.LastNameAsc(st1, st2);
     }
 }

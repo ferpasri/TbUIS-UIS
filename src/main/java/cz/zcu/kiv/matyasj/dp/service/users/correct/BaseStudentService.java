@@ -1,10 +1,6 @@
 package cz.zcu.kiv.matyasj.dp.service.users.correct;
 
-import cz.zcu.kiv.matyasj.dp.dao.ExaminationDateDao;
-import cz.zcu.kiv.matyasj.dp.dao.GradeDao;
-import cz.zcu.kiv.matyasj.dp.dao.GradeTypeDao;
-import cz.zcu.kiv.matyasj.dp.dao.SubjectDao;
-import cz.zcu.kiv.matyasj.dp.dao.UserDao;
+import cz.zcu.kiv.matyasj.dp.dao.*;
 import cz.zcu.kiv.matyasj.dp.domain.university.ExaminationDate;
 import cz.zcu.kiv.matyasj.dp.domain.university.Grade;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
@@ -12,10 +8,11 @@ import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.domain.users.User;
 import cz.zcu.kiv.matyasj.dp.service.StudentService;
 import cz.zcu.kiv.matyasj.dp.service.users.BaseUserService;
+import cz.zcu.kiv.matyasj.dp.utils.comparators.ExaminationsComparator;
 import cz.zcu.kiv.matyasj.dp.utils.comparators.StudentsComparator;
 import cz.zcu.kiv.matyasj.dp.utils.properties.PropertyLoader;
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,22 +27,36 @@ import java.util.List;
  *
  * @author Jiri Matyas
  * @version 2019-24-11
-*/
+ */
 @Service
 public class BaseStudentService extends BaseUserService implements StudentService {
-    /** DAO object for manipulation with subject data in database */
+    /**
+     * DAO object for manipulation with subject data in database
+     */
     protected SubjectDao subjectDao;
-    /** DAO object for manipulation with user data in database */
+    /**
+     * DAO object for manipulation with user data in database
+     */
     protected UserDao userDao;
-    /** DAO object for manipulation with exam date data in database */
+    /**
+     * DAO object for manipulation with exam date data in database
+     */
     protected ExaminationDateDao examinationDateDao;
-    /** DAO object for manipulation with grade data in database */
+    /**
+     * DAO object for manipulation with grade data in database
+     */
     protected GradeDao gradeDao;
-    /** DAO object for grade types */
+    /**
+     * DAO object for grade types
+     */
     protected GradeTypeDao gradeTypeDao;
-    /** Application property loader */
+    /**
+     * Application property loader
+     */
     protected PropertyLoader propertyLoader;
-    /** Shared system logger */
+    /**
+     * Shared system logger
+     */
     private final Logger log = LogManager.getLogger();
 
     /**
@@ -145,7 +156,8 @@ public class BaseStudentService extends BaseUserService implements StudentServic
         User student = userDao.findOne(studentId);
         if (student instanceof Student) {
             log.info("Getting list of examination dates for student with id " + studentId + ".");
-            return examinationDateDao.getAllExaminationDatesOfStudent((Student) student);
+            List<ExaminationDate> examinationDateList = examinationDateDao.getAllExaminationDatesOfStudent((Student) student);
+            return sortListOfExamDates(examinationDateList);
         }
         log.error("Getting list of examination dates failed.");
         return null;
@@ -206,11 +218,11 @@ public class BaseStudentService extends BaseUserService implements StudentServic
                 examinationDateList.removeIf(examinationDate -> (examinationDate.getSubject().getId().longValue() == g.getSubject().getId().longValue() && examinationDate.getDateOfTest().equals(g.getDayOfGrant())));
             }
 
-            for (ExaminationDate ed: examinationDateList) {
+            for (ExaminationDate ed : examinationDateList) {
                 ed.getParticipants().sort(StudentsComparator::lastNameAsc);
             }
 
-            return examinationDateList;
+            return sortListOfExamDates(examinationDateList);
         }
         log.error("Getting list of examination dates failed.");
         return null;

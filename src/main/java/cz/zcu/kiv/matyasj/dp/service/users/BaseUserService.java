@@ -7,9 +7,13 @@ import cz.zcu.kiv.matyasj.dp.domain.users.Student;
 import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.domain.users.User;
 import cz.zcu.kiv.matyasj.dp.service.UserService;
+import cz.zcu.kiv.matyasj.dp.utils.comparators.ExaminationsComparator;
 import cz.zcu.kiv.matyasj.dp.utils.comparators.StudentsComparator;
+import cz.zcu.kiv.matyasj.dp.utils.comparators.SubjectsComparator;
+import cz.zcu.kiv.matyasj.dp.utils.comparators.UsersComparator;
 import cz.zcu.kiv.matyasj.dp.utils.properties.PropertyLoader;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.logging.log4j.Logger;
@@ -111,9 +115,9 @@ public abstract class BaseUserService implements UserService {
      */
     protected List<Subject> sortListOfSubjects(List<Subject> subjectList) {
         // Sort Subjects alphabetically
-        subjectList.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
+        subjectList.sort(SubjectsComparator::NameAsc);
         for (Subject s : subjectList) {
-            s.getTeachers().sort((o1, o2) -> o1.getLastName().compareToIgnoreCase(o2.getLastName()));
+            s.getTeachers().sort(UsersComparator::LastNameAsc);
             s.getListOfStudents().sort(StudentsComparator::lastNameAsc);
             s.getListOfAbsolvents().sort(StudentsComparator::lastNameAsc);
         }
@@ -122,14 +126,14 @@ public abstract class BaseUserService implements UserService {
 
 
     /**
-     * This method sorts list of exam dates by date of exam.
+     * This method sorts list of exam dates by name and date of exam.
      *
      * @param examinationDateList list of exam dates which should be sorted.
      * @return sorted list
      */
     protected List<ExaminationDate> sortListOfExamDates(List<ExaminationDate> examinationDateList) {
         // Sort ExamDates by date
-        examinationDateList.sort((o1, o2) -> o1.getDateOfTest().compareTo(o2.getDateOfTest()));
+        examinationDateList.sort(ExaminationsComparator::nameAscDateAsc);
         return examinationDateList;
     }
 
@@ -142,17 +146,17 @@ public abstract class BaseUserService implements UserService {
      */
     protected List<? extends User> sortListOfUsers(List<? extends User> usersList) {
         // Sort Subjects alphabetically
-        usersList.sort((o1, o2) -> o1.getLastName().compareToIgnoreCase(o2.getLastName()));
+        usersList.sort(UsersComparator::LastNameAsc);
 
         // Sort Users in lists alphabetically
         for (User user : usersList) {
             if (user instanceof Student) {
                 Student s = (Student) user;
-                s.getListOfLearnedSubjects().sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
-                s.getListOfAbsolvedSubjects().sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
+                s.getListOfLearnedSubjects().sort(SubjectsComparator::NameAsc);
+                s.getListOfAbsolvedSubjects().sort(SubjectsComparator::NameAsc);
             } else if (user instanceof Teacher) {
                 Teacher t = (Teacher) user;
-                t.getListOfTaughtSubjects().sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
+                t.getListOfTaughtSubjects().sort(SubjectsComparator::NameAsc);
             }
         }
         return usersList;
