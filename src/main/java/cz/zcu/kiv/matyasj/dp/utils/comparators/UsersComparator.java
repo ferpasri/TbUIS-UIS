@@ -20,6 +20,6 @@ public class UsersComparator {
      * and a value greater than 0 if name of u1 is lexicographically greater than the name of u2 argument.
      */
     public static int LastNameAsc(User u1, User u2) {
-        return u1.getLastName().compareTo(u2.getLastName());
+        return u1.getLastName().compareToIgnoreCase(u2.getLastName());
     }
 }

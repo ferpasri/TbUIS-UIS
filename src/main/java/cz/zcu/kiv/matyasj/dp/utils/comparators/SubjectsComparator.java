@@ -20,6 +20,6 @@ public class SubjectsComparator {
      * and a value greater than 0 if name of sb1 is lexicographically greater than the name of sb2 argument.
      */
     public static int NameAsc(Subject sb1, Subject sb2) {
-        return sb1.getName().compareTo(sb2.getName());
+        return sb1.getName().compareToIgnoreCase(sb2.getName());
     }
 }
