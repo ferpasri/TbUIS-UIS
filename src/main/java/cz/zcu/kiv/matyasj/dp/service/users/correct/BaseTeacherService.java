@@ -800,6 +800,18 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
     }
 
     /**
+     * This method returns count actually teached subjects
+     *
+     * @return Number of subjects where teacher participates
+     */
+    @Override
+    public int getNumberOfTaughtSubjects() {
+        Teacher tmpTeacher = (Teacher) userDao.findOne(getCurrentUser().getId());
+        //TODO consider optimalization on dao layer
+        return tmpTeacher.getListOfTaughtSubjects().size();
+    }
+
+    /**
      * Removes subject from list ob subjects
      *
      * @param subject  Subject to remove

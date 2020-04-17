@@ -195,4 +195,11 @@ public interface TeacherService extends UserService {
      * @return Indication for swap of columns
      */
     boolean swapNameAndTeacher();
+
+    /**
+     * This method returns count actually teached subjects
+     *
+     * @return Number of subjects where teacher participates
+     */
+    int getNumberOfTaughtSubjects();
 }

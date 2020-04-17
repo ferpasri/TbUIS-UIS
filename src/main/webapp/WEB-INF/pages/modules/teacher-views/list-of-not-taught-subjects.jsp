@@ -36,7 +36,7 @@
                         <button id="tea.otherSubjects.table.participateButton-${subjectLoop.index}"
                                 type="submit" class="btn btn-primary btn-sm"
                                 title="<spring:message code="tea.otherSubjects.table.participateButtonTitle"/>"
-                                <c:if test="${fn:length(subject.teachers) >= maxTeacherCount}">disabled</c:if>
+                                <c:if test="${fn:length(subject.teachers) >= maxTeacherCount || not participationAllowed}">disabled</c:if>
                         ><spring:message code="tea.otherSubjects.table.participateButtonLabel"/></button>
                     </form>
                 </td>

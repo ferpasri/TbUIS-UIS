@@ -51,11 +51,13 @@ public class ListOfNotTaughtSubjectController {
         List<Subject> listOfSubjects = teacherService.getNonTaughtSubjectsList((Teacher) teacherService.getCurrentUser());
 
         int maxTeacherCount = Integer.parseInt(propertyLoader.getProperty("subjectMaxTeachers"));
+        boolean participationAllowed = teacherService.getNumberOfTaughtSubjects() < Integer.parseInt(propertyLoader.getProperty("teacherMaxSubjects")) ;
 
         ModelAndView retModel = new ModelAndView("/WEB-INF/pages/teacher-view.jsp");
         retModel.addObject("subjectList", listOfSubjects);
         retModel.addObject("view", "otherSubjects");
         retModel.addObject("maxTeacherCount", maxTeacherCount);
+        retModel.addObject("participationAllowed", participationAllowed);
 
         return retModel;
     }
