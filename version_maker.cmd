@@ -18,6 +18,8 @@ del .\src\main\resources\seed.bck
 move .\src\main\resources\seed.xml .\src\main\resources\seed.bck
 
 ::Create output directory for error versions
+
+rmdir /S /Q %outDir%
 mkdir %outDir%
 del %outDir%\mvn.log
 
