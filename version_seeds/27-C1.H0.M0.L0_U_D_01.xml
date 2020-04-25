@@ -7,7 +7,7 @@
     <bean id="gradeTypeDao" class="cz.zcu.kiv.matyasj.dp.dao.jpa.correct.GradeTypeDaoCriteria"/>
     <bean id="userDao" class="cz.zcu.kiv.matyasj.dp.dao.jpa.error.E01UserDao"/>
 
-¨    <bean id="injectVersion" class="java.lang.String">
+    <bean id="injectVersion" class="java.lang.String">
         <constructor-arg value="C1.H0.M0.L0_U_D_01"/>
     </bean>
 </beans>
