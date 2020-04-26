@@ -109,7 +109,12 @@ public class ExaminationDate extends BaseEntity{
         this.maxParticipants = maxParticipants;
     }
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "testWhereWasGradeGranted", targetEntity = Grade.class)
+    // Cascade Remove i necessary for correct DB restore
+    // Default mechanism for deletion use wrong order of DAO objects
+    @OneToMany(fetch = FetchType.EAGER,
+            mappedBy = "testWhereWasGradeGranted",
+            targetEntity = Grade.class,
+            cascade = {CascadeType.REMOVE})
     @Fetch(FetchMode.SELECT)
     public List<Grade> getGrades() {
         return grades;
