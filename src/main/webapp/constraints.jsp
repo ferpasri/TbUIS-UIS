@@ -57,7 +57,7 @@
                 <tr>
                     <td>Maximal number of exam dates for student per subject
                         (only one - the oldest - can be active at one moment)</td>
-                    <td><%= propertyLoader.getProperty("subjectMaxExamDate") %></td>
+                    <td><%= propertyLoader.getProperty("studentMaxExamDate") %></td>
                 </tr>
                 <tr>
                     <td>Maximal number of exam dates for teacher per subject

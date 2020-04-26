@@ -395,6 +395,14 @@ public class BaseStudentService extends BaseUserService implements StudentServic
             log.info("Setting examination date with id " + examDateId + " to student with id " + studentId + ".");
             for (Subject subject : ((Student) student).getListOfLearnedSubjects()) {
                 if (subject.getId().longValue() == DateTmp.getSubject().getId().longValue()) {
+
+                    List<ExaminationDate> myExams = getExaminationDatesList(studentId);
+                    int constraint = Integer.parseInt(propertyLoader.getProperty("studentMaxExamDate"));
+                    if(myExams.size() > constraint){
+                        log.info("Student reach maximum count of tries.");
+                        return false;
+                    }
+
                     ExaminationDate date = examinationDateDao.registerStudentOnTerm(examDateId, studentId);
 
                     if (date != null) {
