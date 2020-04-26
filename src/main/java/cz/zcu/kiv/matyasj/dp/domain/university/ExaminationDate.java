@@ -28,6 +28,8 @@ public class ExaminationDate extends BaseEntity{
     private Date dateOfTest;
     /** List of (Students) participants of this exam date */
     private List<Student> participants;
+    /** List of (Grades) grades on this exam date */
+    private List<Grade> grades;
     /** Teacher who creates this exam date. */
     private Teacher teacher;
     /** For this subject is exam date created. */
@@ -105,6 +107,16 @@ public class ExaminationDate extends BaseEntity{
 
     public void setMaxParticipants(int maxParticipants) {
         this.maxParticipants = maxParticipants;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "testWhereWasGradeGranted", targetEntity = Grade.class)
+    @Fetch(FetchMode.SELECT)
+    public List<Grade> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(List<Grade> grades) {
+        this.grades = grades;
     }
 
     @Override

@@ -542,6 +542,10 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
             return false;
         }
 
+        if (gradeDao.findGradesByExaminationDate(examinationDate).size()  > 0){
+            return false;
+        }
+
         // Test of authorized teacher
         if (examinationDate.getTeacher() == null || examinationDate.getTeacher().getId().longValue() != teacher.getId().longValue()) {
             return false;
@@ -622,6 +626,7 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
         newGrade.setOwner(tmpStudent);
         newGrade.setDayOfGrant(examinationDate.getDateOfTest());
         newGrade.setTypeOfGrade(gradeType);
+        newGrade.setTestWhereWasGradeGranted(examinationDate);
 
         newGrade = gradeDao.save(newGrade);
 

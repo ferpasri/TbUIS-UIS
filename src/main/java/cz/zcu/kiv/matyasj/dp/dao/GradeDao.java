@@ -1,5 +1,6 @@
 package cz.zcu.kiv.matyasj.dp.dao;
 
+import cz.zcu.kiv.matyasj.dp.domain.university.ExaminationDate;
 import cz.zcu.kiv.matyasj.dp.domain.university.Grade;
 import cz.zcu.kiv.matyasj.dp.domain.university.Subject;
 import cz.zcu.kiv.matyasj.dp.domain.users.Student;
@@ -21,6 +22,14 @@ public interface GradeDao extends GenericDao<Grade, Long> {
      * @return List of grades
      */
     List<Grade> findGradesBySubject(Subject subject);
+
+    /**
+     * Finds and returns list of grades created in one exam date.
+     *
+     * @param examinationDate For this examination date will be grades found.
+     * @return List of grades
+     */
+    List<Grade> findGradesByExaminationDate(ExaminationDate examinationDate);
 
     /**
      * Finds and returns list of grades of one student.
