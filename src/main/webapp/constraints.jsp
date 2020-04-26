@@ -14,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Use-cases</title>
+    <title>Constraints</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<spring:url value="css/bootstrap.min.css"/>">
