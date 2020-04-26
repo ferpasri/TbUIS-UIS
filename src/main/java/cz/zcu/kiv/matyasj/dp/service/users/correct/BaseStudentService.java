@@ -15,6 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.stream.Collectors;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -397,7 +398,10 @@ public class BaseStudentService extends BaseUserService implements StudentServic
                 if (subject.getId().longValue() == DateTmp.getSubject().getId().longValue()) {
 
                     List<ExaminationDate> myExams = getExaminationDatesList(studentId);
+                    myExams = myExams.stream()
+                            .filter(ed -> ed.getSubject().equals(subject)).collect(Collectors.toList());
                     int constraint = Integer.parseInt(propertyLoader.getProperty("studentMaxExamDate"));
+
                     if(myExams.size() > constraint){
                         log.info("Student reach maximum count of tries.");
                         return false;
