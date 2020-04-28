@@ -8,7 +8,7 @@ set outDir=.\release_archive\generated_versions
 ::Nave of directory with example seeds.
 set seedDir=.\version_seeds
 ::Name of output filename of maven compilation process
-set mavenOutFileName=UIS-1.7.1.war
+set mavenOutFileName=UIS-1.7.2.war
 
 :: =====================================================
 :: Generating versions
