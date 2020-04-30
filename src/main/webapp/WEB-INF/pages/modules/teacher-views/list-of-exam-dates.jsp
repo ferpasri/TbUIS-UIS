@@ -45,7 +45,11 @@
                     <td class="text-center">
                         <form onsubmit="participantsExistsBeforeExamTermDeletion(event, ${fn:length(examinationDate.participants)})" id="tea.myExamDates.table.unregisterTermForm-${taughtSubjectListLoop.index}-${examTermIndex}" method="post">
                             <input id="tea.myExamDates.table.examinationTermInput-${taughtSubjectListLoop.index}-${examTermIndex}" type="hidden" name="examDateId" value="${examinationDate.id}">
-                            <button id="tea.myExamDates.table.cancelButton-${taughtSubjectListLoop.index}-${examTermIndex}" type="submit" class="btn btn-danger btn-sm" title="<spring:message code="tea.myExamDates.table.cancelButtonTitle"/>"><spring:message code="tea.myExamDates.table.cancelButtonLabel"/></button>
+                            <button id="tea.myExamDates.table.cancelButton-${taughtSubjectListLoop.index}-${examTermIndex}"
+                                    type="submit" class="btn btn-danger btn-sm"
+                                    title="<spring:message code="tea.myExamDates.table.cancelButtonTitle"/>"
+                                    <c:if test = "${fn:length(examinationDate.grades) > 0}">disabled</c:if>
+                            ><spring:message code="tea.myExamDates.table.cancelButtonLabel"/></button>
                         </form>
                     </td>
                 </tr>

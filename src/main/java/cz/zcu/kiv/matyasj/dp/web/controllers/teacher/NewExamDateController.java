@@ -21,7 +21,7 @@ import java.util.Locale;
  *
  * @author Jiri Matyas
  * @version 2019-24-11
-*/
+ */
 @Controller
 @RequestMapping("/teacher-view/newExamDates")
 public class NewExamDateController {
@@ -43,10 +43,10 @@ public class NewExamDateController {
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView showNewExamDateForm(Model model) {
         log.info("Request for retrieving new exam date form view.");
-        List<Subject> taughtSubjectList = teacherService.getTaughtSubjectsList((Teacher) teacherService.getCurrentUser());
+        List<Subject> taughtSubjectsForExamList = teacherService.getSubjectsForCreateExaminations((Teacher) teacherService.getCurrentUser());
 
         ModelAndView retModel = new ModelAndView("/WEB-INF/pages/teacher-view.jsp");
-        retModel.addObject("taughtSubjectList", taughtSubjectList);
+        retModel.addObject("taughtSubjectList", taughtSubjectsForExamList);
         retModel.addObject("view", "newExamDates");
 
         return retModel;

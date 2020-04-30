@@ -1,6 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="cz.zcu.kiv.matyasj.dp.utils.properties.BasePropertyLoader" %>
+<%@ page import="cz.zcu.kiv.matyasj.dp.utils.properties.PropertyLoader" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%
+    PropertyLoader propertyLoader = new BasePropertyLoader();
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +14,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Use-cases</title>
+    <title>Constraints</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="<spring:url value="css/bootstrap.min.css"/>">
@@ -39,27 +44,33 @@
                 <tbody>
                 <tr>
                     <td>Maximal number of subjects for students</td>
-                    <td>7</td>
+                    <td><%= propertyLoader.getProperty("studentMaxSubjects") %></td>
                 </tr>
                 <tr>
                     <td>Maximal number of subjects for teachers</td>
-                    <td>5</td>
+                    <td><%= propertyLoader.getProperty("teacherMaxSubjects") %></td>
                 </tr>
                 <tr>
                     <td>Maximal number of teachers for subject</td>
-                    <td>2</td>
+                    <td><%= propertyLoader.getProperty("subjectMaxTeachers") %></td>
                 </tr>
                 <tr>
-                    <td>Maximal number of exam dates for subject</td>
-                    <td>3</td>
+                    <td>Maximal number of exam dates for student per subject
+                        (only one - the oldest - can be active at one moment)</td>
+                    <td><%= propertyLoader.getProperty("studentMaxExamDate") %></td>
+                </tr>
+                <tr>
+                    <td>Maximal number of exam dates for teacher per subject
+                        (all of them can be active at one moment)</td>
+                    <td><%= propertyLoader.getProperty("subjectMaxExamDate") %></td>
                 </tr>
                 <tr>
                     <td>Minimal number of participants for exam date</td>
-                    <td>1</td>
+                    <td><%= propertyLoader.getProperty("examTermMinParticipants") %></td>
                 </tr>
                 <tr>
                     <td>Maximal number of participants for exam date</td>
-                    <td>10</td>
+                    <td><%= propertyLoader.getProperty("examTermMaxParticipants") %></td>
                 </tr>
 
                 </tbody>
@@ -80,27 +91,27 @@
                 <tbody>
                 <tr>
                     <td>Minimal length of first name</td>
-                    <td>2</td>
+                    <td><%= propertyLoader.getProperty("minFirstNameLength") %></td>
                 </tr>
                 <tr>
                     <td>Maximal length of first name</td>
-                    <td>30</td>
+                    <td><%= propertyLoader.getProperty("maxFirstNameLength") %></td>
                 </tr>
                 <tr>
                     <td>Minimal length of last name</td>
-                    <td>2</td>
+                    <td><%= propertyLoader.getProperty("minLastNameLength") %></td>
                 </tr>
                 <tr>
                     <td>Maximal length of last name</td>
-                    <td>30</td>
+                    <td><%= propertyLoader.getProperty("maxLastNameLength") %></td>
                 </tr>
                 <tr>
                     <td>Minimal length of mail</td>
-                    <td>8</td>
+                    <td><%= propertyLoader.getProperty("minEmailLength") %></td>
                 </tr>
                 <tr>
                     <td>Maximal length of mail</td>
-                    <td>40</td>
+                    <td><%= propertyLoader.getProperty("maxEmailLength") %></td>
                 </tr>
                 </tbody>
             </table>

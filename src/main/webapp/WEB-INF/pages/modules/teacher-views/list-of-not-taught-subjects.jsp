@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
   Author: Jiri Matyas
   Date: 13.09.2017
@@ -32,7 +33,11 @@
                 <td>
                     <form id="tea.otherSubjects.table.registerSubjectForm-${subjectLoop.index}" method="post">
                         <input id="tea.otherSubjects.table.subjectInput-${subjectLoop.index}" type="hidden" name="subjectId" value="${subject.id}">
-                        <button id="tea.otherSubjects.table.participateButton-${subjectLoop.index}" type="submit" class="btn btn-primary btn-sm" title="<spring:message code="tea.otherSubjects.table.participateButtonTitle"/>"><spring:message code="tea.otherSubjects.table.participateButtonLabel"/></button>
+                        <button id="tea.otherSubjects.table.participateButton-${subjectLoop.index}"
+                                type="submit" class="btn btn-primary btn-sm"
+                                title="<spring:message code="tea.otherSubjects.table.participateButtonTitle"/>"
+                                <c:if test="${fn:length(subject.teachers) >= maxTeacherCount || not participationAllowed}">disabled</c:if>
+                        ><spring:message code="tea.otherSubjects.table.participateButtonLabel"/></button>
                     </form>
                 </td>
             </tr>

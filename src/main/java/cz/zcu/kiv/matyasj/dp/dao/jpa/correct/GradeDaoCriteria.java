@@ -81,6 +81,27 @@ public class GradeDaoCriteria extends GenericDaoJpa<Grade, Long> implements Grad
         }
     }
 
+    @Override
+    public List<Grade> findGradesByExaminationDate(ExaminationDate examinationDate) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Grade> query = cb.createQuery(Grade.class);
+
+        Root<Grade> root = query.from(Grade.class);
+        Predicate bySubjectPredicate = cb.equal(root.get("testWhereWasGradeGranted"), examinationDate);
+
+        query.where(bySubjectPredicate);
+        TypedQuery<Grade> q = entityManager.createQuery(query);
+
+        try {
+            List<Grade> grades = q.getResultList();
+            log.info("Returning list of " + grades.size() + " grades for subject with id " + examinationDate.getId() + ".");
+            return grades;
+        } catch (NoResultException e) {
+            log.error(" Grades for exam:" + examinationDate.getDateOfTest() + " " + examinationDate.getSubject().getName() + " not found!");
+            return new ArrayList<>();
+        }
+    }
+
     /**
      * Finds and returns list of grades of one student.
      *

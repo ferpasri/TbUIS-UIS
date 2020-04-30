@@ -28,6 +28,14 @@ public interface TeacherService extends UserService {
     List<Subject> getTaughtSubjectsList(Teacher teacher);
 
     /**
+     * This method returns list of all Subjects of specific teacher, which have not reach maximu examination dates count
+     *
+     * @param teacher Teacher domain object.
+     * @return list of subjects to create examination
+     */
+    List<Subject> getSubjectsForCreateExaminations(Teacher teacher);
+
+    /**
      * This method returns list of all Subjects which particular teacher does not taught.
      *
      * @param teacher Teacher domain object.
@@ -187,4 +195,11 @@ public interface TeacherService extends UserService {
      * @return Indication for swap of columns
      */
     boolean swapNameAndTeacher();
+
+    /**
+     * This method returns count actually teached subjects
+     *
+     * @return Number of subjects where teacher participates
+     */
+    int getNumberOfTaughtSubjects();
 }

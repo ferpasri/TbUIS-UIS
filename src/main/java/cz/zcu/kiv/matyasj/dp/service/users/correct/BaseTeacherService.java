@@ -14,13 +14,12 @@ import cz.zcu.kiv.matyasj.dp.domain.users.Teacher;
 import cz.zcu.kiv.matyasj.dp.domain.users.User;
 import cz.zcu.kiv.matyasj.dp.service.TeacherService;
 import cz.zcu.kiv.matyasj.dp.service.users.BaseUserService;
+import cz.zcu.kiv.matyasj.dp.utils.comparators.ExaminationsComparator;
+import cz.zcu.kiv.matyasj.dp.utils.comparators.StudentsComparator;
 import cz.zcu.kiv.matyasj.dp.utils.dates.DateUtility;
 import cz.zcu.kiv.matyasj.dp.utils.properties.PropertyLoader;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
@@ -95,6 +94,21 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
         Teacher tmpTeacher = (Teacher) userDao.findOne(teacher.getId());
 
         return sortListOfSubjects(tmpTeacher.getListOfTaughtSubjects());
+    }
+
+    @Override
+    public List<Subject> getSubjectsForCreateExaminations(Teacher teacher) {
+        List<Subject> taughtSubjectList = getTaughtSubjectsList(teacher);
+
+        List<Subject> toRemove = new LinkedList<>();
+        for (Subject s : taughtSubjectList) {
+            List<ExaminationDate> examinations = getAllExaminationTermsByTeacherAndSubject(teacher, s.getId());
+            if (examinations.size() >= Integer.parseInt(propertyLoader.getProperty("subjectMaxExamDate"))) {
+                toRemove.add(s);
+            }
+        }
+        taughtSubjectList.removeAll(toRemove);
+        return sortListOfSubjects(taughtSubjectList);
     }
 
     /**
@@ -257,7 +271,9 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
         log.info("Getting all examination terms by teacher for teacher with id " +  teacher.getId() + ".");
 
         Teacher tmpTeacher = (Teacher) userDao.findOne(teacher.getId());
-        return examinationDateDao.getExaminationTermOfTeacher(tmpTeacher);
+        List<ExaminationDate> examinationDateList = examinationDateDao.getExaminationTermOfTeacher(tmpTeacher);
+
+        return sortListOfExamDates(examinationDateList);
     }
 
     /**
@@ -274,8 +290,10 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
         }
         log.info("Getting all examination terms by subject with id " + subject.getId() + ".");
 
-        Subject tmpSubject = (Subject) subjectDao.findOne(subject.getId());
-        return examinationDateDao.getExaminationTermOfSubject(tmpSubject);
+        Subject tmpSubject = subjectDao.findOne(subject.getId());
+        List<ExaminationDate> examinationDateList = examinationDateDao.getExaminationTermOfSubject(tmpSubject);
+
+        return sortListOfExamDates(examinationDateList);
     }
 
     /**
@@ -284,7 +302,7 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
      * terms participants lists.
      *
      * @param teacher For this teacher will be list of exam terms returned.
-     * @return List of Examination terms which are created by specific teacher
+     * @return ordered List of Examination terms which are created by specific teacher
      */
     @Override
     public List<ExaminationDate> getMyExaminationDatesWithoutGraduateParticipants(Teacher teacher) {
@@ -299,8 +317,10 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
 
         for (ExaminationDate e : examinationDateList) {
             e.getParticipants().removeIf(student -> gradeDao.findGradeByStudentAndSubjectAndDate(student, e.getSubject(), e.getDateOfTest()) != null);
+            e.getParticipants().sort(StudentsComparator::lastNameAsc);
         }
-        return examinationDateList;
+
+        return sortListOfExamDates(examinationDateList);
     }
 
     /**
@@ -323,7 +343,8 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
         log.info("Getting all examination terms by teacher and subject for teacher with id " + teacher.getId() + " and subject with id " + subjectId + ".");
 
         examinationDates.removeIf(e -> e.getSubject().getId().longValue() != subjectId.longValue());
-        return examinationDates;
+
+        return sortListOfExamDates(examinationDates);
     }
 
     /**
@@ -343,7 +364,8 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
         log.info("Getting all examination terms by subject for subject with id " + subject.getId() + ".");
 
         examinationDates.removeIf(e -> e.getSubject().getId().longValue() != subject.getId().longValue());
-        return examinationDates;
+
+        return sortListOfExamDates(examinationDates);
     }
 
     /**
@@ -365,7 +387,8 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
         log.info("Getting all examination terms without graded participants for subject with id " + subjectId + " and teacher with id " + teacher.getId() + ".");
 
         examinationDates.removeIf(e -> e.getSubject().getId().longValue() != subjectId.longValue());
-        return examinationDates;
+
+        return sortListOfExamDates(examinationDates);
     }
 
     /**
@@ -519,6 +542,10 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
             return false;
         }
 
+        if (gradeDao.findGradesByExaminationDate(examinationDate).size()  > 0){
+            return false;
+        }
+
         // Test of authorized teacher
         if (examinationDate.getTeacher() == null || examinationDate.getTeacher().getId().longValue() != teacher.getId().longValue()) {
             return false;
@@ -599,6 +626,7 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
         newGrade.setOwner(tmpStudent);
         newGrade.setDayOfGrant(examinationDate.getDateOfTest());
         newGrade.setTypeOfGrade(gradeType);
+        newGrade.setTestWhereWasGradeGranted(examinationDate);
 
         newGrade = gradeDao.save(newGrade);
 
@@ -774,6 +802,18 @@ public class BaseTeacherService extends BaseUserService implements TeacherServic
     @Override
     public boolean swapNameAndTeacher() {
         return false;
+    }
+
+    /**
+     * This method returns count actually teached subjects
+     *
+     * @return Number of subjects where teacher participates
+     */
+    @Override
+    public int getNumberOfTaughtSubjects() {
+        Teacher tmpTeacher = (Teacher) userDao.findOne(getCurrentUser().getId());
+        //TODO consider optimalization on dao layer
+        return tmpTeacher.getListOfTaughtSubjects().size();
     }
 
     /**

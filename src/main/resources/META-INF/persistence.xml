@@ -7,9 +7,9 @@
         <properties>
             <!-- JDBC Connection configuration -->
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.password" value="HXwZ6vDSByxu5UYq"/>
-            <property name="javax.persistence.jdbc.user" value="herout_uis"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/herout_uis"/>
+            <property name="javax.persistence.jdbc.password" value="uis"/>
+            <property name="javax.persistence.jdbc.user" value="uis-web"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/uis-web-db"/>
             <property name="hibernate.connection.useUnicode" value="true" />
             <property name="hibernate.connection.characterEncoding" value="UTF-8" />
 
