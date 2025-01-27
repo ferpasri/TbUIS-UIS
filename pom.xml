@@ -7,7 +7,7 @@
     <groupId>cz.zcu.kiv.matyasj.dp</groupId>
     <artifactId>UIS</artifactId>
     <packaging>war</packaging>
-    <version>1.7.2</version>
+    <version>1.7.3</version>
 
     <name>UIS - University Information System</name>
 
@@ -21,11 +21,14 @@
         <contributor>
             <name>Radek Vais</name>
         </contributor>
+        <contributor>
+            <name>Fernando Pastor Ricos</name>
+        </contributor>
     </contributors>
 
     <properties>
         <junit.version>4.12</junit.version>
-        <mysql.connector.version>5.1.34</mysql.connector.version>
+        <mysql.connector.version>8.0.33</mysql.connector.version>
         <hibernate.version>5.4.1.Final</hibernate.version>
         <hibernate.persistence.version>1.0.2.Final</hibernate.persistence.version>
         <javax.jstl.version>1.2</javax.jstl.version>
@@ -33,8 +36,9 @@
         <spring.version>4.3.2.RELEASE</spring.version>
         <spring.mvc.version>4.3.2.RELEASE</spring.mvc.version>
         <spring.security.version>4.2.3.RELEASE</spring.security.version>
-        <log4j.version>2.11.1</log4j.version>
-        <jaxb.version>2.3.0</jaxb.version>
+        <log4j.version>2.24.3</log4j.version>
+        <glassfish.jaxb.version>3.0.2</glassfish.jaxb.version>
+        <jaxb.version>2.3.1</jaxb.version>
         <eclipse.persistence.version>2.7.1</eclipse.persistence.version>
         <commons.fileupload.version>1.3.2</commons.fileupload.version>
         <!-- Skip tests -->
@@ -163,12 +167,12 @@
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
-            <version>${jaxb.version}</version>
+            <version>${glassfish.jaxb.version}</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-core</artifactId>
-            <version>${jaxb.version}</version>
+            <version>${glassfish.jaxb.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.xml.bind</groupId>

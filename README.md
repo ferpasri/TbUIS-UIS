@@ -1,6 +1,8 @@
 # TbUIS-UIS
 
-Defect free version UIS
+Defect free version UIS  
+
+Original project: https://gitlab.kiv.zcu.cz/herout/TbUIS-UIS  
 
 ## Building an application
 
@@ -63,4 +65,26 @@ You can prove correct setting using program ```set``` in ```cmd```. Output shoul
 
 ```
 UIS_LOG_FILE=C:\xxx\log-file-name.txt
+```
+
+### 4. Docker compose
+
+The dependencies MySQL 8, PHPMyAdmin, Maven 3.9.6, and Tomcat 9.0.98 with Java 11 have been containerized with Docker. The DB connection settings (`jdbc:mysql://db:3306/uis-web-db`) were changed in two files: **persistence.xml** and **application-context.xml**.  
+
+You can deploy the application with following command:  
+
+```
+docker-compose up -d --build
+```
+
+The PHPMyAdmin web page will run in:  
+
+```
+http://localhost:8081/
+```
+
+The UIS web page will run in:  
+
+```
+http://localhost:8080/uis-web
 ```

@@ -6,16 +6,16 @@
 
         <properties>
             <!-- JDBC Connection configuration -->
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.password" value="uis"/>
             <property name="javax.persistence.jdbc.user" value="uis-web"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/uis-web-db"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://db:3306/uis-web-db"/>
             <property name="hibernate.connection.useUnicode" value="true" />
             <property name="hibernate.connection.characterEncoding" value="UTF-8" />
 
             <!-- Hibernate-specific configuration -->
             <property name="hibernate.hbm2ddl.auto" value="create"/>
-            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>-->
+            <!--<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>-->
             <property name="hibernate.validator.apply_to_ddl" value="true" />
             <property name="hibernate.show_sql" value="false" />
             <property name="hibernate.format_sql" value="false" />

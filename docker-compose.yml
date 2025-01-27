@@ -1,0 +1,43 @@
+services:
+  db:
+    image: mysql:8
+    container_name: uis-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: uis-web-db-root-password
+      MYSQL_DATABASE: uis-web-db
+      MYSQL_USER: uis-web
+      MYSQL_PASSWORD: uis
+    networks:
+      - uis-network
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: uis-phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: uis-web-db-root-password
+    ports:
+      - "8081:80"
+    networks:
+      - uis-network
+
+  tomcat:
+    build: .
+    container_name: uis-tomcat
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - uis-network
+    depends_on:
+      - db
+
+networks:
+  uis-network:
+
+volumes:
+  db_data:
